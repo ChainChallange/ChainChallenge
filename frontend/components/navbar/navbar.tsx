@@ -4,6 +4,30 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../public/logo.svg";
 import { Network } from "../../app/network";
+import { init } from "@web3-onboard/react";
+import configFile from "../../app/config.json";
+import injectedModule from "@web3-onboard/injected-wallets";
+
+
+const config = configFile;
+const injected = injectedModule();
+init({
+  wallets: [injected],
+  chains: Object.entries(config).map(([k, v]: [string, any], i) => ({
+    id: k,
+    token: v.token,
+    label: v.label,
+    rpcUrl: v.rpcUrl,
+  })),
+  appMetadata: {
+    name: "DecentraAds",
+    icon: "<svg><svg/>",
+    description: "Decentralized Marketplace for Adspaces",
+    recommendedInjectedWallets: [
+      { name: "MetaMask", url: "https://metamask.io" },
+    ],
+  },
+});
 
 export default function Navbar() {
   return (
