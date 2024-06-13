@@ -32,7 +32,7 @@ init({
 export default function Navbar() {
   return (
     <div className="fixed top-4 left-0 w-full">
-      <div className="container mx-auto flex items-center justify-between p-4">
+      <div className="container mx-auto flex items-center justify-between py-4 px-14">
         <Link href="/">
           <Image src={Logo} alt="logo" height={60
 
