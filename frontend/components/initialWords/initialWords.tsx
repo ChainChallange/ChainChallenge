@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function InitialWords() {
   return (
-    <div className="h-fit md:mb-12 mb-8 pt-20 relative mx-auto max-w-screen-2xl -z-10">
+    <div className="h-fit md:mb-12 mb-8 pt-20 relative mx-auto max-w-screen-2xl">
       <div className="relative z-1">
         <div className="text-center pt-16 flex flex-col justify-center items-center">
           <motion.h1
