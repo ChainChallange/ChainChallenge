@@ -1,56 +1,38 @@
 "use client";
-import * as Tabs from "@radix-ui/react-tabs";
+
+import ButtonUpload from "@/components/buttonUpload/buttonUpload";
+import Output from "@/components/output/output";
+import Table from "@/components/table/table";
 
 export default function Challenge() {
   return (
     <main className="flex bg-[#121418] min-h-screen">
-      <div className="flex w-[800px] h-4/5 fixed bottom">
-        <Tabs.Root
-          className="flex w-full shadow-blackA2"
-          defaultValue="problem"
-        >
-          <Tabs.List
-            className="flex bg-[#0F1014] text-white"
-            aria-label="Manage your account"
-            style={{ flexDirection: "row" }}
-          >
-            <Tabs.Trigger
-              className="px-5 py-3 text-[15px] leading-none text-white select-none hover:bg-gray-700 data-state=active:bg-gray-600 data-state=active:font-bold outline-none cursor-default"
-              value="problem"
-              style={{
-                transform: "rotate(270deg)",
-                whiteSpace: "nowrap",
-                writingMode: "vertical-lr",
-              }}
-            >
-              Problem
-            </Tabs.Trigger>
-            <Tabs.Trigger
-              className="px-5 py-3 text-[15px] leading-none text-white select-none hover:bg-gray-700 data-state=active:bg-gray-600 data-state=active:font-bold outline-none cursor-default"
-              value="leaderboard"
-              style={{
-                transform: "rotate(270deg)",
-                whiteSpace: "nowrap",
-                writingMode: "vertical-lr",
-              }}
-            >
-              Leaderboard
-            </Tabs.Trigger>
-          </Tabs.List>
-          <Tabs.Content
-            className="grow p-5 bg-[#0F1014] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
-            value="problem"
-          >
-            {/* Conteúdo do problema */}
-          </Tabs.Content>
-          <Tabs.Content
-            className="grow p-5 bg-[#0F1014] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
-            value="leaderboard"
-          >
-            {/* Conteúdo do leaderboard */}
-          </Tabs.Content>
-        </Tabs.Root>
+      <div className="flex w-full">
+        <div className="fixed top-20 left-0 h-full">
+          <Table />
+        </div>
+        <div className="ml-auto w-2/3 translate-y-40">
+          <div className="bg-[#1C1C1C] h-[40vh] rounded-xl p-5">
+            <h1 className="text-white font-bold">Editor de Código</h1>
+            {/* Editor de código aqui */}
+          </div>
+          <div className="-translate-y-20"><Output /></div>
+          <div className="flex mt-8 space-x-4 -translate-y-20">
+            <div className="flex flex-row w-1/2 gap-4">
+              <ButtonUpload />
+              <button className="flex items-center font-bold justify-center bg-[#19141D] text-white w-[8vw] h-[7vh] rounded-[10px] hover:bg-gray-700 border-[2px] border-[#6A0DAD]">
+                Run Code
+              </button>
+
+            </div>
+            <div className="flex justify-end w-1/2 -translate-x-10">
+              <button className="font-bold w-[10vw] h-[7vh] text-white rounded-[10px] bg-[#6A0DAD]">
+                Submit Code
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
-  );  
+  );
 }
