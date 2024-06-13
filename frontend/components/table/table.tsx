@@ -22,7 +22,7 @@ export default function Table() {
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content
-          className="grow p-5 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black h-52 overflow-auto"
+          className="grow p-5 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black h-52 overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-rose-500 "
           value="problem"
         >
           {/* Conteúdo do problema */}
