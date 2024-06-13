@@ -8,6 +8,13 @@ import { Inspect } from "./inspect";
 import { Notice } from "./notices";
 import { Report } from './reports';
 import { Voucher } from './vouchers';
+import walletSvg from "../public/Wallet.svg";
+import Image from "next/image";
+
+interface NetworkProps {
+    wallet: () => void;
+}
+
 export const Network: FC = () => {
     const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
     const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
@@ -17,8 +24,11 @@ export const Network: FC = () => {
     return (
         <div>
             {!wallet && (
-                <button className="bg-[#6A0DAD] rounded-[10px] h-16 w-52" onClick={() => connect()}>
-                    {connecting ? "connecting" : "Connect Wallet"}
+                <button className="bg-[#6A0DAD] rounded-[10px] h-16 w-52 max-md:w-40 text-nowrap text-base max-md:text-sm max-sm:text-xs max-sm:w-32 flex justify-center items-center gap-4" onClick={() => connect()}>
+                    <>
+                        <Image src={walletSvg} alt="wallet" />
+                        {connecting ? "connecting" : "Connect Wallet"}
+                    </>
                 </button>
             )}
             {wallet && (

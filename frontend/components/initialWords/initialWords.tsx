@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 
 export default function InitialWords(){
     return(
-    <div className="h-fit md:mb-12 mb-8 pt-20 relative mx-auto max-w-screen-2xl mt-24">
+    <div className="h-fit md:mb-12 mb-8 pt-20 relative mx-auto max-w-screen-2xl">
         <div className="relative z-1">
           <div className="text-center pt-16">
             <motion.h1
               initial={{ y: 70, opacity: 0, color: "#000" }}
               animate={{ y: 0, opacity: 1, color: "#777" }}
               transition={{ duration: 1.4 }}
-              className="font-medium text-5xl lg:text-7xl text-neutral-400"
+              className="font-medium text-5xl lg:text-7xl text-white"
             >
               Chain Challenge <br />
               Decentralized{" "}

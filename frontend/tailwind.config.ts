@@ -15,11 +15,12 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "background-home": "url('/background.webp')",
       },
-    },
-    colors: {
-      'primary': '#6A0DAD',
-      'backgroundColor': '#121418',
+      colors: {
+        'primary': '#6A0DAD',
+        'backgroundColor': '#121418',
+      },
     },
   },
   plugins: [],
