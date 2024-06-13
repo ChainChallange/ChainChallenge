@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { ethers } from 'ethers';
 import { useWallets } from "@web3-onboard/react";
 import { advanceDAppRelay, advanceERC20Deposit, advanceERC721Deposit, advanceEtherDeposit, advanceInput } from 'cartesi-client';
+import { getProvider } from "@/utils/getProvider";
 interface IInputPropos {
     dappAddress: string
 }
 export const Input: React.FC<IInputPropos> = (props) => {
     const [connectedWallet] = useWallets();
     const [input, setInput] = useState<string>("");
-    const provider = new ethers.providers.Web3Provider(connectedWallet.provider);
+    const provider = getProvider(connectedWallet);
     const [hexInput, setHexInput] = useState<boolean>(false);
     const [erc20Amount, setErc20Amount] = useState<number>(0);
     const [erc20Token, setErc20Token] = useState<string>("");
@@ -17,18 +18,19 @@ export const Input: React.FC<IInputPropos> = (props) => {
     const [etherAmount, setEtherAmount] = useState<number>(0);
 
     const dappAddress = props.dappAddress;
-    console.log("dapp address is:", dappAddress);
+    const address = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    console.log("dapp address is:", address);
     const addInput = async () => {
         console.log("adding input", input);
         const signer = await provider.getSigner();
         console.log("signer and input is ", signer, input);
-        advanceInput(signer, dappAddress, input);
+        advanceInput(signer, address, input);
     };
 
     const sendAddress = async () => {
         console.log("sending dapp address");
         const signer = await provider.getSigner();
-        advanceDAppRelay(signer, dappAddress);
+        advanceDAppRelay(signer, "0xab7528bb862fb57e8a2bcd567a2e929a0be56a5e");
     }
 
     const depositEtherToPortal = async () => {
