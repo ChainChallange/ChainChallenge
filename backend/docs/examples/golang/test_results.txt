@@ -1,0 +1,6 @@
+"teste 1 + 2",Passou,"0.000000035"
+"teste 2 + 2",Passou,"0.000000020"
+"teste 3 + 2",Falhou,"0.000000018"
+"teste 2 - 1",Passou,"0.000000022"
+"teste 2 - 2",Passou,"0.000000019"
+"teste 3 - 2",Passou,"0.000000018"
