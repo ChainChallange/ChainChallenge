@@ -8,16 +8,16 @@ class CreatorRepository {
         return data;
     }
 
-    find(wallet: IWallet) {
-        return creators[wallet];
+    find(wallet: IWallet): ICreator | null {
+        return creators[wallet] || null;
     }
 
     list() {
         return Object.values(creators)
     }
 
-    listByIds(wallets: IWallet[]) {
-        return wallets.map(wallet => this.find(wallet));
+    listByIds(wallets: IWallet[]): ICreator[] {
+        return wallets.map(wallet => this.find(wallet)).filter(creator => creator) as ICreator[];
     }
 
     update(wallet: IWallet, data: ICreator) {

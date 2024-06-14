@@ -8,8 +8,8 @@ class ChallengeRepository {
         return data;
     }
 
-    find(id: IUuid) {
-        return challenges[id];
+    find(id: IUuid): IChallenge | null {
+        return challenges[id] || null;
     }
 
     list() {

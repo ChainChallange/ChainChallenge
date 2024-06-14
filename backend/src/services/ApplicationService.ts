@@ -27,6 +27,10 @@ class ApplicationService {
 
         const challange = challengeRepository.find(data.challenge_id);
 
+        if(!challange) {
+            throw new Error('Challenge dont found');
+        }
+
         let passedTests = 0;
         let deniedTests = 0;
 
@@ -58,6 +62,11 @@ class ApplicationService {
 
     listByChallangeAndApplicant(challengeId: IUuid, applicantWallet: IWallet): IApplication[] {
         const challenge = challengeRepository.find(challengeId);
+
+        if(!challenge) {
+            return [];
+        }
+
         const applications = applicationRepository.listByIds(Object.keys(challenge.applications));
 
         const walletApplications = applications.filter(application => application.wallet === applicantWallet);
@@ -92,6 +101,26 @@ class ApplicationService {
 
     list() {
         return applicationRepository.list()
+    }
+
+    listByCreator(creatorWallet: IWallet) {
+        return this.list().filter(application => {
+            const challenge = challengeRepository.find(application.challenge_id);
+
+            return !challenge ? false : challenge.wallet_of_creator === creatorWallet;
+        });
+    }
+
+    listByChallenge(challengeId: IUuid) {
+        return this.list().filter(application => {
+            return application.challenge_id === challengeId; 
+        });
+    }
+
+    listByApplicant(participantWallet: IUuid) {
+        return this.list().filter(application => {
+            return application.wallet === participantWallet;
+        })
     }
 }
 
