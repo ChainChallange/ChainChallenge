@@ -26,10 +26,10 @@ export default function ItemChallenge({
   return (
     <Link href="/challenge" passHref>
       <div
-        className="flex flex-row items-center justify-between py-6 border-b-2 border-slate-800 cursor-pointer hover:bg-slate-700 transition-colors"
+        className="flex flex-row items-center w-full py-6 border-b-2 border-slate-800 cursor-pointer hover:bg-slate-700 transition-colors"
         onClick={onClick}
       >
-        <div className="flex flex-col gap-y-2 ml-6">
+        <div className="flex flex-col gap-y-2 pl-6 w-1/">
           <h1 className="font-bold text-2xl">{title}</h1>
           <p className="text-gray-200">{description}</p>
           <div className="flex gap-x-7">
@@ -43,11 +43,15 @@ export default function ItemChallenge({
             </div>
           </div>
         </div>
-        <div className="flex gap-48 mr-6">
-          <p>{attempt}</p>
-          <p>{apply}</p>
-          <p className="mr-16">{maxScore}</p>
-        </div>
+          <div className="w-1/4 flex item-center justify-center">
+            <p className="">{attempt}</p>
+          </div>
+          <div className="w-1/4 flex item-center justify-center">
+            <p >{apply}</p>
+          </div>
+          <div className="w-1/4 flex item-center justify-center">
+            <p>{maxScore}</p>
+          </div>
       </div>
     </Link>
   );
