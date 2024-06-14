@@ -14,6 +14,10 @@ import { IPayloadMethod } from "./models/types/IPayloadMethods";
 import { IChallengeCreatePayload } from "./models/IChallenge";
 import { IWallet } from "./models/types/IWallet";
 import { applicationExecutionService } from "./services/ApplicationExecutionService";
+import { challengeService } from "./services/ChallengeService";
+import { applicantService } from "./services/ApplicantService";
+import { creatorService } from "./services/CreatorService";
+import { applicationService } from "./services/ApplicationService";
 
 export const ROLLUP_SERVER = process.env.ROLLUP_HTTP_SERVER_URL || "[http://127.0.0.1:5004](http://127.0.0.1:5004/)";
 
@@ -170,7 +174,7 @@ function verifyApplicationPayload(data: any): IChallengeCreatePayload {
     throw new Error('challengeId must be a string');
   }
 
-  if (!Array.isArray(data.language) || data.language.some((lang: string) => !['javascript', 'typescript', 'python', 'go'].includes(lang))) {
+  if (!data.language || !['javascript', 'typescript', 'python', 'go'].includes(data.language)) {
     throw new Error('SupportedLanguages must be an array of ILanguage');
   }
 
@@ -366,21 +370,213 @@ app.addAdvanceHandler(wallet.handler);
 
 const router = createRouter({ app });
 
-router.add<{ sender: string }>(
-  "wallet/ether/:sender",
-  ({ params: { sender } }) => {
-    return JSON.stringify({
-      balance: `${wallet.etherBalanceOf(sender).toString()} wei,`
-    });
+
+// Applicants
+router.add(
+  "applicants",
+  () => {
+    try {
+      return JSON.stringify(applicantService.list());
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
   }
 );
 
-router.add<{ token: Address; sender: string }>(
-  "wallet/erc20/:token/:sender",
-  ({ params: { token, sender } }) => {
-    return JSON.stringify({
-      balance: `${wallet.erc20BalanceOf(token, sender).toString()}`,
-    });
+router.add<{ applicantWallet: string }>(
+  "applicants/:applicantWallet",
+  ({ params: { applicantWallet } }) => {
+    try {
+      return JSON.stringify(applicantService.find(applicantWallet));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ applicationId: string }>(
+  "applicants/applications/:applicationId",
+  ({ params: { applicationId } }) => {
+    try {
+      return JSON.stringify(applicantService.findByApplicationId(applicationId));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ challengeId: string }>(
+  "applicants/challenges/:challengeId",
+  ({ params: { challengeId } }) => {
+    try {
+      return JSON.stringify(applicantService.listByChallengeId(challengeId));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+// Applicants
+router.add(
+  "creators",
+  () => {
+    try {
+      return JSON.stringify(creatorService.list());
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ creatorWallet: string }>(
+  "creators/:creatorWallet",
+  ({ params: { creatorWallet } }) => {
+    try {
+      return JSON.stringify(creatorService.find(creatorWallet));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ applicationId: string }>(
+  "creators/applications/:applicationId",
+  ({ params: { applicationId } }) => {
+    try {
+      return JSON.stringify(creatorService.findByApplicationId(applicationId));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+// Challenges
+router.add(
+  "challenges",
+  () => {
+    try {
+      return JSON.stringify(challengeService.list());
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ challengeId: string }>(
+  "challenges/:challengeId",
+  ({ params: { challengeId } }) => {
+    try {
+      return JSON.stringify(challengeService.find(challengeId));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ applicationId: string }>(
+  "challenges/applications/:applicationId",
+  ({ params: { applicationId } }) => {
+    try {
+      return JSON.stringify(challengeService.findByApplication(applicationId));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ creatorWallet: string }>(
+  "challenges/creators/:creatorWallet",
+  ({ params: { creatorWallet } }) => {
+    try {
+      return JSON.stringify(challengeService.listByCreator(creatorWallet));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+// Applications
+router.add(
+  "applications",
+  () => {
+    try {
+      return JSON.stringify(applicationService.list());
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ applicationId: string }>(
+  "applications/:applicationId",
+  ({ params: { applicationId } }) => {
+    try {
+      return JSON.stringify(applicationService.find(applicationId));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ challengeId: string }>(
+  "applications/challenges/:challengeId",
+  ({ params: { challengeId } }) => {
+    try {
+      return JSON.stringify(applicationService.listByChallenge(challengeId));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ challengeId: string, applicantWallet: string }>(
+  "applications/challenges/:challengeId/applicants/:applicantWallet",
+  ({ params: { challengeId, applicantWallet } }) => {
+    try {
+      return JSON.stringify(applicationService.listByChallangeAndApplicant(challengeId, applicantWallet));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ creatorWallet: string }>(
+  "applications/creators/:creatorWallet",
+  ({ params: { creatorWallet } }) => {
+    try {
+      return JSON.stringify(applicationService.listByCreator(creatorWallet));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+router.add<{ applicantWallet: string }>(
+  "applications/applicants/:applicantWallet",
+  ({ params: { applicantWallet } }) => {
+    try {
+      return JSON.stringify(applicationService.listByApplicant(applicantWallet));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+
   }
 );
 

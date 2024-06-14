@@ -23,6 +23,10 @@ class CreatorService {
 
     updateByChallengeCreation(challenge: IChallenge) {
         const creator = creatorRepository.find(challenge.wallet_of_creator);
+
+        if(!creator) {
+            throw new Error('Creator dont found');
+        }
         
         creator.challenges_quantity += 1;
         creator.challenges[challenge.id] = {
@@ -41,7 +45,16 @@ class CreatorService {
 
     updateByApplication(application: IApplication) {
         const challenge = challengeRepository.find(application.challenge_id);
+
+        if(!challenge) {
+            throw new Error('Challenge dont found');
+        }
+
         const creator = creatorRepository.find(challenge.wallet_of_creator);
+
+        if(!creator) {
+            throw new Error('Creator dont found');
+        }
 
         if(application.passed) {
             creator.applications_accepted_quantity += 1;
@@ -80,11 +93,21 @@ class CreatorService {
 
     findByApplicationId(applicationId: IUuid) {
         const application = applicationRepository.find(applicationId);
+
+        if(!application) {
+            return null;
+        }
+
         return this.findByChallengeId(application.challenge_id);
     }
 
     findByChallengeId(challengeId: IUuid) {
         const challenge = challengeRepository.find(challengeId);
+        
+        if(!challenge) {
+            return null;
+        }
+
         return this.find(challenge.wallet_of_creator);
     }
 

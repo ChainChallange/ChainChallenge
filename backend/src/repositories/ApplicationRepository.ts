@@ -8,16 +8,16 @@ class ApplicationRepository {
         return data;
     }
 
-    find(id: IUuid) {
-        return applications[id];
+    find(id: IUuid): IApplication | null {
+        return applications[id] || null;
     }
 
     list() {
         return Object.values(applications)
     }
 
-    listByIds(ids: IUuid[]) {
-        return ids.map(id => this.find(id));
+    listByIds(ids: IUuid[]): IApplication[] {
+        return ids.map(id => this.find(id)).filter(application => application) as IApplication[];
     }
 
     update(id: IUuid, data: IApplication) {

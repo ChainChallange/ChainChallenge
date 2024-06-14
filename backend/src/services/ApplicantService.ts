@@ -23,6 +23,10 @@ class ApplicantService {
     updateByApplication(application: IApplication) {
         const applicant = applicantRepository.find(application.wallet);
 
+        if(!applicant) {
+            throw new Error('Applicant dont find');
+        }
+
         let applicantChallange = applicant.challenges[application.challenge_id];
         const applicantChallengeAttempt: IApplicantChallengeAttempt = {
             application_id: application.id,
@@ -43,6 +47,10 @@ class ApplicantService {
 
 
             const challange = challengeRepository.find(application.challenge_id);
+
+            if(!challange) {
+                throw new Error('Challenge dont find');
+            }
 
             if(application.passed) {
                 updateTotalScore = true;
@@ -100,11 +108,32 @@ class ApplicantService {
 
     findByApplicationId(applicationId: IUuid) {
         const application = applicationRepository.find(applicationId);
+        if(!application) {
+            return null;
+        }
+
         return applicantRepository.find(application.wallet);
     }
 
     list() {
         return applicantRepository.list();
+    }
+
+    listByChallengeId(challengeId: IUuid) {
+        const challenge = challengeRepository.find(challengeId);
+        if(!challenge) {
+            return [];
+        }
+
+        const applications = applicationRepository.listByIds(Object.keys(challenge.applications));
+
+        const applicantsSetIds = new Set();
+        applications.forEach(application => {
+            applicantsSetIds.add(application.wallet);
+        })
+
+        return applicantRepository.listByIds([...applicantsSetIds] as string[]);
+
     }
 }
 

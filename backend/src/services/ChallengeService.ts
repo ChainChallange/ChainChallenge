@@ -1,6 +1,7 @@
 import { IApplication } from "../models/IApplication";
 import { IChallenge, IChallengeApplication, IChallengeCreate } from "../models/IChallenge";
 import { IUuid } from "../models/types/IUuid";
+import { IWallet } from "../models/types/IWallet";
 import { applicationRepository } from "../repositories/ApplicationRepository";
 import { challengeRepository } from "../repositories/ChallengeRepository";
 import { Uuid } from "../utils/Uuid";
@@ -55,6 +56,10 @@ class ChallengeService {
     updateByApplication(application: IApplication) {
         const challenge = challengeRepository.find(application.challenge_id);
 
+        if(!challenge) {
+            throw new Error('Challenge dont found');
+        }
+
         const challengeApplication: IChallengeApplication = {
             id: application.id,
             wallet: application.wallet,
@@ -100,11 +105,22 @@ class ChallengeService {
 
     findByApplication(applicationId: IUuid) {
         const application = applicationRepository.find(applicationId);
+
+        if(!application) {
+            return null;
+        }
+
         return challengeRepository.find(application.challenge_id);
     }
 
     list() {
         return challengeRepository.list();
+    }
+
+    listByCreator(creatorWallet: IWallet) {
+        return challengeRepository.list().filter(challenge => {
+            return challenge.wallet_of_creator === creatorWallet;
+        })
     }
 }
 
