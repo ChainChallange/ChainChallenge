@@ -42,7 +42,7 @@ export default function Navbar() {
           <Link href="/" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
             Community 
           </Link>
-          <Link href="/docs" className="transition hover:text-white hover:cursor-pointer text-zinc-600 text-nowrap">
+          <Link href="/documentation" className="transition hover:text-white hover:cursor-pointer text-zinc-600 text-nowrap">
             Developers Docs
           </Link>
           <Link href="/" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
