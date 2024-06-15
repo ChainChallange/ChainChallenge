@@ -4,7 +4,7 @@ import { encodingUtils } from "../utils/EncodingUtils";
 import { applicationExecutionService } from "../services/ApplicationExecutionService";
 import verifyApplicationCreatePayload from "../verifiers/ApplicationCreateVerifier";
 
-export default function applicationCreateController(app: App, payload: {method: 'challenge', data: any}, msgSender: IWallet): "accept" {
+export default function applicationCreateController(app: App, payload: {method: 'application', data: any}, msgSender: IWallet): "accept" {
     app.createReport(encodingUtils.encodingToBlockchain(payload));
     
     payload.data = verifyApplicationCreatePayload(payload.data);

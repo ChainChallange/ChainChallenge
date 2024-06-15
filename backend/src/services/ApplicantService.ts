@@ -111,8 +111,8 @@ class ApplicantService {
         return applicantRepository.update(wallet, data);
     }
 
-    patch(id: IUuid, data: IApplicantEdition) {
-        const applicant = this.find(id);
+    patch(wallet: IWallet, data: IApplicantEdition) {
+        const applicant = this.find(wallet);
         if(!applicant) {
             return null;
         }
@@ -128,7 +128,7 @@ class ApplicantService {
         }
 
 
-        return this.update(id, {
+        return this.update(wallet, {
             ...applicant,
             ...updateData
         })

@@ -21,7 +21,8 @@ class ApplicationRepository {
     }
 
     update(id: IUuid, data: IApplication) {
-        return applications[id] = data;
+        applications[id] = data;
+        return data;
     }
 
     delete(id: IUuid) {
