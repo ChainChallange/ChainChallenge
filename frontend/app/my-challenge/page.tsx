@@ -10,21 +10,20 @@ export default function MyChallenge() {
         <h1 className="font-bold text-3xl ml-6">My Challenge</h1>
         <ButtonCustom onClick={() => console.log("Hello")}>Create Challenge</ButtonCustom>
       </div>
-      <div className="flex flex-col w-[95vw] ">
+      <div className="flex flex-col w-[95vw]">
         <div className="flex flex-row justify-around border-b-2 w-full border-slate-800">
-            <div className="w-1/4">
-              <p className="w-1/4 text-base pl-6">Challenges</p>
-            </div>
-            <div className="flex item-center justify-center text-base w-1/4">
-              <p>Attempts</p>
-            </div>
-            <div className="flex item-center justify-center text-base w-1/4">
-              <p>Users Apply</p>
-
-            </div>
-            <div className="flex item-center justify-center text-base w-1/4">
-              <p>Max Score</p>
-            </div>
+          <div className="w-4/6">
+            <p className="text-base pl-6 star">Challenges</p>
+          </div>
+          <div className="flex item-center justify-center text-base w-1/3">
+            <p>Attempts</p>
+          </div>
+          <div className="flex item-center justify-center text-base w-1/3">
+            <p>Users Apply</p>
+          </div>
+          <div className="flex item-center justify-center text-base w-1/3">
+            <p>Max Score</p>
+          </div>
         </div>
         <ItemChallenge
           title="Challenge 1"

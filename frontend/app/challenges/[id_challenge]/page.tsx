@@ -19,7 +19,7 @@ export default function Challenge() {
   return (
     <main className="flex bg-[#121418] min-h-screen w-full">
       <Navbar />
-      <div className="flex w-full pt-32">
+      <div className="flex w-full pt-24">
         <div className="h-full w-1/3">
           <Table />
         </div>

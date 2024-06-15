@@ -5,11 +5,11 @@ import iconWallet from "../../public/Receipt.svg";
 import iconCalendar from "../../public/Calendar.svg";
 import iconStar from "../../public/Star 2.svg";
 import iconDoc from "../../public/Document.svg";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
 
 export default function CardChallenge({
   title,
@@ -29,7 +29,7 @@ export default function CardChallenge({
   image: StaticImageData;
 }) {
   return (
-    <Card className="flex gap-4 rounded-lg bg-backgroundColor" sx={{ maxWidth: 345}}>
+    <Card className="flex gap-4 rounded-lg bg-backgroundColor" sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -37,30 +37,33 @@ export default function CardChallenge({
           image="https://ipfs.io/ipfs/QmPQXYmUKLHW2hLPqrTJWjbsaUW5G6dgycHiSm1Vi7Jtu7"
           alt="green iguana"
         />
-        <CardContent className="bg-[#1F202A] text-white">
+        <CardContent className="bg-[#1F202A] text-white gap-y-4 justify-center flex flex-col">
           <div className="flex gap-2">
-            <Image src={iconWallet} alt="iconWallet" height={15}/>
-            <Typography className="text-sm">00x0k12...ka1232</Typography>
+            <Image src={iconWallet} alt="iconWallet" height={15} />
+            <Typography className="text-sm text-[#D1D1D1]">00x0k12...ka1232</Typography>
           </div>
-          <Typography gutterBottom variant="h5" component="div">
-            Challenge IA
+          <Typography gutterBottom variant="h5" component="div" className="m-0">
+            {title}
           </Typography>
-          <Typography className="text-white" variant="body2" color="text.secondary">
-          The fundamental data types in c are int, float and char. Today, we're discussing int and float data types...
+          <Typography
+            className="text-sm text-[#D1D1D1] "
+            variant="body2"
+            color="text.secondary"
+          >
+            {description}
           </Typography>
-          <div className="flex justify-between">
-            <div className="flex justify-center items-center gap-2">
-              <Image src={iconDoc} alt="iconDoc" height={15}/>
-              <p>11</p>
+          <div className="flex justify-between items-center">
+            <div className="flex">
+              <Image src={iconDoc} alt="icon" className="opacity-60" />
+              <p className="ml-2 text-[#D1D1D1] text-sm">{attempt}</p>
             </div>
-            <div className="flex justify-center items-center gap-2">
-              <Image src={iconStar} alt="iconStar" height={15}/>
-              <p>IA</p>
-
+            <div className="flex">
+              <Image src={iconStar} alt="icon" className="opacity-60"  />
+              <p className="ml-2 text-[#D1D1D1] text-sm">{categories}</p>
             </div>
-            <div className="flex justify-center items-center gap-2">
-            <Image src={iconCalendar} alt="iconCalendar" height={15}/>
-            <p>10 / 12 / 2024</p>
+            <div className="flex">
+              <Image src={iconCalendar} alt="icon" className="opacity-50" />
+              <p className="ml-2 text-[#D1D1D1] text-sm">{data}</p>
             </div>
           </div>
         </CardContent>
