@@ -31,6 +31,10 @@ class ChallengeService {
             ...data,
             id,
 
+            category: data.category || null,
+            difficulty: data.difficulty || null,
+            image_link: data.image_link || null,
+            
             end_date: data.end_date || null,
             max_applications: data.max_applications || null,
             max_applications_attempts: data.max_applications_attempts || null,

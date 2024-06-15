@@ -4,8 +4,8 @@ import { IWallet } from "./types/IWallet";
 export interface ICreator {
     wallet: IWallet;
 
-    nickname?: string;
-    image_link?: string;
+    nickname: string | null;
+    image_link: string | null;
 
     challenges_quantity: number;
     applications_quantity: number;
