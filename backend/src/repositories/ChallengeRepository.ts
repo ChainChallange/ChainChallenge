@@ -21,7 +21,8 @@ class ChallengeRepository {
     }
 
     update(id: IUuid, data: IChallenge) {
-        return challenges[id] = data;
+        challenges[id] = data;
+        return data;
     }
 
     delete(id: IUuid) {

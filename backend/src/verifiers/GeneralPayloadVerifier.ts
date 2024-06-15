@@ -9,7 +9,7 @@ export default function verifyPayload(payload: Record<string, any> | null): {met
       throw new Error('Payload needs to have an method field')
     }
   
-    if(payload.method !== 'challenge' && payload.method !== 'application') {
+    if(!['challenge', 'application', 'challenge_update', 'creator_update', 'applicant_update'].includes(payload.method)) {
       throw new Error('Method not allowed');
     }
   

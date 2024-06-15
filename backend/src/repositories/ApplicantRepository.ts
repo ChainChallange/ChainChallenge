@@ -21,7 +21,8 @@ class ApplicantRepository {
     }
 
     update(wallet: IWallet, data: IApplicant) {
-        return applicants[wallet] = data;
+        applicants[wallet] = data;
+        return data;
     }
 
     delete(wallet: IWallet) {

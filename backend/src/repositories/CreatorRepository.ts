@@ -21,7 +21,8 @@ class CreatorRepository {
     }
 
     update(wallet: IWallet, data: ICreator) {
-        return creators[wallet] = data;
+        creators[wallet] = data;
+        return data;
     }
 
     delete(wallet: IWallet) {
