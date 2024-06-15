@@ -4,8 +4,7 @@ import React, { use, useEffect, useState } from "react";
 import { useSetChain } from "@web3-onboard/react";
 import { getVoucher, getVouchers, executeVoucher, getUnexecutedVouchers } from "cartesi-client";
 import { useWallets } from "@web3-onboard/react";
-import configFile from './config.json';
-const config: any = configFile;
+import { config } from '../utils/config';
 let apiURL = "http://localhost:8080/graphql";
 let nodeURL = "http://localhost:8080"
 interface IInputPropos {

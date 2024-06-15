@@ -1,7 +1,6 @@
 import { useConnectWallet, useSetChain, useWallets } from "@web3-onboard/react";
-import configFile from "./config.json";
+import { config } from "../utils/config";
 import { FC } from "react";
-const config: any = configFile;
 import { Input } from "./input";
 import { useState } from "react";
 import { Inspect } from "./inspect";
