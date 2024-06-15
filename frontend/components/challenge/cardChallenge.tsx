@@ -23,30 +23,30 @@ export default function CardChallenge({
   title: string;
   description: string;
   wallet: string;
-  attempt: number;
+  attempt: number | string;
   data: string;
   categories: string;
-  image: StaticImageData;
+  image: string;
 }) {
   return (
-    <Card className="flex gap-4 rounded-lg bg-backgroundColor" sx={{ maxWidth: 345 }}>
+    <Card className="max-w-[345px] max-h-[321px] lex gap-4 rounded-lg bg-backgroundColor max-h-" sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image="https://ipfs.io/ipfs/QmPQXYmUKLHW2hLPqrTJWjbsaUW5G6dgycHiSm1Vi7Jtu7"
+          image={image}
           alt="green iguana"
         />
-        <CardContent className="bg-[#1F202A] text-white gap-y-4 justify-center flex flex-col">
+        <CardContent className="bg-[#1F202A] h-[192px] w-[345px] text-white gap-y-4 justify-center flex flex-col">
           <div className="flex gap-2">
             <Image src={iconWallet} alt="iconWallet" height={15} />
-            <Typography className="text-sm text-[#D1D1D1]">00x0k12...ka1232</Typography>
+            <Typography className="text-sm text-[#D1D1D1]">{wallet}</Typography>
           </div>
           <Typography gutterBottom variant="h5" component="div" className="m-0">
             {title}
           </Typography>
           <Typography
-            className="text-sm text-[#D1D1D1] "
+            className="text-sm text-[#D1D1D1] text-wrap h-[40px]"
             variant="body2"
             color="text.secondary"
           >
