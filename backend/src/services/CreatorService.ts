@@ -11,6 +11,10 @@ class CreatorService {
     create(data: ICreatorCreate) {
         const creator: ICreator = {
             ...data,
+
+            image_link: null,
+            nickname: null,
+            
             applications_accepted_quantity: 0,
             applications_quantity: 0,
             attempts_quantity: 0,

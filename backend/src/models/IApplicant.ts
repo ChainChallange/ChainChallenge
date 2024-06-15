@@ -3,9 +3,9 @@ import { IWallet } from "./types/IWallet";
 
 export interface IApplicant {
     wallet: IWallet;
-    
-    image_link?: string;
-    nickname?: string;
+
+    image_link: string | null;
+    nickname: string | null;
 
     applications_quantity: number;
     attempts_quantity: number;

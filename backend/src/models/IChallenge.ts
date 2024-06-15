@@ -10,10 +10,10 @@ export interface IChallenge {
     title: string;
     description: string;
 
-    image_link?: string;
+    image_link: string | null;
 
-    category?: string;
-    difficulty?: string;
+    category: string | null;
+    difficulty: string | null;
     
     creation_date: Date;
     start_date: Date;
