@@ -1,9 +1,14 @@
+import { IWallet } from "../models/types/IWallet";
 import { applicantRepository } from "../repositories/ApplicantRepository";
 import { rankingRepository } from "../repositories/RankingRepository";
 
 class RankingService {
     list() {
         return rankingRepository.list();
+    }
+
+    findByWallet(wallet: IWallet) {
+        return this.list().find(applicant => applicant.wallet === wallet) || null;
     }
 
     generate() {

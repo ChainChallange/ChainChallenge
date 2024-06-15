@@ -471,6 +471,18 @@ router.add(
   }
 );
 
+router.add< {applicantWallet: string}>(
+  "ranking/:applicantWallet",
+  ({ params: { applicantWallet } }) => {
+    try {
+      return JSON.stringify(rankingService.findByWallet(applicantWallet));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
 // Challenges
 router.add(
   "challenges",
