@@ -27,7 +27,9 @@ export default function RoutePost() {
   return (
     <main className="flex min-h-screen w-full gap-14 bg-[#121418] pt-44 px-72">
       <div className="flex flex-col w-1/6 h-screen text-[20px] gap-12">
-        <p className="text-[#9D9D9D]">API Reference</p>
+        <Link href="/documentation/">
+          <p className="text-[#9D9D9D]">API Reference</p>
+        </Link>
         <div className="flex flex-col gap-4">
           <div>
             <div

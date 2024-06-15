@@ -69,9 +69,11 @@ export default function Documentation() {
           </div>
         </div>
       </div>
-      <div className='w-4/6'>
-        {/* Documentation content here */}
-        <h1 className="text-3xl font-semibold">Documentation</h1>
+      <div className="w-4/6">
+        <div className="flex text-[20px] gap-4">
+          <div className="">References</div>
+        </div>
+        <h1 className="text-3xl font-semibold">References</h1>
       </div>
       <div className="text-[20px]">
         <p>On This Page</p>
