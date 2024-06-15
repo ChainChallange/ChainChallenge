@@ -1,12 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import iconSearch from "../../public/icon_search.svg";
 import Image from "next/image";
 import CardChallenge from "@/components/challenge/cardChallenge";
 import imgIa from "../../public/image 11.png";
+import { useSetChain } from "@web3-onboard/react";
+import inspect from "@/api/api";
 
 export default function HomeChallenge() {
+  const [{ connectedChain }] = useSetChain();
+  const [inspectData, setInspectData] = useState<string>("");
+  const [reports, setReports] = useState<string[]>([]);
+  const [metadata, setMetadata] = useState<any>({});
+  const [hexData, setHexData] = useState<boolean>(false);
+  const [postData, setPostData] = useState<boolean>(false);
+
+  async function getChallenges() {
+    try {
+      const result = await inspect(connectedChain, "");
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getChallenges();
+    console.log("oie")
+    console.log(reports)
+  }, []);
+  
+
   return (
     <div className="w-full">
       <div className=" flex-row bg-[#1F202A] flex w-full h-28 mt-32 items-center justify-between">

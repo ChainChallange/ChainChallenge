@@ -1,9 +1,11 @@
+"use client";
 // import Navbar from "@/components/navbar/navbar"; 
 import Steps from "@/components/createSteps/createSteps";
 import ProblemDetails from "@/components/createProblemDetails/createProblemDetails";
 import Applications from "@/components/createApplications/createApplications";
 import Languages from "@/components/createLanguages/createLanguages";
-import ShowCode from "@/components/createApplications/createApplications";
+import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
+import EditorCreate from "@/components/editorCreate/editorCreate";
 
 const CreateChallenge: React.FC = () => {
   const steps = [
@@ -17,11 +19,12 @@ const CreateChallenge: React.FC = () => {
       ),
     },
     { label: 'Languages', content: <Languages /> },
-    { label: 'Testcases', content: <ShowCode /> },
+    { label: 'Testcases', content: <EditorCreate />
+  },
   ];
 
   return (
-    <div className="create-challenge-page bg-[#121418] min-h-screen text-white">
+    <div className="create-challenge-page bg-[#121418] min-h-screen text-white pt-32">
       {/* <Navbar /> */}
       <div className="container mx-auto p-4">
         <Steps steps={steps} />

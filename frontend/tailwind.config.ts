@@ -16,7 +16,7 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "background-home": "url('/image.webp')",
-        "background-home-2": "url('/background2.webp')",
+        "background-home-2": "url('/home.png')",
       },
       colors: {
         'primary': '#6A0DAD',
