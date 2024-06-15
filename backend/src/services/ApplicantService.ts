@@ -5,6 +5,7 @@ import { IWallet } from "../models/types/IWallet";
 import { applicantRepository } from "../repositories/ApplicantRepository";
 import { applicationRepository } from "../repositories/ApplicationRepository";
 import { challengeRepository } from "../repositories/ChallengeRepository";
+import { rankingService } from "./RankingService";
 
 class ApplicantService {
     create(data: IApplicantCreate) {
@@ -94,7 +95,11 @@ class ApplicantService {
             }, 0);
         }
 
-        return this.update(application.wallet, applicant);
+        const result = this.update(application.wallet, applicant);
+
+        rankingService.generate();
+
+        return result;
     }
 
 

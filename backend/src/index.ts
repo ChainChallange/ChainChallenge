@@ -18,6 +18,7 @@ import { challengeService } from "./services/ChallengeService";
 import { applicantService } from "./services/ApplicantService";
 import { creatorService } from "./services/CreatorService";
 import { applicationService } from "./services/ApplicationService";
+import { rankingService } from "./services/RankingService";
 
 export const ROLLUP_SERVER = process.env.ROLLUP_HTTP_SERVER_URL || "[http://127.0.0.1:5004](http://127.0.0.1:5004/)";
 
@@ -450,6 +451,19 @@ router.add<{ applicationId: string }>(
   ({ params: { applicationId } }) => {
     try {
       return JSON.stringify(creatorService.findByApplicationId(applicationId));
+    } catch(error) {
+      console.log('error:', error);
+      throw error;
+    }
+  }
+);
+
+// Ranking
+router.add(
+  "ranking",
+  () => {
+    try {
+      return JSON.stringify(rankingService.list());
     } catch(error) {
       console.log('error:', error);
       throw error;
