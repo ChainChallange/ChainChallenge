@@ -1,14 +1,14 @@
 import { execSync } from 'child_process';
-import { stderr } from 'process';
 import { fileUtils } from "./FileUtilts";
 import { TestResult } from '../models/types/ITestResult';
 import { ILanguage } from '../models/types/ILanguage';
 import { ISourceCode } from '../models/types/ISourceCode';
 import { writeFileSync } from 'fs';
 import { languageUtils } from './languages/LanguageUtils';
+import { environmentVars } from '../config/Environment';
 
 class ExecutionUtils {
-    createAndRun(language: ILanguage, src: ISourceCode, testSrc: ISourceCode, outDir = `${__dirname}/outputs/`){
+    createAndRun(language: ILanguage, src: ISourceCode, testSrc: ISourceCode, outDir = `${__dirname}${environmentVars.OUTPUTS_PATH}`){
         fileUtils.writeFileSync(`${outDir}test_results.txt`, '');
 
         const languageUtilClass = languageUtils.getLanguageUtilsClass(language);

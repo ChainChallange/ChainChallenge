@@ -59,7 +59,7 @@ RUN chown -R dapp:dapp /opt
 RUN chmod -R 755 /opt
 
 
-
+ENV OUTPUTS_PATH="/outputs/"
 ENV ROLLUP_HTTP_SERVER_URL="http://127.0.0.1:5004"
 ENTRYPOINT ["rollup-init"]
 USER dapp

@@ -1,3 +1,4 @@
+import { environmentVars } from "./config/Environment";
 import { createApp } from "@deroll/app";
 import { createRouter } from "@deroll/router";
 import { createWallet } from "@deroll/wallet";
@@ -11,9 +12,7 @@ import verifyPayload from "./verifiers/GeneralPayloadVerifier";
 import { challengeCreateController } from "./controllers/ChallengeCreateController";
 import applicationCreateController from "./controllers/ApplicationCreateController";
 
-export const ROLLUP_SERVER = process.env.ROLLUP_HTTP_SERVER_URL || "[http://127.0.0.1:5004](http://127.0.0.1:5004/)";
-
-const app = createApp({ url: ROLLUP_SERVER });
+const app = createApp({ url: environmentVars.ROLLUP_HTTP_SERVER_URL });
 
 app.addAdvanceHandler(async ({ payload, metadata }) => {
   try {
