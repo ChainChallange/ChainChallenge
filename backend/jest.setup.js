@@ -16,6 +16,8 @@ class TestResultData {
 const results = [];
 
 global.beforeAll(() => {
+  console.log('Starting tests...');
+  console.log('Path:', path.resolve(`${__dirname}/outputs/`));
 });
 
 global.afterAll(() => {
@@ -23,6 +25,7 @@ global.afterAll(() => {
 });
 
 function destroy(saveInfos = false) {
+  console.log('Destroying... path:', path.resolve(`${__dirname}/outputs/`));
   const filePath = path.resolve(`${__dirname}/outputs/`, 'test_results.txt');
   fs.writeFileSync(filePath, results.map(result => result.toString()).join('\n'));
 }
