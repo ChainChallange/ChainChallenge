@@ -8,7 +8,7 @@ import { writeFileSync } from 'fs';
 import { languageUtils } from './languages/LanguageUtils';
 
 class ExecutionUtils {
-    createAndRun(language: ILanguage, src: ISourceCode, testSrc: ISourceCode, outDir = `${__dirname}/../../outputs/`){
+    createAndRun(language: ILanguage, src: ISourceCode, testSrc: ISourceCode, outDir = `${__dirname}/outputs/`){
         fileUtils.writeFileSync(`${outDir}test_results.txt`, '');
 
         const languageUtilClass = languageUtils.getLanguageUtilsClass(language);
