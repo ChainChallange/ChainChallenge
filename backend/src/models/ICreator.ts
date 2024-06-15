@@ -3,11 +3,21 @@ import { IWallet } from "./types/IWallet";
 
 export interface ICreator {
     wallet: IWallet;
+
+    nickname?: string;
+    image_link?: string;
+
     challenges_quantity: number;
     applications_quantity: number;
     attempts_quantity: number;
     applications_accepted_quantity: number;
     challenges: Record<IUuid, ICreatorChallenge>;
+}
+
+
+export interface ICreatorEdition {
+    nickname?: string;
+    image_link?: string;
 }
 
 export interface ICreatorChallenge {

@@ -1,5 +1,6 @@
+import { isNull } from "util";
 import { IApplication } from "../models/IApplication";
-import { IChallenge, IChallengeApplication, IChallengeCreate } from "../models/IChallenge";
+import { IChallenge, IChallengeApplication, IChallengeCreate, IChallengeEdition } from "../models/IChallenge";
 import { IUuid } from "../models/types/IUuid";
 import { IWallet } from "../models/types/IWallet";
 import { applicationRepository } from "../repositories/ApplicationRepository";
@@ -93,6 +94,33 @@ class ChallengeService {
 
 
         return this.update(application.challenge_id, challenge);
+    }
+
+    patch(id: IUuid, data: IChallengeEdition) {
+        const challenge = this.find(id);
+        if(!challenge) {
+            return null;
+        }
+
+        const updateData: IChallengeEdition = {}
+
+        if(data.title) {
+            updateData.title = data.title;
+        }
+
+        if(data.description) {
+            updateData.description = data.description;
+        }
+
+        if(data.image_link || data.image_link === null) {
+            updateData.image_link = data.image_link;
+        }
+
+
+        return this.update(id, {
+            ...challenge,
+            ...updateData
+        })
     }
 
     update(id: IUuid, data: IChallenge) {

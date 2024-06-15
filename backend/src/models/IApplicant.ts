@@ -3,12 +3,21 @@ import { IWallet } from "./types/IWallet";
 
 export interface IApplicant {
     wallet: IWallet;
+    
+    image_link?: string;
+    nickname?: string;
+
     applications_quantity: number;
     attempts_quantity: number;
     applications_accepted_quantity: number;
     total_score: number;
     challenges: Record<IUuid, IApplicantChallenge>
 };
+
+export interface IApplicantEdition {
+    image_link?: string;
+    nickname?: string;
+}
 
 export interface IApplicantChallenge {
     challenge_id: IUuid;
