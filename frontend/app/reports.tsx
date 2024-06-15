@@ -3,8 +3,7 @@ import React from "react";
 import { useSetChain } from "@web3-onboard/react";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import configFile from "./config.json";
-const config: any = configFile;
+import { config } from "../utils/config";
 let apiURL = "http://localhost:8080/graphql";
 export const Report: React.FC = () => {
     const [{ connectedChain }] = useSetChain();

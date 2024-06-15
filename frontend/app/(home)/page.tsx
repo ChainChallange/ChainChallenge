@@ -14,8 +14,7 @@ export default function Home() {
   console.log(walletSituation)
   return (
     <>
-      <Navbar />
-      <main className="p-16 flex justify-center items-center w-full h-full bg-background-home-2 bg-cover bg-no-repeat min-h-screen">
+      <main className="flex justify-center items-center w-full h-full bg-background-home-2 bg-cover bg-no-repeat">
         <InitialWords />
       </main>
     </>
