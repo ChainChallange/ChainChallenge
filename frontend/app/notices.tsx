@@ -61,6 +61,7 @@ export const Notice: React.FC = () => {
     useEffect(() => {
         getAllNotices();
     }, [apiURL])
+    
     return (
         <div>
             <button onClick={() => getAllNotices()}>

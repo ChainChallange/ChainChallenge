@@ -9,7 +9,7 @@ import imgIa from "../../public/image 11.png";
 export default function HomeChallenge() {
   return (
     <div className="w-full">
-      <div className="bg-gray-100 flex-row bg-[#1F202A] flex w-full h-28 mt-32 items-center justify-between">
+      <div className=" flex-row bg-[#1F202A] flex w-full h-28 mt-32 items-center justify-between">
         <div className=" flex flex-col gap-y-1">
           <div className="ml-28">Apply</div>
           <h1 className="text-3xl font-semibold ml-28">Get Your Dream Job</h1>
@@ -29,7 +29,52 @@ export default function HomeChallenge() {
           </div>
         </div>
       </div>
-      <div className="mx-28 mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center">
+      <div className="mx-28 mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-16 justify-center mb-10">
+        <CardChallenge
+          title="Data Science Challenge"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero."
+          wallet="0x38s3...d3d3"
+          data="10/10/2021"
+          categories="Ia"
+          attempt={3}
+          image={imgIa}
+        />
+        <CardChallenge
+          title="Data Science Challenge"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero."
+          wallet="0x38s3...d3d3"
+          data="10/10/2021"
+          categories="Ia"
+          attempt={3}
+          image={imgIa}
+        />
+        <CardChallenge
+          title="Data Science Challenge"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero."
+          wallet="0x38s3...d3d3"
+          data="10/10/2021"
+          categories="Ia"
+          attempt={3}
+          image={imgIa}
+        />
+        <CardChallenge
+          title="Data Science Challenge"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero."
+          wallet="0x38s3...d3d3"
+          data="10/10/2021"
+          categories="Ia"
+          attempt={3}
+          image={imgIa}
+        />
+        <CardChallenge
+          title="Data Science Challenge"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero."
+          wallet="0x38s3...d3d3"
+          data="10/10/2021"
+          categories="Ia"
+          attempt={3}
+          image={imgIa}
+        />
         <CardChallenge
           title="Data Science Challenge"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero."

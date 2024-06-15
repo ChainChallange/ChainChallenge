@@ -1,4 +1,4 @@
-import { useConnectWallet, useSetChain } from "@web3-onboard/react";
+import { useConnectWallet, useSetChain, useWallets } from "@web3-onboard/react";
 import configFile from "./config.json";
 import { FC } from "react";
 const config: any = configFile;
@@ -10,6 +10,8 @@ import { Report } from './reports';
 import { Voucher } from './vouchers';
 import walletSvg from "../public/Wallet.svg";
 import Image from "next/image";
+import { useNavbarContext } from "@/contexts/NavbarContext";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 interface NetworkProps {
     wallet: () => void;
@@ -18,46 +20,73 @@ interface NetworkProps {
 export const Network: FC = () => {
     const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
     const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
+    const [wallets, setWallets] = useWallets();
+    const { walletSituation, setWalletSituation } = useNavbarContext();
     const [dappAddress, setDappAddress] = useState<string>(
         "0xab7528bb862fb57e8a2bcd567a2e929a0be56a5e"
     );
     return (
         <div>
             {!wallet && (
-                <button className="bg-[#6A0DAD] rounded-[10px] h-16 w-52 max-md:w-40 text-nowrap text-base max-md:text-sm max-sm:text-xs max-sm:w-32 flex justify-center items-center gap-4" onClick={() => connect()}>
+                <button className="bg-[#6A0DAD] rounded-[10px] h-16 w-52 max-md:w-40 text-nowrap text-base max-md:text-sm max-sm:text-xs max-sm:w-32 flex justify-center items-center gap-4" onClick={() => {
+                    connect()
+                }
+                }>
                     <>
                         <Image src={walletSvg} alt="wallet" />
-                        {connecting ? "connecting" : "Connect Wallet"}
+                        {connecting ? "Connecting" : "Connect Wallet"}
                     </>
                 </button>
             )}
             {wallet && (
-                <div>
-                    <label>Switch Chain</label>
-                    {settingChain ? (
-                        <span>Switching chain...</span>
-                    ) : (
-                        <select
-                            onChange={({ target: { value } }) => {
-                                if (config[value] !== undefined) {
-                                    setChain({ chainId: value });
-                                } else {
-                                    alert("No deploy on this chain");
-                                }
-                            }}
-                            value={connectedChain?.id}
-                        >
-                            {chains.map(({ id, label }) => {
-                                return (
-                                    <option key={id} value={id}>
-                                        {label}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    )}
-                    <button onClick={() => disconnect(wallet)}>Disconnect Wallet</button>
-                    <div>
+                <div className="flex justify-center items-center text-nowrap">
+                    <div className="flex flex-col justify-center items-center">
+                        <label>Switch Chain</label>
+                        {settingChain ? (
+                            <span>Switching chain...</span>
+                        ) : (
+                            <select
+                                className="text-black"
+                                onChange={({ target: { value } }) => {
+                                    if (config[value] !== undefined) {
+                                        setChain({ chainId: value });
+                                    } else {
+                                        alert("No deploy on this chain");
+                                    }
+                                }}
+                                value={connectedChain?.id}
+                            >
+                                {chains.map(({ id, label }) => {
+                                    return (
+                                        <option key={id} value={id}>
+                                            {label}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        )}
+                    </div>
+
+                    <DropdownMenu.Root>
+                        <DropdownMenu.Trigger>
+                            <button
+                                className="bg-[#6A0DAD] rounded-[10px] h-16 w-52 max-md:w-40 text-nowrap text-base max-md:text-sm max-sm:text-xs max-sm:w-32 flex justify-center items-center gap-4"
+                            >
+                                <Image src={walletSvg} alt="wallet" />
+                                {wallet.accounts[0].address.slice(0, 6) + "..." + wallet.accounts[0].address.slice(-4)}
+                            </button>
+                        </DropdownMenu.Trigger>
+                        <DropdownMenu.Portal>
+                            <DropdownMenu.Content className="DropdownMenuContent">
+                                <DropdownMenu.Item className="DropdownMenuItem">
+                                    <button className="rounded-[10px] h-16 w-52 max-md:w-40 text-nowrap text-base max-md:text-sm max-sm:text-xs max-sm:w-32 flex justify-center items-center gap-4" onClick={() => disconnect(wallet)}>Disconnect Wallet</button>
+                                </DropdownMenu.Item>
+                            </DropdownMenu.Content>
+                        </DropdownMenu.Portal>
+
+                    </DropdownMenu.Root>
+                    {/* <button className="bg-[#6A0DAD] rounded-[10px] h-16 w-52 max-md:w-40 text-nowrap text-base max-md:text-sm max-sm:text-xs max-sm:w-32 flex justify-center items-center gap-4" onClick={() => disconnect(wallet)}>Disconnect Wallet</button> */}
+                    {/* <div>
                         Dapp Address: <input
                             type="text"
                             value={dappAddress}
@@ -65,11 +94,11 @@ export const Network: FC = () => {
                         />
                         <br /><br />
                     </div>
-                    <Input dappAddress={dappAddress} />
-                    <Inspect />
                     <Report />
                     <Notice />
-                    <Voucher dappAddress={dappAddress} />
+                    <Inspect />
+                    <Input dappAddress={"0xab7528bb862fB57E8A2BCd567a2e929a0Be56a5e"} />
+                    <Voucher dappAddress={dappAddress} /> */}
                 </div>
             )
             }

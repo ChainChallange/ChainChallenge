@@ -5,19 +5,26 @@ import ItemChallenge from "@/components/challenge/itemChallenge";
 
 export default function MyChallenge() {
   return (
-    <div className="mt-40 mx-14">
+    <main className="flex flex-col min-h-screen w-full gap-14 bg-[#121418] pt-44 px-6">
       <div className="flex flex-row justify-between items-center">
         <h1 className="font-bold text-3xl ml-6">My Challenge</h1>
         <ButtonCustom onClick={() => console.log("Hello")}>Create Challenge</ButtonCustom>
       </div>
-      <div className="mt-14">
-        <div className="flex flex-row justify-between border-b-2 border-slate-800 pb-2">
-          <p className="text-base ml-6">Challenges</p>
-          <div className="flex gap-24 mr-14">
-            <p className="text-base ml-6">Attempts</p>
-            <p className="text-base ml-6">Users Apply</p>
-            <p className="text-base ml-6">Max Score</p>
-          </div>
+      <div className="flex flex-col w-[95vw] ">
+        <div className="flex flex-row justify-around border-b-2 w-full border-slate-800">
+            <div className="w-1/4">
+              <p className="w-1/4 text-base pl-6">Challenges</p>
+            </div>
+            <div className="flex item-center justify-center text-base w-1/4">
+              <p>Attempts</p>
+            </div>
+            <div className="flex item-center justify-center text-base w-1/4">
+              <p>Users Apply</p>
+
+            </div>
+            <div className="flex item-center justify-center text-base w-1/4">
+              <p>Max Score</p>
+            </div>
         </div>
         <ItemChallenge
           title="Challenge 1"
@@ -40,6 +47,6 @@ export default function MyChallenge() {
           onClick={() => console.log("Hello")}
         />
       </div>
-    </div>
+    </main>
   );
 }
