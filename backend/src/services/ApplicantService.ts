@@ -1,4 +1,4 @@
-import { IApplicant, IApplicantChallengeAttempt, IApplicantCreate } from "../models/IApplicant";
+import { IApplicant, IApplicantChallengeAttempt, IApplicantCreate, IApplicantEdition } from "../models/IApplicant";
 import { IApplication } from "../models/IApplication";
 import { IUuid } from "../models/types/IUuid";
 import { IWallet } from "../models/types/IWallet";
@@ -105,6 +105,29 @@ class ApplicantService {
 
     update(wallet: IWallet, data: IApplicant) {
         return applicantRepository.update(wallet, data);
+    }
+
+    patch(id: IUuid, data: IApplicantEdition) {
+        const applicant = this.find(id);
+        if(!applicant) {
+            return null;
+        }
+
+        const updateData: IApplicantEdition = {}
+
+        if(data.nickname) {
+            updateData.nickname = data.nickname;
+        }
+
+        if(data.image_link || data.image_link === null) {
+            updateData.image_link = data.image_link;
+        }
+
+
+        return this.update(id, {
+            ...applicant,
+            ...updateData
+        })
     }
 
     find(wallet: IWallet) {

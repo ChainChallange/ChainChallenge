@@ -1,6 +1,6 @@
 import { IApplication } from "../models/IApplication";
 import { IChallenge } from "../models/IChallenge";
-import { ICreator, ICreatorCreate } from "../models/ICreator";
+import { ICreator, ICreatorCreate, ICreatorEdition } from "../models/ICreator";
 import { IUuid } from "../models/types/IUuid";
 import { IWallet } from "../models/types/IWallet";
 import { applicationRepository } from "../repositories/ApplicationRepository";
@@ -85,6 +85,29 @@ class CreatorService {
 
     update(wallet: IWallet, data: ICreator) {
         return creatorRepository.update(wallet, data);
+    }
+
+    patch(id: IUuid, data: ICreatorEdition) {
+        const creator = this.find(id);
+        if(!creator) {
+            return null;
+        }
+
+        const updateData: ICreatorEdition = {}
+
+        if(data.nickname) {
+            updateData.nickname = data.nickname;
+        }
+
+        if(data.image_link || data.image_link === null) {
+            updateData.image_link = data.image_link;
+        }
+
+
+        return this.update(id, {
+            ...creator,
+            ...updateData
+        })
     }
 
     find(wallet: IWallet) {

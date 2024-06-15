@@ -10,6 +10,8 @@ export interface IChallenge {
     title: string;
     description: string;
 
+    image_link?: string;
+
     category?: string;
     difficulty?: string;
     
@@ -35,6 +37,14 @@ export interface IChallenge {
     
     applications: Record<IUuid, IChallengeApplication>;
     applications_accepted_ranking: IChallengeApplication[];
+}
+
+
+export interface IChallengeEdition {
+    title?: string;
+    description?: string;
+    
+    image_link?: string;
 }
 
 export type ILanguageSourceCodeObj = {
@@ -65,6 +75,7 @@ export type IChallengeCreate = {
 
     title: string;
     description: string;
+    image_link?: string;
 
     category?: string;
     difficulty?: string;
