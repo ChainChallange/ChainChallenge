@@ -26,7 +26,7 @@ export default function ItemChallenge({
   return (
     <Link href="/challenge" passHref>
       <div
-        className="flex flex-row items-center w-full py-6 border-b-2 border-slate-800 cursor-pointer hover:bg-slate-700 transition-colors"
+        className="flex flex-row items-center w-full py-6 border-b-2 border-[#5C5C5C] cursor-pointer hover:bg-slate-700 transition-colors"
         onClick={onClick}
       >
         <div className="flex flex-col gap-y-2 pl-6 w-1/2">

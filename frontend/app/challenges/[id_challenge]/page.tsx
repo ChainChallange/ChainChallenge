@@ -10,9 +10,7 @@ import Navbar from "@/components/navbar/navbar";
 export default function Challenge() {
   const [select, setSelect] = useState("javascript");
 
-  const handleLanguageChange = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
+  const handleLanguageChange = (event: { target: { value: SetStateAction<string> } }) => {
     setSelect(event.target.value);
   };
 
@@ -39,13 +37,9 @@ export default function Challenge() {
                 </select>
               </div>
               <div className="flex flex-col gap-2 bg-[#1E1E1E] rounded-md">
-                <Editor
-                  height="40vh"
-                  theme="vs-dark"
-                  language={select}
-                />
+                <Editor height="40vh" theme="vs-dark" language={select} />
               </div>
-                <Output />
+              <Output />
             </div>
           </div>
           <div className="flex px-5">

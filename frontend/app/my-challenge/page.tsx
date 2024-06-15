@@ -11,7 +11,7 @@ export default function MyChallenge() {
         <ButtonCustom onClick={() => console.log("Hello")}>Create Challenge</ButtonCustom>
       </div>
       <div className="flex flex-col w-[95vw]">
-        <div className="flex flex-row justify-around border-b-2 w-full border-slate-800">
+        <div className="flex flex-row justify-around border-b-2 w-full border-[#5C5C5C]">
           <div className="w-4/6">
             <p className="text-base pl-6 star">Challenges</p>
           </div>
