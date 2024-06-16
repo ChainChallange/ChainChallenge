@@ -6,11 +6,11 @@ Chainchallenge is a decentralized platform for testing programming. In it, anyon
 
 This project was developed at the Cartesi Hackaton at Inteli between 06/07/2024 and 06/16/2024 by the students:
 
-- Rafael Techio
-- Yago Matos Lopes
-- Samuel Lucas de Almeida
-- Tony Jonas
-- Heitor Candido
+- [Rafael Techio](https://www.linkedin.com/in/rafael-techio/) 
+- [Yago Matos Lopes](https://www.linkedin.com/in/yago-phellipe) 
+- [Samuel Lucas de Almeida](http://www.linkedin.com/in/samuel-lucas-almeida)  
+- [Tony Jonas](https://www.linkedin.com/in/tonyjonas/) 
+- [Heitor Candido](https://www.linkedin.com/in/heitorfariacandido/) 
   
 If you want to go a little further and see more about the construction of our backend and more in depth about the solution's architecture:
 
