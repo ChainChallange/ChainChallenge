@@ -1,6 +1,9 @@
+import { applicantService } from "../src/services/ApplicantService";
 import { applicationExecutionService } from "../src/services/ApplicationExecutionService";
 import { challengeExecutionService } from "../src/services/ChallengeExecutionService";
 import { challengeService } from "../src/services/ChallengeService";
+import { creatorService } from "../src/services/CreatorService";
+import { rankingService } from "../src/services/RankingService";
 
 const jsCodeOk = `export function sum (a, b) {
     return a + b
@@ -554,6 +557,70 @@ console.log("\n=== TRYING CREATING OVER LIMIT APPLICATIONS - WALLET 3 ===");
         throw new Error('Application must fail because applications number')
     }
 
+}
+
+
+console.log("\n=== TRYING TO UPDATE WALLET 1 (CREATOR) ===");
+{  
+    creatorService.patch('wallet criador aqui', {
+        image_link: 'test image',
+        nickname: 'Rafa' 
+    });
+
+    const creator = creatorService.find('wallet criador aqui');
+
+    if(!creator) {
+        throw new Error('CANT FIND created creator');
+    }
+
+    if(creator.image_link !== 'test image') {
+        throw new Error('IMAGE LINK NOT UPDATED');
+    }
+
+    if(creator.nickname !== 'Rafa') {
+        throw new Error('IMAGE NICKNAME NOT UPDATED');
+    }
+
+}
+
+console.log("\n=== TRYING TO UPDATE WALLET 1 (aplicante) ===");
+{  
+    applicantService.patch('Wallet aplicante aqui', {
+        image_link: 'test image hehe',
+        nickname: 'Rafa 1' 
+    });
+
+    const applicant = applicantService.find('Wallet aplicante aqui');
+
+    if(!applicant) {
+        throw new Error('CANT FIND created creator');
+    }
+
+    if(applicant.image_link !== 'test image hehe') {
+        throw new Error('IMAGE LINK NOT UPDATED');
+    }
+
+    if(applicant.nickname !== 'Rafa 1') {
+        throw new Error('IMAGE NICKNAME NOT UPDATED');
+    }
+
+}
+
+console.log("\n=== VERIFY RANKING POST CHANGE ===");
+{  
+    const ranking = rankingService.findByWallet('Wallet aplicante aqui');
+
+    if(!ranking) {
+        throw new Error('Cant find ranking');
+    }
+
+    if(ranking.nickname !== 'Rafa 1') {
+        throw new Error('NINCKNAME not UPDATED ' + ranking.nickname);
+    }
+
+    if(ranking.image_link !== 'test image hehe') {
+        throw new Error('IMAGE LINK NOT UPDATED');
+    }
 }
 
 

@@ -108,7 +108,11 @@ class ApplicantService {
 
 
     update(wallet: IWallet, data: IApplicant) {
-        return applicantRepository.update(wallet, data);
+        const result = applicantRepository.update(wallet, data);
+
+        rankingService.updateByApplicant(data);
+
+        return result;
     }
 
     patch(wallet: IWallet, data: IApplicantEdition) {
