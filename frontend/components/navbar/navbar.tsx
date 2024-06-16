@@ -60,7 +60,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="flex items-center justify-center gap-5 font-medium text-xl w-1/3 max-sm:flex-col max-md:text-sm">
-          <Link href="/" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
+          <Link href="/community" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
             Community 
           </Link>
           <Link href="/documentation" className="transition hover:text-white hover:cursor-pointer text-zinc-600 text-nowrap">
@@ -81,8 +81,8 @@ export default function Navbar() {
                   </Link>
                 </DropdownMenu.Item>
                 <DropdownMenu.Item className="translate-x-7 text-sm hover:text-white hover:cursor-pointer text-zinc-600 text-nowrap">
-                  <Link href="/my-challenge">
-                    My Challenges 
+                  <Link href="/create-challenges">
+                    Create Challenges 
                   </Link>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>

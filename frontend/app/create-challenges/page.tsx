@@ -12,6 +12,9 @@ import { usePathname } from "next/navigation";
 import { hexToString } from "@/utils/hexToString";
 import { ethers } from "ethers";
 import { reportsToArray } from "@/utils/reportsToArray";
+import Link from "next/link";
+
+
 
 interface IResult {
   data: string[];
@@ -100,7 +103,6 @@ export default function MyChallenge() {
         setChallenges(JSON.parse(hexToString(reports[0].payload)));
       }
       setLoading(false);
-      console.log("passo");
     } catch (error) {
       console.log(error);
     }
@@ -108,13 +110,15 @@ export default function MyChallenge() {
 
   useEffect(() => {
     fetchChallenge();
-  }, []);
+  }, [wallet]);
 
   return (
     <main className="flex flex-col min-h-screen w-full gap-14 bg-[#121418] pt-44 px-6">
       <div className="flex flex-row justify-between items-center">
         <h1 className="font-bold text-3xl ml-6">Created Challenges</h1>
-        <ButtonCustom onClick={() => console.log("Hello")}>Create Challenge</ButtonCustom>
+        <Link href="/create-challenges/create">
+          <ButtonCustom className="hover:cursor-pointer">Create Challenge</ButtonCustom>
+        </Link>
       </div>
       <div className="flex flex-col w-[95vw]">
         <div className="flex flex-row justify-around border-b-2 w-full border-[#5C5C5C]">

@@ -3,7 +3,7 @@ import React from 'react';
 
 interface ButtonCustomProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 }
 
