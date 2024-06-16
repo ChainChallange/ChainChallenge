@@ -24,12 +24,12 @@ const CreateChallenge: React.FC = () => {
   ];
 
   return (
-    <div className="create-challenge-page bg-[#121418] min-h-screen text-white pt-[100px]">
+    <main className="bg-[#121418] min-h-screen h-fit text-white pt-[90px]">
       {/* <Navbar /> */}
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 h-full">
         <Steps steps={steps} />
       </div>
-    </div>
+    </main>
   );
 };
 

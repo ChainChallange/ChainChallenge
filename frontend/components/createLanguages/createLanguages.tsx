@@ -1,9 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useCreateChallenge } from '@/contexts/CreateChallengeContext';
+import { ILanguage } from '@/models/types/ILanguage';
 
 const Languages: React.FC = () => {
-  const languages = [
+  const languages: { name: ILanguage | string, disabled: boolean }[] = [
     { name: 'Python', disabled: false },
     { name: 'JavaScript', disabled: false },
     { name: 'TypeScript', disabled: false },
@@ -29,6 +31,28 @@ const Languages: React.FC = () => {
     { name: 'C#', disabled: true },
   ];
 
+  const { challenge, setChallenge } = useCreateChallenge();
+  const [selectedLanguages, setSelectedLanguages] = useState<ILanguage[]>(challenge.supportedLanguages || []);
+
+  useEffect(() => {
+    setChallenge({ ...challenge, supportedLanguages: selectedLanguages });
+  }, [selectedLanguages, setChallenge]);
+
+  function handleLanguageChange(language: string) {
+    language = language.toLowerCase();
+    if (isILanguage(language)) {
+      setSelectedLanguages((prevSelected) =>
+        prevSelected.includes(language as ILanguage)
+          ? prevSelected.filter((lang) => lang !== language)
+          : [...prevSelected, language as ILanguage]
+      );
+    }
+  }
+
+  function isILanguage(language: ILanguage | string): language is ILanguage {
+    return ['javascript', 'typescript', 'python', 'go'].includes(language.toLowerCase());
+  }
+
   return (
     <div className="languages p-6 bg-[#121418] rounded-lg shadow-md border-[1px] border-[#5C5C5C] border-opacity-50">
       <h2 className="text-2xl mb-4">Languages</h2>
@@ -39,6 +63,8 @@ const Languages: React.FC = () => {
             <input
               type="checkbox"
               className="form-checkbox h-5 w-5 text-indigo-600 bg-white bg-opacity-24 border-gray-700"
+              onChange={() => handleLanguageChange(language.name)}
+              checked={selectedLanguages.includes(language.name.toLowerCase() as ILanguage)}
               disabled={language.disabled}
             />
             <span className="ml-2">{language.name}</span>

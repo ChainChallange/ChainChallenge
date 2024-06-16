@@ -2,6 +2,12 @@
 
 import { useState, ReactNode } from 'react';
 import ButtonCustom from '../button/buttonCustom';
+import { useCreateChallenge } from '@/contexts/CreateChallengeContext';
+import { convertCodesToBase64 } from '@/utils/base64';
+import { getProvider } from '@/utils/getProvider';
+import addInput from '@/utils/addInput';
+import { useSetChain, useWallets } from '@web3-onboard/react';
+import input from 'postcss/lib/input';
 
 interface Step {
   label: string;
@@ -13,6 +19,9 @@ interface StepsProps {
 }
 
 const Steps: React.FC<StepsProps> = ({ steps }) => {
+  const [{ connectedChain }] = useSetChain();
+  const [connectedWallet] = useWallets();
+  const { challenge } = useCreateChallenge();
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {
@@ -26,9 +35,28 @@ const Steps: React.FC<StepsProps> = ({ steps }) => {
       setCurrentStep(currentStep - 1);
     }
   };
+  
+
+  const handleSubmitChallenge = async () => {
+    const input = {
+      method: "challenge",
+      data: {
+        ...challenge,
+        attemptTemplateSourceCodeLanguages: convertCodesToBase64(challenge.attemptTemplateSourceCodeLanguages),
+        sourceCodeLanguages: convertCodesToBase64(challenge.sourceCodeLanguages),
+      }
+    }
+
+    if (connectedChain) {
+      const provider = getProvider(connectedWallet);
+      const signer = await provider.getSigner();
+      addInput(JSON.stringify(input), provider);
+    }
+    console.log(input);
+  }
 
   return (
-    <div className="steps-container flex">
+    <div className="steps-container flex h-fit">
       <div className="steps-sidebar w-1/4 p-4">
         {steps.map((step, index) => (
           <div key={index} className="step mb-4 flex items-start relative">
@@ -73,11 +101,12 @@ const Steps: React.FC<StepsProps> = ({ steps }) => {
             </ButtonCustom>
           )}
           {currentStep < steps.length - 1 ? (
-            <ButtonCustom onClick={nextStep} className="btn-next bg-primary text-white py-2 px-4">
+            <ButtonCustom onClick={nextStep} className="btn-next bg-primary text-white py-2 px-4"
+            >
               Next
             </ButtonCustom>
           ) : (
-            <ButtonCustom onClick={() => console.log("Submit")} className="btn-next bg-primary text-white py-2 px-4">
+            <ButtonCustom onClick={handleSubmitChallenge} className="btn-next bg-primary text-white py-2 px-4">
               Save Challenge
             </ButtonCustom>
           )}
