@@ -12,7 +12,8 @@
   "jest": {
     "setupFilesAfterEnv": [
       "./jest.setup.js"
-    ]
+    ],
+    "reporters": ["./silent-reporter.js"]
   },
   "keywords": [],
   "author": "",

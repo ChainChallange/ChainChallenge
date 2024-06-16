@@ -34,20 +34,15 @@ class ApplicationExecutionService {
       
         const challengeTests = Object.values(challenge.tests[language] || {});
       
-        results.forEach(result => {
-          const test = challengeTests.find(challengeTest => challengeTest.title === result.name);
-          
-          if(!test) {
-            throw new Error('Test not found');
-          }
-      
-          testsOutputs[test.id] = {
-            result: result.result,
-            test_id: test.id,
-            time_ms: result.time
-          }
+        challengeTests.forEach(challengeTest => {
+          const test = results.find(result => result.name === challengeTest.title);
+
+            testsOutputs[challengeTest.id] = {
+              result: test?.result || false,
+              test_id: challengeTest.id,
+              time_ms: test?.time || 9999
+            }
         })
-      
       
         return applicationService.createAndUpdateChallengeApplicantAndCreator({
           challenge_id: challengeId,

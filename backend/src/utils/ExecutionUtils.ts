@@ -17,11 +17,22 @@ class ExecutionUtils {
         writeFileSync(`${outDir}${languageFileNames.src}`, src);
         writeFileSync(`${outDir}${languageFileNames.test}`, testSrc);
 
-        const results = languageUtilClass.runTestCommandShell(`./outputs/`, `${outDir}test_results.txt`)
+        const dateStarted = new Date();
+        console.log(`[${dateStarted.toISOString()}] TESTING ${language}.......`)
+
+        let results = null;
+        try {
+            results = languageUtilClass.runTestCommandShell(`./outputs/`, `${outDir}test_results.txt`)
+        } catch (error) {
+            console.log(`[${new Date().toISOString()}] ERROR TESTING`)
+        }
+        
+        const dateFinished = new Date();
+        console.log(`[${dateFinished.toISOString()}] TESTED ${language}....... ${dateFinished.getTime() - dateStarted.getTime()}ms`);
         
         fileUtils.removeFolder(outDir);
         
-        return this.testOutputToTestResult(results);
+        return results ? this.testOutputToTestResult(results) : [];
     }
 
     runShellAndConcatOutputFile(shell: string, filename: string) {
