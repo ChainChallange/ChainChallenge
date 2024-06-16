@@ -18,9 +18,9 @@ export default function ItemChallenge({
   description: string;
   data: string;
   wallet: string;
-  apply: number;
-  attempt: number;
-  maxScore: number;
+  apply: number | string;
+  attempt: number | string;
+  maxScore: number | string;
   onClick: () => void;
 }>) {
   return (
