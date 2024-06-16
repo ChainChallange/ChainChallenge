@@ -11,7 +11,6 @@ This project was developed at the Cartesi Hackaton at Inteli between 06/07/2024 
 - Samuel Lucas de Almeida
 - Tony Jonas
 - Heitor Candido
-
   
 If you want to go a little further and see more about the construction of our backend and more in depth about the solution's architecture:
 
@@ -81,4 +80,8 @@ It is worth mentioning that a creator can also be an applicant, but their record
 
 This way, through ChainChallenge, we are sure that we have built something really cool for the community here. As seen in our use cases, there are several applications for the project. Furthermore, carrying out dynamic tests is a clear example of the computational power that Cartesi provides for the various blockchains through the Cartesi Rollups Framework, in addition to the verifiability of the codes executed on it, which add value to the results of tests carried out on the system.
 
+We would also like to make it clear that our objective with this project is not to criticize or diminish the work of platforms such as leetcode and hackerrank, but rather to use the best that blockchain technology can provide to boost these and other companies and/or projects. Our blockchain-connected API could be consumed by any other system, this way, other projects like the ones mentioned could easily integrate their already built solutions and take advantage of the benefits of web3.
+
 Once again, we invite you to delve deeper into our solution through the [backend documentatio](./backend/README.md), containing more details on architecture, data structure, communication and application of the cartesi machine, in addition to the [frontend documentation](./frontend/README.md), with more details on how the UX was built.
+
+Finally, we would like to thank the entire Cartesi team, especially Henrique Marlon and Marcus Vinicius for their support and willingness to participate in the masterclass they led. We are very happy with what was done here, and it was a great opportunity to learn more about web3 solutions
