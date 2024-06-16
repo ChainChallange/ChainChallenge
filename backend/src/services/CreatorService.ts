@@ -97,20 +97,9 @@ class CreatorService {
             return null;
         }
 
-        const updateData: ICreatorEdition = {}
-
-        if(data.nickname) {
-            updateData.nickname = data.nickname;
-        }
-
-        if(data.image_link || data.image_link === null) {
-            updateData.image_link = data.image_link;
-        }
-
-
         return this.update(id, {
             ...creator,
-            ...updateData
+            ...data
         })
     }
 

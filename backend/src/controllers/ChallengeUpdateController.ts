@@ -7,11 +7,11 @@ import { challengeService } from "../services/ChallengeService";
 export default function challengeUpdateController(app: App, payload: {method: 'challenge_update', data: any}, msgSender: IWallet): "accept" {
     app.createReport(encodingUtils.encodingToBlockchain(payload));
     
-    payload.data = verifyChallengeUpdatePayload(payload.data);
+    const sanitazedInput = verifyChallengeUpdatePayload(payload.data, msgSender);
     
-    app.createReport(encodingUtils.encodingToBlockchain(payload.data))
+    app.createReport(encodingUtils.encodingToBlockchain(sanitazedInput.data))
     
-    const result = challengeService.patch(msgSender, payload.data)
+    const result = challengeService.patch(sanitazedInput.id, sanitazedInput.data)
     
     app.createNotice(encodingUtils.encodingToBlockchain(result));
     

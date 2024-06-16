@@ -19,6 +19,8 @@ export default function applicationCreateController(app: App, payload: {method: 
         payload.data.sourceCode
     )
     
+    console.log(`CREATED a APPLICATION with [${result?.id}] ID`)
+
     app.createNotice(encodingUtils.encodingToBlockchain(result));
     
     return "accept";
