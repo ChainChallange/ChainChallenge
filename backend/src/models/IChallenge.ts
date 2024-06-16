@@ -34,6 +34,11 @@ export interface IChallenge {
     quantity_of_applications: number;
     quantity_of_applications_accepted: number;
     quantity_of_applications_rejected: number;
+
+    quantity_of_applications_attempts: number;
+    quantity_of_applications_accepted_attempts: number;
+    quantity_of_applications_rejected_attempts: number;
+
     
     applications: Record<IUuid, IChallengeApplication>;
     applications_accepted_ranking: IChallengeApplication[];

@@ -25,7 +25,7 @@ class ExecutionUtils {
             results = languageUtilClass.runTestCommandShell(`./outputs/`, `${outDir}test_results.txt`)
         } catch (error) {
             console.log(`[${new Date().toISOString()}] ERROR TESTING`)
-            console.log(error);
+            // console.log(error);
         }
         
         const dateFinished = new Date();
