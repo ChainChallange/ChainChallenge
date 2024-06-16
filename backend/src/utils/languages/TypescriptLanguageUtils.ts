@@ -1,13 +1,14 @@
 import { executionUtils } from '../ExecutionUtils';
 import { fileUtils } from '../FileUtilts';
 import { ILanguageFileNames, ILanguageUtils } from './ILanguageUtils';
-import * as path from 'path';
 
 class TypescriptLanguageUtils implements ILanguageUtils {
     runTestCommandShell(filename: string, outputFile: string) {
-        executionUtils.runShellSync(`jest --testPathPattern=${filename} --silent`);
+        executionUtils.runShellSync(`jest --testPathPattern=${filename} --no-cache --silent`);
 
-        return fileUtils.readFileSync(outputFile);
+        const result = fileUtils.readFileSync(outputFile);
+
+        return result;
     }
 
     getFileNames(): ILanguageFileNames{
