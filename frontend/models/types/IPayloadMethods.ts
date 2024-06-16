@@ -1,0 +1,1 @@
+export type IPayloadMethod = 'challenge' | 'challenge_update' | 'application' | 'creator_update' | 'applicant_update' 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import backGroundHome from "../../public/background-home.svg";
 import "./globals.css";
-import { NavbarProvider } from "@/contexts/NavbarContext";
+import { CreateChallengeProvider } from "@/contexts/CreateChallengeContext";
 import Navbar from "@/components/navbar/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,10 +20,10 @@ export default function RootLayout({
   return (
     <html lang="pt-PT" suppressHydrationWarning={true}>
       <body className={`${inter.className} bg-backgroundColor`}>
-        <NavbarProvider>
+        <CreateChallengeProvider>
           <Navbar />
           {children}
-        </NavbarProvider>
+        </CreateChallengeProvider>
       </body>
     </html>
   );

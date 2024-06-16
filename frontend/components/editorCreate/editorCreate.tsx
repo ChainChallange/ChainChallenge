@@ -1,28 +1,76 @@
 import { Editor } from "@monaco-editor/react";
-import { SetStateAction, useState } from "react";
+import { useState, useEffect } from "react";
+import { useCreateChallenge } from "@/contexts/CreateChallengeContext";
+import { ILanguage } from "@/models/types/ILanguage";
+import { defaultTestJs } from "@/utils/defaultTests";
+
+interface Errors {
+  [key: string]: string;
+}
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import { set } from "zod";
 
 export default function EditorCreate() {
-  const [select, setSelect] = useState("javascript");
-  const handleLanguageChange = (event: { target: { value: SetStateAction<string> } }) => {
-    setSelect(event.target.value);
+  const { challenge, setChallenge } = useCreateChallenge();
+
+  const [tabSelected, setTabSelected] = useState("1");
+  const [select, setSelect] = useState<ILanguage>(challenge.supportedLanguages[0] || "javascript");
+  const [allTestsCreated, setAllTestsCreated] = useState(false);
+  const [errors, setErrors] = useState<{ [key in ILanguage]?: string }>({});
+
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedLanguage = event.target.value as ILanguage;
+    setSelect(selectedLanguage);
   };
 
-  const [value, setValue] = useState("1");
+  const checkAllTestsCreated = () => {
+    const { supportedLanguages, sourceCodeLanguages } = challenge;
+    const errors: { [key in ILanguage]?: string } = {};
 
-  const handleChange = (event: any, newValue: string) => {
-    setValue(newValue);
+    supportedLanguages.forEach(language => {
+      console.log(language);
+      const template = challenge.attemptTemplateSourceCodeLanguages[language];
+      const srcTest = challenge.sourceCodeLanguages[language]
+      if (!template || template.length < 10) {
+        errors[language] = `Template for ${language} is missing or too short.`;
+      } if (!srcTest || srcTest.length < 301) {
+        errors[language] = `Test for ${language} is missing or too short.`;
+      }
+    });
+
+    return {
+      allCreated: Object.keys(errors).length === 0,
+      errors: errors,
+    };
   };
+
+  const handleCodeChange = (value: string) => {
+    const { sourceCodeLanguages } = challenge;
+    const newSourceCodeLanguages = { ...sourceCodeLanguages, [select]: value };
+    setChallenge({ ...challenge, sourceCodeLanguages: newSourceCodeLanguages });
+  }
+
+  const handleTab = (value: string) => {
+    setTabSelected(value);
+  }
+
+  useEffect(() => {
+    const { allCreated, errors } = checkAllTestsCreated();
+    setAllTestsCreated(allCreated);
+    setErrors(errors);
+  }, [challenge]);
 
   return (
     <div className="w-full h-full border-[#5C5C5C] border-[3px] rounded-md p-4">
-      <TabContext value={value} >
+      <TabContext value={tabSelected} >
         <Box sx={{ borderBottom: 1, borderColor: "divider", }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example" >
+          <TabList onChange={() => {
+            handleTab(tabSelected === "1" ? "2" : "1");
+          }} aria-label="lab API tabs example" >
             <Tab label="Teste Cases" value="1" sx={{ color: "#5C5C5C", borderBottom: 5, borderColor: "divider", }} />
             <Tab label="Code Template" value="2" sx={{ color: "#5C5C5C" }}  />
           </TabList>
@@ -31,25 +79,48 @@ export default function EditorCreate() {
         {/* Teste cases */}
         <TabPanel value="1">
           <div className="flex flex-col gap-2 px-2">
-            <div className="flex px-2 pb-2 w-full justify-center items-center  pt-4">
+            <div className="flex px-2 pb-2 w-full justify-center items-center pt-4">
               <div className="w-1/2">
                 <h1 className="text-white font-bold text-[24px]">Testcases</h1>
               </div>
               <div className="flex justify-end w-1/2">
                 <select
-                  className="text-white bg-[#1C1C1C] rounded-[5px] w-[10vw] h-[5vh] rounded-white justify-end"
+                  className="text-white bg-[#1C1C1C] rounded-[5px] w-[10vw] h-[5vh] justify-end"
                   value={select}
                   onChange={handleLanguageChange}
                 >
-                  <option value="javascript">Javascript</option>
-                  <option value="typescript">Typescript</option>
-                  <option value="python">Python</option>
-                  <option value="go">Go</option>
+              {challenge.supportedLanguages.map((language) => (
+                    <option key={language} value={language}>
+                      {language.charAt(0).toUpperCase() + language.slice(1)}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
             <div className="flex flex-col gap-2 bg-[#1E1E1E] rounded-md">
-              <Editor height="50vh" theme="vs-dark" language={select} />
+              <Editor
+            height="50vh"
+            theme="vs-dark"
+            language={select}
+            value={challenge.sourceCodeLanguages[select] || ""}
+            onChange={(newValue: string) => {
+              handleCodeChange(newValue as string);
+            }}
+          />
+        </div>
+        <div className="pt-4">
+          {allTestsCreated ? (
+            <p className="text-green-500">All tests are created for selected languages.</p>
+          ) : (
+            <div>
+              <p className="text-red-500">Some tests are missing for selected languages:</p>
+              <ul className="text-red-500">
+                {Object.keys(errors).map(language => (
+                  <li key={language}>{errors[language]}</li>
+                ))}
+              </ul>
+            </div>
+          )}
             </div>
           </div>
         </TabPanel>
