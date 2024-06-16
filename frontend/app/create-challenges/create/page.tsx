@@ -24,7 +24,7 @@ const CreateChallenge: React.FC = () => {
   ];
 
   return (
-    <div className="create-challenge-page bg-[#121418] min-h-screen text-white pt-32">
+    <div className="create-challenge-page bg-[#121418] min-h-screen text-white pt-[100px]">
       {/* <Navbar /> */}
       <div className="container mx-auto p-4">
         <Steps steps={steps} />

@@ -7,12 +7,13 @@ import Table from "@/components/table/table";
 import { SetStateAction, useEffect, useState } from "react";
 import Navbar from "@/components/navbar/navbar";
 import { Inspect } from "@/api/api";
-import { hexToString } from "viem";
+import { hexToString, stringToBytes } from "viem";
 import { usePathname } from "next/navigation";
 import { useSetChain, useWallets } from "@web3-onboard/react";
 import { getProvider } from "@/utils/getProvider";
 import { advanceInput } from "cartesi-client";
 import addInput from "@/utils/addInput";
+import { base64 } from "ethers/lib/utils";
 
 export default function Challenge() {
   const pathname = usePathname().replace("/challenges/", "challenges/");
@@ -52,7 +53,6 @@ export default function Challenge() {
   };
 
 
-
   async function handleSubmitCode() {
 
     console.log("Submit Code");
@@ -62,7 +62,7 @@ export default function Challenge() {
       data: {
         challengeId: challenge.id,
         language: language,
-        sourceCode: code,
+        sourceCode: base64.encode(stringToBytes(code)),
       }
     }
     if (connectedChain) {
@@ -80,11 +80,11 @@ export default function Challenge() {
       <Navbar />
       <div className="flex w-full pt-24">
         <div className="h-full w-1/3">
-          <Table />
+          <Table title={challenge.title} description={challenge.description} wallet={""} ranking={challenge.applications_accepted_ranking} />
         </div>
         <div className="flex flex-col w-2/3 gap-2">
           <div className="h-fit rounded-xl p-5">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 h-[75vh]">
               <div className="flex justify-end px-2 pb-2">
                 <select
                   className="text-white bg-[#1C1C1C] rounded-[5px] w-[10vw] h-[5vh] rounded-white justify-end"
@@ -97,30 +97,30 @@ export default function Challenge() {
                   <option value="go">Go</option>
                 </select>
               </div>
-              <div className="flex gap-2 w-[1240px] bg-[#1e1e1e] rounded-md">
+              <div className="flex gap-2 bg-[#1e1e1e] rounded-md h-full w-full">
                 <Editor
                   className="mx-1"
-                  width={1240}
-                  height="40vh" 
+                  width="100%"
+                  height="100%"
                   theme="vs-dark" 
                   language={language}
                   value={code}
                   onChange={(newValue, e) => {
-                    setCode(newValue);
+                    setCode(newValue as string);
                   }}
                 />
               </div>
-              <Output />
+              {/* <Output /> */}
             </div>
           </div>
           <div className="flex px-5">
             <div className="flex flex-row w-1/2 gap-4">
               <ButtonUpload />
-              <button className="flex items-center font-bold justify-center bg-[#19141D] text-white w-[8vw] h-[7vh] rounded-[10px] hover:bg-gray-700 border-[2px] border-[#6A0DAD]">
+              {/* <button className="flex items-center font-bold justify-center bg-[#19141D] text-white w-[8vw] h-[7vh] rounded-[10px] hover:bg-gray-700 border-[2px] border-[#6A0DAD]">
                 Run Code
-              </button>
+              </button> */}
             </div>
-            <div className="flex justify-end w-1/2">
+            <div className="flex justify-end w-1/2 pr-24">
               <button 
                 className="font-bold w-[10vw] h-[7vh] text-white rounded-[10px] bg-[#6A0DAD]"
                 onClick={handleSubmitCode}

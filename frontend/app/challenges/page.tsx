@@ -130,7 +130,10 @@ export default function HomeChallenge() {
             challenges.map((challenge: Challenge) => {
 
               return (
-                <Link href={`/challenges/${challenge.id}`} key={challenge.id}>
+                <Link 
+                  href={`/challenges/${challenge.id}`} key={challenge.id}
+                  className="w-[345px] rounded-lg bg-backgroundColor"  
+                >
                   <CardChallenge
                     key={challenge.id}
                     title={challenge.title}

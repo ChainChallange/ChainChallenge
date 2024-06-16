@@ -5,7 +5,7 @@ import * as React from "react";
 
 export default function TableRank({ children }: { children: React.ReactNode }) {
   return (
-    <div className="overflow-x-auto">
+    <div >
       <table className="table">
         {/* head */}
         <thead>
@@ -16,7 +16,9 @@ export default function TableRank({ children }: { children: React.ReactNode }) {
             <th className="w-1/5 text-center">RANK</th>
           </tr>
         </thead>
-        <tbody>{children}</tbody>
+        <tbody
+          className="overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-rose-500 h-[77vh]"
+        >{children}</tbody>
         {/* foot */}
         <tfoot>
           <tr>
