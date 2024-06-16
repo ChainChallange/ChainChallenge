@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function InitialWords() {
   return (
@@ -33,11 +34,11 @@ export default function InitialWords() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 3 }}
           >
-            DeVolt is a descentralized solution focused on providing the
-            eletricity needed for eletric cars.{" "}
+            ChainChallenge is a decentralized programming platform 
+            that ensures your achievements are truly yours.{" "}
             <span className="font-semibold">
-              With monetary incentives, logistical facilitations, more
-              accessible stations, and an open, fully transparent market.
+              Companies and individuals can create their own challenges, and an API 
+              is available for those who want to build their own product.
             </span>
           </motion.p>
           <motion.div
@@ -46,8 +47,14 @@ export default function InitialWords() {
             transition={{ duration: 1, delay: 3 }}
             className="flex flex-wrap justify-center mb-20 md:mb-0 mx-4 gap-10"
           >
-            <button className="bg-[#6A0DAD] w-44 h-16 rounded">Get Started </button>
-            <button className="bg-[#6A0DAD] w-44 h-16 rounded">Developers Docs </button>
+            <Link href="/challenges">
+            
+              <button className="bg-[#6A0DAD] w-44 h-16 rounded">Get Started </button>
+            </Link>
+            <Link href="/documentation">
+
+              <button className="bg-[#6A0DAD] w-44 h-16 rounded">Developers Docs </button>
+            </Link>
           </motion.div>
         </div>
       </div>
