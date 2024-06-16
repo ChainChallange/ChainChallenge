@@ -81,6 +81,29 @@ It is worth mentioning that a creator can also be an applicant, but their record
 - **Application**: Applications are attempts to resolve a challenge and are created by an applicant. They are created using a language supported by the challenge, source code and executed to obtain metrics on the Cartesi Machine.
 - **Ranking**: The ranking is separate data, where the applicants with the highest accumulated scores on the platform are listed. In this context, each user has a position.
 
+## Roadmap
+
+Here are some of the items made in this hackathon and ideas for possible improvements in the future:
+
+### In this hackathon
+
+- Structuring Ideas
+- Data structuring
+- Test Logic
+- Entity Creation Logic
+- Functionality within Cartesi Machine
+- Basic frontend for creating challenges and submissions
+
+### Next steps
+
+- Algorithm Optimization
+- Decreased communication costs with blockchain
+- Bug fixes in Backend and Frontend
+- Improvement of the community tab
+- Support for more programming languages
+- Support for awards
+- Support for NFTs
+
 ## Conclusion
 
 This way, through ChainChallenge, we are sure that we have built something really cool for the community here. As seen in our use cases, there are several applications for the project. Furthermore, carrying out dynamic tests is a clear example of the computational power that Cartesi provides for the various blockchains through the Cartesi Rollups Framework, in addition to the verifiability of the codes executed on it, which add value to the results of tests carried out on the system.
