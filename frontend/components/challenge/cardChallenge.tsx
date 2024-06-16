@@ -48,7 +48,6 @@ export default function CardChallenge({
           <Typography
             className="text-sm text-[#D1D1D1] text-wrap h-[40px]"
             variant="body2"
-            color="text.secondary"
           >
             {description}
           </Typography>
