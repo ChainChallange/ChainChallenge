@@ -4,6 +4,23 @@
 
 Chainchallenge is a decentralized platform for testing programming. In it, anyone can create challenges, define application rules and apply for challenges, having their results saved related to their portfolio and in a global ranking on the platform. Chainchallenge's biggest difference from other platforms is taking advantage of the benefits of decentralization, security and integrity of the blockchain in conjunction with the verifiable computation offered by Cartesi, which guarantees the honest and verifiable execution of submitted scripts and their results.
 
+## Use Cases
+
+With this solution, several contexts can be positively impacted. See some examples:
+
+
+> A **tech company** wants to take a **technical programming test** without fear of being accused of benefiting candidates.
+
+> An **educational institution** wants to **truthfully administer a Python algorithm test** to its students.
+
+> A **programming competition** needs to ensure the **integrity of submissions** to provide a reward.
+
+> The **programming community** wants to create beginner-level **javascript challenges** for new programmers to practice **without having to be afraid of losing the challenges they create**.
+
+> A **programming super genius** wants to **show off his algorithmic skills in Go without being identified** for now.
+
+In this way, ChainChallenge aims to solve these and other pain points with security, scalability and decentralization.
+
 ## How it works
 
 The core functionality of the project, which is the creation of the test file, a file with the functions to be tested, running the test and collecting the results, is only possible thanks to [Cartesi Rollups Framworks](https://docs.cartesi.io/cartesi-rollups/1.3/). Therefore, the system's main business logic follows this line:
