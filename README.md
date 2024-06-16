@@ -1,7 +1,5 @@
 # ChainChallenge 🚀
 
-## Context 🛠️
-
 Chainchallenge is a decentralized platform for testing programming. In it, anyone can create challenges, define application rules and apply for challenges, having their results saved related to their portfolio and in a global ranking on the platform. Chainchallenge's biggest difference from other platforms is taking advantage of the benefits of decentralization, security and integrity of the blockchain in conjunction with the verifiable computation offered by Cartesi, which guarantees the honest and verifiable execution of submitted scripts and their results.
 
 This project was developed at the Cartesi Hackaton at Inteli between 06/07/2024 and 06/16/2024 by the students:
