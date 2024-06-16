@@ -5,11 +5,12 @@ import iconSearch from "../../public/icon_search.svg";
 import Image from "next/image";
 import CardChallenge from "@/components/challenge/cardChallenge";
 import { useSetChain } from "@web3-onboard/react";
-import getChallenges from "@/api/api";
+import { Inspect } from "@/api/api";
 import { usePathname } from "next/navigation";
 import { hexToString } from "@/utils/hexToString";
 import { ethers } from "ethers";
 import { reportsToArray } from "@/utils/reportsToArray";
+import Link from "next/link";
 
 interface IResult {
   data: string[];
@@ -85,12 +86,13 @@ export default function HomeChallenge() {
 
   async function fetchData() {
     try {
-      const { reports, metadata } = await getChallenges(connectedChain, pathname);
-      setMetadata(metadata);
-      setChallenges(JSON.parse(hexToString(reports[0].payload)));
+      const { reports, metadata } = await Inspect(connectedChain, pathname);
+      setMetadata(metadata)
+      setChallenges(JSON.parse(hexToString(reports[0].payload)))
       setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   }
 
@@ -126,33 +128,20 @@ export default function HomeChallenge() {
             <div>Loading challenges...</div>
           ) : challenges.length > 0 ? (
             challenges.map((challenge: Challenge) => {
+
               return (
-                <CardChallenge
-                  key={challenge.id} // Ensure each child in a list has a unique key
-                  title={challenge.title}
-                  description={
-                    challenge.description.length > 91
-                      ? challenge.description.slice(0, 89) + "..."
-                      : challenge.description
-                  }
-                  wallet={
-                    challenge.wallet_of_creator.length > 10
-                      ? challenge.wallet_of_creator.slice(0, 8) +
-                        "..." +
-                        challenge.wallet_of_creator.slice(-8)
-                      : challenge.wallet_of_creator
-                  }
-                  data={challenge.end_date == null ? "No end date" : challenge.end_date}
-                  categories={"IA"}
-                  attempt={
-                    challenge.max_applications_attempts == null
-                      ? "∞"
-                      : challenge.max_applications_attempts
-                  }
-                  image={
-                    "https://ipfs.io/ipfs/QmPQXYmUKLHW2hLPqrTJWjbsaUW5G6dgycHiSm1Vi7Jtu7"
-                  }
-                />
+                <Link href={`/challenges/${challenge.id}`} key={challenge.id}>
+                  <CardChallenge
+                    key={challenge.id}
+                    title={challenge.title}
+                    description={challenge.description.length > 91 ? challenge.description.slice(0, 89) + "..." : challenge.description}
+                    wallet={challenge.wallet_of_creator.length > 10 ? challenge.wallet_of_creator.slice(0, 8) + "..." + challenge.wallet_of_creator.slice(-8) : challenge.wallet_of_creator}
+                    data={challenge.end_date == null ? "No end date" : challenge.end_date}
+                    categories={"IA"}
+                    attempt={challenge.max_applications_attempts == null ? "∞" : challenge.max_applications_attempts}
+                    image={"https://ipfs.io/ipfs/QmPQXYmUKLHW2hLPqrTJWjbsaUW5G6dgycHiSm1Vi7Jtu7"}
+                  />
+                </Link>
               );
             })
           ) : (
