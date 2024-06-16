@@ -16,6 +16,7 @@ export function challengeCreateController(app: App, payload: {method: 'challenge
       wallet: msgSender
     })
   
+    console.log(`CREATED a CHALLENGE with [${result?.id}] ID`)
     app.createNotice(encodingUtils.encodingToBlockchain(result))
   
     return "accept";

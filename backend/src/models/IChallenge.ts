@@ -43,6 +43,9 @@ export interface IChallenge {
 export interface IChallengeEdition {
     title?: string;
     description?: string;
+
+    category?: string;
+    difficulty?: string;
     
     image_link?: string;
 }
