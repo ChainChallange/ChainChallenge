@@ -61,7 +61,6 @@ export default function Navbar() {
         </div>
         <div className="flex items-center justify-center gap-5 font-medium text-xl w-1/3 max-sm:flex-col max-md:text-sm">
           <Link href="/community" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
-          <Link href="/community" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
             Community 
           </Link>
           <Link href="/documentation" className="transition hover:text-white hover:cursor-pointer text-zinc-600 text-nowrap">

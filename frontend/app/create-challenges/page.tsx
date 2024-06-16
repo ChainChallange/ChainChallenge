@@ -109,7 +109,7 @@ export default function MyChallenge() {
 
   useEffect(() => {
     fetchChallenge();
-  }, []);
+  }, [wallet]);
 
   return (
     <main className="flex flex-col min-h-screen w-full gap-14 bg-[#121418] pt-44 px-6">
