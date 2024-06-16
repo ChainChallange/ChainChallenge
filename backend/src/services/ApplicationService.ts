@@ -8,6 +8,7 @@ import { Uuid } from "../utils/Uuid";
 import { applicantService } from "./ApplicantService";
 import { challengeService } from "./ChallengeService";
 import { creatorService } from "./CreatorService";
+import { rankingService } from "./RankingService";
 
 class ApplicationService {
     createAndUpdateChallengeApplicantAndCreator(data: IApplicationCreate) {
@@ -15,6 +16,7 @@ class ApplicationService {
         applicantService.updateByApplication(application);
         challengeService.updateByApplication(application);
         creatorService.updateByApplication(application);
+        rankingService.generate();
 
         return application;
     }
