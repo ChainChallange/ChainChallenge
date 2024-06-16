@@ -96,8 +96,8 @@ export const Network: FC = () => {
                     <Report />
                     <Notice />
                     <Inspect />
-                    <Input dappAddress={"0xab7528bb862fB57E8A2BCd567a2e929a0Be56a5e"} />
                     <Voucher dappAddress={dappAddress} /> */}
+                    <Input dappAddress={"0xab7528bb862fB57E8A2BCd567a2e929a0Be56a5e"} />
                 </div>
             )
             }

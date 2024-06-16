@@ -5,11 +5,12 @@ import iconSearch from "../../public/icon_search.svg";
 import Image from "next/image";
 import CardChallenge from "@/components/challenge/cardChallenge";
 import { useSetChain } from "@web3-onboard/react";
-import getChallenges from "@/api/api";
+import { Inspect } from "@/api/api";
 import { usePathname } from "next/navigation";
 import { hexToString } from "viem";
 import { ethers } from "ethers";
 import { reportsToArray } from "@/utils/reportsToArray";
+import Link from "next/link";
 
 interface IResult {
   data: string[];
@@ -76,8 +77,6 @@ interface TestResultData {
   elapsedTimeInSeconds: string;
 }
 
-
-
 export default function HomeChallenge() {
   const pathname = usePathname().split("/")[1];
   const [{ connectedChain }] = useSetChain();
@@ -87,12 +86,13 @@ export default function HomeChallenge() {
 
   async function fetchData() {
     try {
-      const { reports, metadata } = await getChallenges(connectedChain, pathname);
+      const { reports, metadata } = await Inspect(connectedChain, pathname);
       setMetadata(metadata)
       setChallenges(JSON.parse(hexToString(reports[0].payload)))
       setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   }
 
@@ -103,50 +103,52 @@ export default function HomeChallenge() {
   return (
     <main className="min-h-[86vh]">
       <div className="w-full">
-      <div className="flex-row bg-[#1F202A] flex w-full h-[138px] mt-32 items-center justify-between">
-        <div className=" flex flex-col gap-y-1">
-          <div className="ml-28">Apply</div>
-          <h1 className="text-3xl font-semibold ml-28">Get Your Dream Job</h1>
-        </div>
-        <div className="mr-28">
-          <div className="relative">
-            <Image
-              className="absolute left-3 top-3 h-6 w-6"
-              src={iconSearch}
-              alt="Search Icon"
-            />
-            <input
-              className="h-12 rounded-lg bg-[#121418] pr-4 pl-10"
-              type="text"
-              placeholder="Search here"
-            />
+        <div className="flex-row bg-[#1F202A] flex w-full h-[138px] mt-32 items-center justify-between">
+          <div className=" flex flex-col gap-y-1">
+            <div className="ml-28">Apply</div>
+            <h1 className="text-3xl font-semibold ml-28">Get Your Dream Job</h1>
+          </div>
+          <div className="mr-28">
+            <div className="relative">
+              <Image
+                className="absolute left-3 top-3 h-6 w-6"
+                src={iconSearch}
+                alt="Search Icon"
+              />
+              <input
+                className="h-12 rounded-lg bg-[#121418] pr-4 pl-10"
+                type="text"
+                placeholder="Search here"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="mx-28 mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-16 justify-center mb-10">
-        {loading ? (
-          <div>Loading challenges...</div>
-        ) : challenges.length > 0 ? (
-          challenges.map(challenge => {
+        <div className="mx-28 mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-16 justify-center mb-10">
+          {loading ? (
+            <div>Loading challenges...</div>
+          ) : challenges.length > 0 ? (
+            challenges.map((challenge: Challenge) => {
 
-            return (
-              <CardChallenge
-                key={challenge.id} // Ensure each child in a list has a unique key
-                title={challenge.title}
-                description={challenge.description.length > 91 ? challenge.description.slice(0, 89) + "..." : challenge.description}
-                wallet={challenge.wallet_of_creator.length > 10 ? challenge.wallet_of_creator.slice(0, 8) + "..." + challenge.wallet_of_creator.slice(-8) : challenge.wallet_of_creator}
-                data={challenge.end_date == null ? "No end date" : challenge.end_date}
-                categories={"IA"}
-                attempt={challenge.max_applications_attempts == null ? "∞" : challenge.max_applications_attempts}
-                image={"https://ipfs.io/ipfs/QmPQXYmUKLHW2hLPqrTJWjbsaUW5G6dgycHiSm1Vi7Jtu7"}
-              />
-            );
-          })
-        ) : (
-          <div>No challenges found</div>
-        )}
+              return (
+                <Link href={`/challenges/${challenge.id}`} key={challenge.id}>
+                  <CardChallenge
+                    key={challenge.id}
+                    title={challenge.title}
+                    description={challenge.description.length > 91 ? challenge.description.slice(0, 89) + "..." : challenge.description}
+                    wallet={challenge.wallet_of_creator.length > 10 ? challenge.wallet_of_creator.slice(0, 8) + "..." + challenge.wallet_of_creator.slice(-8) : challenge.wallet_of_creator}
+                    data={challenge.end_date == null ? "No end date" : challenge.end_date}
+                    categories={"IA"}
+                    attempt={challenge.max_applications_attempts == null ? "∞" : challenge.max_applications_attempts}
+                    image={"https://ipfs.io/ipfs/QmPQXYmUKLHW2hLPqrTJWjbsaUW5G6dgycHiSm1Vi7Jtu7"}
+                  />
+                </Link>
+              );
+            })
+          ) : (
+            <div>No challenges found</div>
+          )}
+        </div>
       </div>
-    </div>
     </main>
   );
 }

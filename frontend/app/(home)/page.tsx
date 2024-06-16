@@ -9,6 +9,7 @@ import { useEffect } from "react";
 
 export default function Home() {
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+  console.log(wallet)
 
   const { walletSituation } = useNavbarContext();
   console.log(walletSituation)
