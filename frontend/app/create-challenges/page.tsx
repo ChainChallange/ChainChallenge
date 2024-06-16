@@ -9,76 +9,11 @@ import CardChallenge from "@/components/challenge/cardChallenge";
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import { usePathname } from "next/navigation";
 import { hexToString } from "@/utils/hexToString";
-import { Inspect } from "@/api/api"
+import { Inspect } from "@/api/api";
 import { ethers } from "ethers";
 import { reportsToArray } from "@/utils/reportsToArray";
 import Link from "next/link";
 import { IChallenge } from "@/models/IChallenge";
-
-interface IResult {
-  data: string[];
-  metadata: any;
-}
-
-interface Challenge {
-  wallet_of_creator: string;
-  title: string;
-  description: string;
-  start_date: string;
-  end_date: string | null;
-  max_applications: number | null;
-  max_applications_attempts: number | null;
-  min_passed_tests_to_complete: number;
-  wallet_of_applicants_only: string[];
-  attempt_template_source_code_languages: {
-    [language: string]: string;
-  };
-  source_code_languages: {
-    [language: string]: string;
-  };
-  supported_languages: string[];
-  tests: {
-    [language: string]: {
-      [testId: string]: Test;
-    };
-  };
-  id: string;
-  creation_date: string;
-  applications: {
-    [applicationId: string]: Application;
-  };
-  applications_accepted_ranking: string[];
-  quantity_of_applications: number;
-  quantity_of_applications_accepted: number;
-  quantity_of_applications_rejected: number;
-  quantity_of_tests: number;
-}
-
-interface Test {
-  title: string;
-  code: string;
-  id: string;
-}
-
-interface Application {
-  id: string;
-  wallet: string;
-  status: "accepted" | "rejected" | "pending";
-  attempts: number;
-  passed_tests: number;
-}
-
-interface TestCase {
-  description: string;
-  params: number[];
-  expected: number;
-}
-
-interface TestResultData {
-  description: string;
-  passed: boolean;
-  elapsedTimeInSeconds: string;
-}
 
 export default function MyChallenge() {
   const [challenges, setChallenges] = useState([]);
