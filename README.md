@@ -13,9 +13,13 @@ This project was developed at the Cartesi Hackaton at Inteli between 06/07/2024 
 - Heitor Candido
 
   
-If you want to go a little further and see more about the construction of our backend and more in depth about the solution's architecture, [CLICK HERE](./backend/README.md).
+If you want to go a little further and see more about the construction of our backend and more in depth about the solution's architecture:
 
-If you want to see more about the UX, screens and how our frontend was built, [CLICK HERE](./frontend/README.md).
+**Backend: [CLICK HERE](./backend/README.md)**
+
+If you want to see more about the UX, screens and how our frontend was built: 
+
+**Frontend: [CLICK HERE](./frontend/README.md)**
 
 ## Use Cases
 
@@ -59,3 +63,18 @@ The core functionality of the project, which is the creation of the test file, a
 9. All information is saved.
 
 10. During any step mentioned, the client can perform an inspection to verify the information already saved.
+
+## System Entities
+
+All system entities have their own characteristics, validation codes and relationships with other entities. Below is a brief description of the entities in our system:
+
+- **Creator**: Creators are the people who create the challenges. Its main identification is the wallet and optionally, an image link and nickname can be inserted.
+- **Applicant**: Applicants are the people who submit attempts for the challenges, receive scores and participate in the challenge's local and global rankings on the platform. Its main identification is the wallet and, like the creators, it can optionally have a nickname and an image link.
+
+It is worth mentioning that a creator can also be an applicant, but their records are saved separately. 
+
+- **Challenge**: Challenges created by creators and are questions that can be resolved through application applications. Every challenge can have multiple supported languages ​​and optional submission rules.
+- **Application**: Applications are attempts to resolve a challenge and are created by an applicant. They are created using a language supported by the challenge, source code and executed to obtain metrics on the Cartesi Machine.
+- **Ranking**: The ranking is separate data, where the applicants with the highest accumulated scores on the platform are listed. In this context, each user has a position.
+
+## Concl
