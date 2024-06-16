@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+### Documentation for Frontend Application
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Project Structure
+
+The project is organized in a way to ensure modularity and maintainability. Below is a brief overview of each folder and its purpose:
+
+```
+frontend/
+├── .next/
+├── node_modules/
+├── api/
+├── app/
+├── context/
+├── public/
+│   └── (Assets)
+├── components/
+│   └── (Component Files)
+├── models/
+│   └── (Interfaces)
+├── utils/
+│   └── (Utility Files)
+├── .env
+├── .eslintrc.json
+├── .gitignore
+├── next.config.js
+├── package.json
+├── README.md
+└── yarn.lock
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to Run the Application
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run the application locally, follow these steps:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Install Dependencies**: Ensure you have Node.js and Yarn installed on your machine. If Yarn is not installed, you can install it globally using npm:
+   ```bash
+   npm install -g yarn
+   ```
 
-## Learn More
+2. **Install Project Dependencies**: Navigate to the project directory and install the required dependencies:
+   ```bash
+   yarn 
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Run the Development Server**: Start the development server to run the application locally. This command will compile the project and serve it on a local server (usually `http://localhost:3000`):
+   ```bash
+   yarn dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Build for Production**: Compile the application for production. This step optimizes the build for better performance:
+   ```bash
+   yarn build
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. **Start the Production Server**: After building the application, you can start the production server to serve the optimized build:
+   ```bash
+   yarn start
+   ```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+By following these steps, you can set up, develop, and deploy the frontend application efficiently.
