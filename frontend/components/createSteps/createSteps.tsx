@@ -2,6 +2,7 @@
 
 import { useState, ReactNode } from 'react';
 import ButtonCustom from '../button/buttonCustom';
+import { useCreateChallenge } from '@/contexts/CreateChallengeContext';
 
 interface Step {
   label: string;
@@ -13,6 +14,7 @@ interface StepsProps {
 }
 
 const Steps: React.FC<StepsProps> = ({ steps }) => {
+  const { challenge } = useCreateChallenge();
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {
@@ -73,11 +75,12 @@ const Steps: React.FC<StepsProps> = ({ steps }) => {
             </ButtonCustom>
           )}
           {currentStep < steps.length - 1 ? (
-            <ButtonCustom onClick={nextStep} className="btn-next bg-primary text-white py-2 px-4">
+            <ButtonCustom onClick={nextStep} className="btn-next bg-primary text-white py-2 px-4"
+            >
               Next
             </ButtonCustom>
           ) : (
-            <ButtonCustom onClick={() => console.log("Submit")} className="btn-next bg-primary text-white py-2 px-4">
+            <ButtonCustom onClick={() => console.log(challenge)} className="btn-next bg-primary text-white py-2 px-4">
               Save Challenge
             </ButtonCustom>
           )}

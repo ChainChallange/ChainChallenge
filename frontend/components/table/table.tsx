@@ -1,16 +1,17 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import Leaderboard from "../leaderboard/leaderboard";
 import ReactMarkdown from 'react-markdown'
+import { IChallenge, IChallengeApplication } from "@/models/IChallenge";
+import { IWallet } from "@/models/types/IWallet";
 
 interface TableProps {
   title: string;
   description: string;
-  wallet: string;
-  ranking: [];
+  wallet_of_creator: IWallet;
+  ranking: IChallengeApplication[];
 }
 
-export default function Table(props: TableProps) {
-  console.log(props.ranking)
+export default function Table(props: IChallenge) {
   return (
     <div className="flex h-full bg-[#0F1014] rounded-md py-2">
       <Tabs.Root
@@ -42,7 +43,7 @@ export default function Table(props: TableProps) {
           <h1 className="font-bold text-[20px]">{props.title}</h1>
           <div className="pt-3">
             <ReactMarkdown>
-              # Teste
+              {props.description}
             </ReactMarkdown>
           </div>
         </Tabs.Content>
@@ -62,10 +63,10 @@ export default function Table(props: TableProps) {
                 </div>
                 <div className="w-full h-[2px] bg-[#5C5C5C]"></div>
               </div>
-              { props.ranking &&
-                props.ranking.length > 0 ? props.ranking.map((item, index) => {
+              { props.applications_accepted_ranking &&
+                props.applications_accepted_ranking.length > 0 ? props.applications_accepted_ranking.map((hacker: IChallengeApplication, index) => {
                   return (
-                    <Leaderboard key={index} wallet={item.wallet.slice(0, 6) + "..." + item.wallet.slice(-4)} ranking={index + 1} score={item.score} />
+                    <Leaderboard key={index} wallet={hacker.wallet.slice(0, 6) + "..." + hacker.wallet.slice(-4)} ranking={index + 1} score={hacker.score} id={hacker.id} passed={hacker.passed} attempt_number={hacker.attempt_number} date={hacker.date} />
                   )
                 }) : <p>No data</p>
 

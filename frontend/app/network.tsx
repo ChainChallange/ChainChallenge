@@ -10,7 +10,6 @@ import { Report } from "./reports";
 import { Voucher } from "./vouchers";
 import walletSvg from "../public/Wallet.svg";
 import Image from "next/image";
-import { useNavbarContext } from "@/contexts/NavbarContext";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 interface NetworkProps {
@@ -21,13 +20,9 @@ export const Network: FC = () => {
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
   const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
   const [wallets, setWallets] = useWallets();
-  const { walletSituation, setWalletSituation } = useNavbarContext();
   const [dappAddress, setDappAddress] = useState<string>(
     "0xab7528bb862fb57e8a2bcd567a2e929a0be56a5e"
   );
-
-
-  
 
   return (
     <div>

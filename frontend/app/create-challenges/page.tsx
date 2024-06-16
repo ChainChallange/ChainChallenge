@@ -13,6 +13,7 @@ import { Inspect } from "@/api/api"
 import { ethers } from "ethers";
 import { reportsToArray } from "@/utils/reportsToArray";
 import Link from "next/link";
+import { IChallenge } from "@/models/IChallenge";
 
 interface IResult {
   data: string[];
@@ -114,23 +115,26 @@ export default function MyChallenge() {
   return (
     <main className="flex flex-col min-h-screen w-full gap-14 bg-[#121418] pt-44 px-6">
       <div className="flex flex-row justify-between items-center">
-        <h1 className="font-bold text-3xl ml-6">My Challenge</h1>
-        <Link href="/create-challenges">
+        <h1 className="font-bold text-3xl ml-6">Create Challenges</h1>
+        <Link href="/create-challenges/create">
           <ButtonCustom className="hover:cursor-pointer">Create Challenge</ButtonCustom>
         </Link>
       </div>
       <div className="flex flex-col w-[95vw]">
         <div className="flex flex-row justify-around border-b-2 w-full border-[#5C5C5C]">
-          <div className="w-4/6">
-            <p className="text-base pl-6 star">Challenges</p>
+          <div className="w-3/5">
+            <p className="text-base pl-6 star">My challenges</p>
           </div>
-          <div className="flex item-center justify-center text-base w-1/3">
+          <div className="flex item-center justify-center text-base w-1/4">
             <p>Attempts</p>
           </div>
-          <div className="flex item-center justify-center text-base w-1/3">
-            <p>Users Apply</p>
+          <div className="flex item-center justify-center text-base w-1/4">
+            <p>Accepteds Apply</p>
           </div>
-          <div className="flex item-center justify-center text-base w-1/3">
+          <div className="flex item-center justify-center text-base w-1/4">
+            <p>Rejecteds Apply</p>
+          </div>
+          <div className="flex item-center justify-center text-base w-1/4">
             <p>Max Score</p>
           </div>
         </div>
@@ -139,30 +143,10 @@ export default function MyChallenge() {
             <p className="text-2xl">Loading...</p>
           </div>
         ) : (
-          challenges.map((challenge: Challenge) => (
+          challenges.map((challenge: IChallenge) => (
             <ItemChallenge
               key={challenge.id}
-              apply={challenge.quantity_of_applications}
-              attempt={challenge.quantity_of_applications_accepted}
-              data={challenge.end_date == null ? "No data" : challenge.end_date}
-              description={
-                challenge.description.length > 91
-                  ? challenge.description.slice(0, 89) + "..."
-                  : challenge.description
-              }
-              maxScore={
-                challenge.applications_accepted_ranking.length > 0
-                  ? challenge.applications_accepted_ranking[0].score  
-                  : 0
-              }
-              title={challenge.title}
-              wallet={
-                challenge.wallet_of_creator.length > 10
-                  ? challenge.wallet_of_creator.slice(0, 8) +
-                    "..." +
-                    challenge.wallet_of_creator.slice(-8)
-                  : challenge.wallet_of_creator
-              }
+              challenge={challenge}
               onClick={() => console.log("Hello")}
             />
           ))

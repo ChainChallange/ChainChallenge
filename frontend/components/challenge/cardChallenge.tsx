@@ -29,7 +29,7 @@ export default function CardChallenge({
   image: string;
 }) {
   return (
-    <Card className="max-w-[345px] h-[321px] lex gap-4 rounded-lg bg-backgroundColor" sx={{ maxWidth: 345 }}>
+    <Card className="max-w-[345px] outline-none h-[321px] lex gap-4 rounded-lg bg-backgroundColor" sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"

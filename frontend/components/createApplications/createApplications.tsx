@@ -1,19 +1,48 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useCreateChallenge } from '@/contexts/CreateChallengeContext';
+import { z } from 'zod';
+import ButtonCustom from '../button/buttonCustom';
+
+const applicationsSchema = z.object({
+  maxApplications: z.number({ message: "Invalid Type" }).optional(),
+  maxAttempts: z.number({ message: "Invalid Type" }).optional(),
+  minTests: z.number({ message: "Invalid Type" }).optional(),
+  whitelist: z.array(z.string().regex(/^0x[a-fA-F0-9]{40}$/, { message: "Invalid web3 wallet address" })).optional(),
+  wallet: z.string().regex(/^0x[a-fA-F0-9]{40}$/, { message: "Invalid web3 wallet address" }).optional()
+}).refine(data => {
+  if (data.whitelist && data.whitelist.length > 0 && !data.wallet) {
+    return false;
+  }
+  return true;
+}, {
+  message: "If whitelist exists, wallet must also exist",
+  path: ["wallet"]
+});
 
 const Applications: React.FC = () => {
-  const [whitelist, setWhitelist] = useState<string[]>(['']);
+  const { challenge, setChallenge } = useCreateChallenge();
+  const [whitelist, setWhitelist] = useState<string[]>(challenge.walletApplicantsOnly || ['']);
+
+  useEffect(() => {
+    if (challenge.walletApplicantsOnly) {
+      setWhitelist(challenge.walletApplicantsOnly);
+    }
+  }, [challenge.walletApplicantsOnly]);
 
   const handleWhitelistChange = (index: number, value: string) => {
     const newWhitelist = [...whitelist];
     newWhitelist[index] = value;
     setWhitelist(newWhitelist);
+    setChallenge({ ...challenge, walletApplicantsOnly: newWhitelist });
   };
 
   const handleWhitelistKeyPress = (index: number, value: string) => {
     if (index === whitelist.length - 1 && value.trim() !== '') {
-      setWhitelist([...whitelist, '']);
+      const newWhitelist = [...whitelist, ''];
+      setWhitelist(newWhitelist);
+      setChallenge({ ...challenge, walletApplicantsOnly: newWhitelist });
     }
   };
 
@@ -21,7 +50,23 @@ const Applications: React.FC = () => {
     if (whitelist.length > 1) {
       const newWhitelist = whitelist.filter((_, i) => i !== index);
       setWhitelist(newWhitelist);
+      setChallenge({ ...challenge, walletApplicantsOnly: newWhitelist });
     }
+  };
+
+  const handleMaxApplicationsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value ? parseInt(event.target.value) : undefined;
+    setChallenge({ ...challenge, maxApplications: value });
+  };
+
+  const handleMaxAttemptsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value ? parseInt(event.target.value) : undefined;
+    setChallenge({ ...challenge, maxApplicationsAttempts: value });
+  };
+
+  const handleMinTestsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value ? parseInt(event.target.value) : undefined;
+    setChallenge({ ...challenge, minPassedTestsToComplete: value });
   };
 
   return (
@@ -34,6 +79,8 @@ const Applications: React.FC = () => {
             type="text"
             className="mt-1 block w-full h-[42px] rounded-md border-gray-700 bg-white bg-opacity-5 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3"
             placeholder="Placeholder"
+            value={challenge.maxApplications || ""}
+            onChange={handleMaxApplicationsChange}
           />
         </div>
         <div className="w-[178px]">
@@ -42,6 +89,8 @@ const Applications: React.FC = () => {
             type="text"
             className="mt-1 block w-full h-[42px] rounded-md border-gray-700 bg-white bg-opacity-5 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3"
             placeholder="Placeholder"
+            value={challenge.maxApplicationsAttempts || ""}
+            onChange={handleMaxAttemptsChange}
           />
         </div>
         <div className="w-[178px]">
@@ -50,6 +99,8 @@ const Applications: React.FC = () => {
             type="text"
             className="mt-1 block w-full h-[42px] rounded-md border-gray-700 bg-white bg-opacity-5 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3"
             placeholder="Placeholder"
+            value={challenge.minPassedTestsToComplete || ""}
+            onChange={handleMinTestsChange}
           />
         </div>
       </div>
@@ -76,6 +127,9 @@ const Applications: React.FC = () => {
             )}
           </div>
         ))}
+        {/* <div className=' flex justify-end items-center pt-4 pr-[70px]'>
+          <ButtonCustom onClick={() => console.log("oi")}>Verify data</ButtonCustom>
+        </div> */}
       </div>
     </div>
   );

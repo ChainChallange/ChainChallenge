@@ -1,0 +1,1 @@
+export type ISourceCode = string;

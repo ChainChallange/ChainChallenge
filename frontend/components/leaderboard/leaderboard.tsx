@@ -1,13 +1,19 @@
 import Image from "next/image";
 import user from "../../public/Group 283.png";
+import { IUuid } from "@/models/types/IUuid";
+import { IWallet } from "@/models/types/IWallet";
 
-interface LeaderboardProps {
-  wallet: string;
-  ranking: number;
-  score: number;
+interface IChallengeApplication {
+    id: IUuid;
+    wallet: IWallet;
+    passed: boolean;
+    score: number;
+    attempt_number: number;
+    date: Date;
+    ranking: number;
 }
 
-export default function Leaderboard(props: LeaderboardProps) {
+export default function Leaderboard(props: IChallengeApplication) {
   return (
     <div className="flex flex-col w-full">
       <div className="flex w-full h-20">
