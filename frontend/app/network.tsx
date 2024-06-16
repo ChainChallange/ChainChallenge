@@ -1,6 +1,7 @@
+"use client";
 import { useConnectWallet, useSetChain, useWallets } from "@web3-onboard/react";
 import { config } from "../utils/config";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Input } from "./input";
 import { useState } from "react";
 import { Inspect } from "./inspect";
@@ -25,6 +26,9 @@ export const Network: FC = () => {
     "0xab7528bb862fb57e8a2bcd567a2e929a0be56a5e"
   );
 
+
+  
+
   return (
     <div>
       {!wallet && (
@@ -42,7 +46,7 @@ export const Network: FC = () => {
       )}
       {wallet && (
         <div className="flex justify-center items-center text-nowrap">
-          <div className="flex flex-col justify-center items-center">
+          {/* <div className="flex flex-col justify-center items-center">
             <label>Switch Chain</label>
             {settingChain ? (
               <span>Switching chain...</span>
@@ -67,7 +71,7 @@ export const Network: FC = () => {
                 })}
               </select>
             )}
-          </div>
+          </div> */}
 
           <DropdownMenu.Root>
             <DropdownMenu.Trigger className="bg-[#6A0DAD] rounded-[10px] h-16 w-52 max-md:w-40 text-nowrap text-base max-md:text-sm max-sm:text-xs max-sm:w-32 flex justify-center items-center gap-4">

@@ -7,14 +7,12 @@ import iconSearch from "../../public/icon_search.svg";
 import Image from "next/image";
 import CardChallenge from "@/components/challenge/cardChallenge";
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
-import { Inspect } from "@/api/api";
 import { usePathname } from "next/navigation";
 import { hexToString } from "@/utils/hexToString";
+import { Inspect } from "@/api/api"
 import { ethers } from "ethers";
 import { reportsToArray } from "@/utils/reportsToArray";
 import Link from "next/link";
-
-
 
 interface IResult {
   data: string[];
@@ -103,6 +101,7 @@ export default function MyChallenge() {
         setChallenges(JSON.parse(hexToString(reports[0].payload)));
       }
       setLoading(false);
+      console.log("passo");
     } catch (error) {
       console.log(error);
     }
@@ -110,26 +109,26 @@ export default function MyChallenge() {
 
   useEffect(() => {
     fetchChallenge();
-  }, [wallet]);
+  }, []);
 
   return (
     <main className="flex flex-col min-h-screen w-full gap-14 bg-[#121418] pt-44 px-6">
       <div className="flex flex-row justify-between items-center">
-        <h1 className="font-bold text-3xl ml-6">Created Challenges</h1>
-        <Link href="/create-challenges/create">
+        <h1 className="font-bold text-3xl ml-6">My Challenge</h1>
+        <Link href="/create-challenges">
           <ButtonCustom className="hover:cursor-pointer">Create Challenge</ButtonCustom>
         </Link>
       </div>
       <div className="flex flex-col w-[95vw]">
         <div className="flex flex-row justify-around border-b-2 w-full border-[#5C5C5C]">
           <div className="w-4/6">
-            <p className="text-base pl-6 star">My Challenges</p>
+            <p className="text-base pl-6 star">Challenges</p>
           </div>
           <div className="flex item-center justify-center text-base w-1/3">
             <p>Attempts</p>
           </div>
           <div className="flex item-center justify-center text-base w-1/3">
-            <p>Accept Apply</p>
+            <p>Users Apply</p>
           </div>
           <div className="flex item-center justify-center text-base w-1/3">
             <p>Max Score</p>
@@ -143,8 +142,8 @@ export default function MyChallenge() {
           challenges.map((challenge: Challenge) => (
             <ItemChallenge
               key={challenge.id}
-              apply={challenge.quantity_of_applications_accepted}
-              attempt={challenge.quantity_of_applications}
+              apply={challenge.quantity_of_applications}
+              attempt={challenge.quantity_of_applications_accepted}
               data={challenge.end_date == null ? "No data" : challenge.end_date}
               description={
                 challenge.description.length > 91
@@ -153,7 +152,7 @@ export default function MyChallenge() {
               }
               maxScore={
                 challenge.applications_accepted_ranking.length > 0
-                  ? challenge.applications_accepted_ranking[0].score
+                  ? challenge.applications_accepted_ranking[0].score  
                   : 0
               }
               title={challenge.title}

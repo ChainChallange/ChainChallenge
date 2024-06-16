@@ -52,7 +52,7 @@ export default function Navbar() {
   }, [lastScrollY]);
 
   return (
-    <div className={`fixed top-4 left-0 w-full z-10 transition-transform duration-300 ${showNavbar ? 'transform translate-y-0' : 'transform -translate-y-full'}`}>
+    <div className={`fixed top-3 left-0 w-full z-10 transition-transform duration-300 ${showNavbar ? 'transform translate-y-0' : 'transform -translate-y-full'}`}>
       <div className="flex items-center justify-between p-4 w-full max-sm:flex-col max-sm:gap-5">
         <div className="w-1/3 flex justify-start items-center">
           <Link href="/">
@@ -60,6 +60,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="flex items-center justify-center gap-5 font-medium text-xl w-1/3 max-sm:flex-col max-md:text-sm">
+          <Link href="/community" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
           <Link href="/community" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
             Community 
           </Link>
@@ -82,7 +83,7 @@ export default function Navbar() {
                 </DropdownMenu.Item>
                 <DropdownMenu.Item className="translate-x-7 text-sm hover:text-white hover:cursor-pointer text-zinc-600 text-nowrap">
                   <Link href="/create-challenges">
-                    Create Challenges 
+                    Create Challenges
                   </Link>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
