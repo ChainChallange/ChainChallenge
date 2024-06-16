@@ -24,7 +24,6 @@ If you want to see more about the UX, screens and how our frontend was built:
 
 With this solution, several contexts can be positively impacted. See some examples:
 
-
 > A **tech company** wants to take a **technical programming test** without fear of being accused of benefiting candidates.
 
 > An **educational institution** wants to **truthfully administer a Python algorithm test** to its students.
@@ -35,7 +34,13 @@ With this solution, several contexts can be positively impacted. See some exampl
 
 > A **programming super genius** wants to **show off his algorithmic skills in Go without being identified** for now.
 
+> A supreme master of a specific programming language **wants to prove that his traveling salesman algorithm is the most optimized ever made**.
+
 In this way, ChainChallenge aims to solve these and other pain points with security, scalability and decentralization.
+
+## Why Cartesi
+
+Only with Cartesi Rollups Framework is this project possible. Through it, we can run several programming languages ​​that are used in the market TODAY and take advantage of the benefits of blockchain. People would hardly learn solidity and other specific programming languages ​​if there wasn't a huge problem for that. The use of Cartesi's technology reduces this barrier to entry and allows solutions like this, in order to possibly, in the future, allow end users to benefit and not even know about the complexities involved in the process if they don't want to.
 
 ## How it works
 
