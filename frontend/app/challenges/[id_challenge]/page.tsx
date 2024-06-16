@@ -74,6 +74,8 @@ export default function Challenge() {
       }
     }
 
+    console.log("Challenge: ", challenge);
+
     return (
       <main className="flex bg-[#121418] min-h-screen w-full">
         <Navbar />

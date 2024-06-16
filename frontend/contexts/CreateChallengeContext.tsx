@@ -1,8 +1,8 @@
 // context/ChallengeContext.tsx
 "use client";
 import { IChallenge, IChallengeCreatePayload } from '@/models/IChallenge';
-import { defaultTemplateJs } from '@/utils/defaultTemplates';
-import { defaultTestJs, defaultTestTs } from '@/utils/defaultTests';
+import { defaultTemplateGo, defaultTemplateJs, defaultTemplatePy, defaultTemplateTs } from '@/utils/defaultTemplates';
+import { defaultTestGo, defaultTestJs, defaultTestPy, defaultTestTs } from '@/utils/defaultTests';
 import React, { createContext, useContext, useState } from 'react';
 
 
@@ -18,14 +18,18 @@ interface CreateChallengeProviderProps {
 const defaultChallenge: IChallengeCreatePayload = {
   title: "Sum challenge",
   description: "Sum test. Your code will receive 2 numbers and must return the sum of them",
-  supportedLanguages: ["javascript", "typescript"],
+  supportedLanguages: ["javascript"],
   sourceCodeLanguages: {
     javascript: defaultTestJs,
-    typescript: defaultTestTs
+    typescript: defaultTestTs,
+    python: defaultTestPy,
+    go: defaultTestGo
   },
   attemptTemplateSourceCodeLanguages: {
     javascript: defaultTemplateJs,
-    typescript: defaultTemplateJs
+    typescript: defaultTemplateTs,
+    python: defaultTemplatePy,
+    go: defaultTemplateGo
   }
 };
 
