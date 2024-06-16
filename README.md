@@ -110,6 +110,6 @@ This way, through ChainChallenge, we are sure that we have built something reall
 
 We would also like to make it clear that our objective with this project is not to criticize or diminish the work of platforms such as leetcode and hackerrank, but rather to use the best that blockchain technology can provide to boost these and other companies and/or projects. Our blockchain-connected API could be consumed by any other system, this way, other projects like the ones mentioned could easily integrate their already built solutions and take advantage of the benefits of web3.
 
-Once again, we invite you to delve deeper into our solution through the [backend documentatio](./backend/README.md), containing more details on architecture, data structure, communication and application of the cartesi machine, in addition to the [frontend documentation](./frontend/README.md), with more details on how the UX was built.
+Once again, we invite you to delve deeper into our solution through the [backend documentation](./backend/README.md), containing more details on architecture, data structure, communication and application of the cartesi machine, in addition to the [frontend documentation](./frontend/README.md), with more details on how the UX was built.
 
 Finally, we would like to thank the entire Cartesi team, especially Henrique Marlon and Marcus Vinicius for their support and willingness to participate in the masterclass they led. We are very happy with what was done here, and it was a great opportunity to learn more about web3 solutions
