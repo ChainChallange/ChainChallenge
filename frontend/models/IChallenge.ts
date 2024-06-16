@@ -51,7 +51,7 @@ export interface IChallengeEdition {
 }
 
 export type ILanguageSourceCodeObj = {
-    [key in string]: string
+    [key in ILanguage]?: ISourceCode
 }
 
 export type ILanguageTestsObj = {

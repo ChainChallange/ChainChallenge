@@ -12,7 +12,7 @@ interface ItemChallengeProps {
 
 export default function ItemChallenge({ challenge, onClick }: ItemChallengeProps){
   return (
-    <Link href="/challenge" passHref>
+    <Link href={`/create-challenges/view/${challenge.id}`} passHref>
       <div
         className="flex flex-row items-center w-full py-6 border-b-2 border-[#5C5C5C] cursor-pointer hover:bg-slate-700 transition-colors"
         onClick={onClick}
