@@ -36,7 +36,7 @@ const Languages: React.FC = () => {
 
   useEffect(() => {
     setChallenge({ ...challenge, supportedLanguages: selectedLanguages });
-  }, [selectedLanguages, setChallenge]);
+  }, [challenge, selectedLanguages, setChallenge]);
 
   function handleLanguageChange(language: string) {
     language = language.toLowerCase();

@@ -1,11 +1,6 @@
 "use client";
 // import Navbar from "@/components/navbar/navbar";
 import Steps from "@/components/createSteps/createSteps";
-import ProblemDetails from "@/components/createProblemDetails/createProblemDetails";
-import Applications from "@/components/createApplications/createApplications";
-import Languages from "@/components/createLanguages/createLanguages";
-import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
-import EditorCreate from "@/components/editorCreate/editorCreate";
 import ProblemDetailsResult from "@/components/componentes result/createProblemDetails/createProblemDetails";
 import ApplicationsResult from "@/components/componentes result/createApplications/createApplications";
 import LanguagesResult from "@/components/componentes result/createLanguages/createLanguages";
@@ -41,24 +36,25 @@ const CreateChallenge: React.FC = () => {
     { label: "Results", content: <DataResult challenge={challenge}/> },
   ];
 
-  async function fetchChallenge() {
-    try {
-      if (!connectedChain) {
-        //alert("Please connect to a network");
-      } else {
-        const { reports, metadata } = await Inspect(connectedChain, pathname);
-        setMetadata(metadata);
-        setChallenge(JSON.parse(hexToString(reports[0].payload)));
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
 
   useEffect(() => {
+    async function fetchChallenge() {
+      try {
+        if (!connectedChain) {
+          //alert("Please connect to a network");
+        } else {
+          const { reports, metadata } = await Inspect(connectedChain, pathname);
+          setMetadata(metadata);
+          setChallenge(JSON.parse(hexToString(reports[0].payload)));
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
     fetchChallenge();
-  }, [wallet]);
+  }, [connectedChain, pathname, wallet]);
 
   return (
     <div className="create-challenge-page bg-[#121418] min-h-screen text-white pt-[100px]">

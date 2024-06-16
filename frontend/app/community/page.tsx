@@ -33,22 +33,22 @@ export default function MyChallenge() {
   const [loading, setLoading] = useState<boolean>(true);
   const [metadata, setMetadata] = useState<any>({});
 
-  async function getRanking() {
-    try {
-      const { reports, metadata } = await Inspect(connectedChain, "ranking");
-      const rankingData = JSON.parse(hexToString(reports[0].payload));
-      setRanking(rankingData);
-      setMetadata(metadata);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  }
 
   useEffect(() => {
+    async function getRanking() {
+      try {
+        const { reports, metadata } = await Inspect(connectedChain, "ranking");
+        const rankingData = JSON.parse(hexToString(reports[0].payload));
+        setRanking(rankingData);
+        setMetadata(metadata);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    }
     getRanking();
-  }, []);
+  }, [connectedChain]);
 
   return (
     <main className="flex flex-col h-fit w-full bg-[#121418] pt-36 pb-2 px-6">
