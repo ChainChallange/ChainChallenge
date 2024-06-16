@@ -1,5 +1,6 @@
 import { applicationExecutionService } from "../src/services/ApplicationExecutionService";
 import { challengeExecutionService } from "../src/services/ChallengeExecutionService";
+import { challengeService } from "../src/services/ChallengeService";
 
 const jsCodeOk = `export function sum (a, b) {
     return a + b
@@ -105,14 +106,14 @@ const jsCodeWithoutOneFunc = `
     });
   });`;
   
-console.log("=== CREATING CHALLENGE ===");
+console.log("\n=== CREATING CHALLENGE ===");
 const challenge = challengeExecutionService.createChallengeAndGetTests({
     wallet: 'wallet criador aqui',
     title: 'Título aqui',
     description: 'Descrição aqui',
     difficulty: 'hard',
     category: 'js',
-    maxApplications: 1,
+    maxApplications: 2,
     maxApplicationsAttempts: 5,
     sourceCodeLanguages: {
       javascript: testJsCode
@@ -133,12 +134,12 @@ const challenge = challengeExecutionService.createChallengeAndGetTests({
   }
   
   
-  console.log("=== CREATING ERROR APPLICATION ===");
-
+console.log("\n=== CREATING ERROR APPLICATION ===");
+{
   const applicationError = applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui', challenge.id, 'javascript', jsCodeError);
 
   if(applicationError.attempt_number != 1) {
-    throw new Error('Attempt number wrong ' + applicationError.attempt_number)
+    throw new Error('Attempt number wrong ' + applicationError.attempt_number);
   }
 
   if(applicationError.tests_failed !== 4 || applicationError.tests_passed !== 0) {
@@ -149,8 +150,43 @@ const challenge = challengeExecutionService.createChallengeAndGetTests({
     throw new Error('Test Passed');
   }
 
-  console.log("=== CREATING FAIL APPLICATION ===");
+  const createdChallenge = challengeService.find(challenge.id);
+
+  if(!createdChallenge) {
+    throw new Error('Challenge lost data');
+  }
+
+  if(createdChallenge.quantity_of_applications !== 1) {
+    throw new Error('Wrong applications quantity ' + createdChallenge.quantity_of_applications);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted !== 0) {
+    throw new Error('Wrong applications accepted quantity ' + createdChallenge.quantity_of_applications_accepted);
+  }
   
+  if(createdChallenge.quantity_of_applications_rejected !== 1) {
+    throw new Error('Wrong applications rejected quantity ' + createdChallenge.quantity_of_applications_rejected);
+  }
+
+  if(createdChallenge.quantity_of_applications_attempts !== 1) {
+    throw new Error('Wrong applications attempts quantity ' + createdChallenge.quantity_of_applications_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted_attempts !== 0) {
+    throw new Error('Wrong applications accepted attempts quantity ' + createdChallenge.quantity_of_applications_accepted_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_rejected_attempts !== 1) {
+    throw new Error('Wrong applications rejected attempts quantity ' + createdChallenge.quantity_of_applications_rejected_attempts);
+  }
+
+  if(createdChallenge.applications_accepted_ranking.length !== 0) {
+    throw new Error('Wrong applications ranking quantity ' + createdChallenge.applications_accepted_ranking.length);
+  }
+
+}
+  console.log("\n=== CREATING FAIL APPLICATION ===");
+{  
   const applicationFail = applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui', challenge.id, 'javascript', jsCodeFail);
 
   if(applicationFail.attempt_number != 2) {
@@ -165,9 +201,43 @@ const challenge = challengeExecutionService.createChallengeAndGetTests({
     throw new Error('Test Passed');
   }
 
+  const createdChallenge = challengeService.find(challenge.id);
 
-  console.log("=== CREATING OK APPLICATION ===");
+  if(!createdChallenge) {
+    throw new Error('Challenge lost data');
+  }
+
+  if(createdChallenge.quantity_of_applications !== 1) {
+    throw new Error('Wrong applications quantity ' + createdChallenge.quantity_of_applications);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted !== 0) {
+    throw new Error('Wrong applications accepted quantity ' + createdChallenge.quantity_of_applications_accepted);
+  }
   
+  if(createdChallenge.quantity_of_applications_rejected !== 1) {
+    throw new Error('Wrong applications rejected quantity ' + createdChallenge.quantity_of_applications_rejected);
+  }
+
+  if(createdChallenge.quantity_of_applications_attempts !== 2) {
+    throw new Error('Wrong applications attempts quantity ' + createdChallenge.quantity_of_applications_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted_attempts !== 0) {
+    throw new Error('Wrong applications accepted attempts quantity ' + createdChallenge.quantity_of_applications_accepted_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_rejected_attempts !== 2) {
+    throw new Error('Wrong applications rejected attempts quantity ' + createdChallenge.quantity_of_applications_rejected_attempts);
+  }
+
+  if(createdChallenge.applications_accepted_ranking.length !== 0) {
+    throw new Error('Wrong applications ranking quantity ' + createdChallenge.applications_accepted_ranking.length);
+  }
+
+}
+  console.log("\n=== CREATING OK APPLICATION ===");
+{  
   const applicationOk = applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui', challenge.id, 'javascript', jsCodeOk);
 
   if(applicationOk.attempt_number != 3) {
@@ -182,18 +252,309 @@ const challenge = challengeExecutionService.createChallengeAndGetTests({
     throw new Error('Test DONT Passed');
   }
 
-  console.log("=== CREATING WITHOUT ONE FUNCTION APPLICATION ===");
+  const createdChallenge = challengeService.find(challenge.id);
+
+  if(!createdChallenge) {
+    throw new Error('Challenge lost data');
+  }
+
+  if(createdChallenge.quantity_of_applications !== 1) {
+    throw new Error('Wrong applications quantity ' + createdChallenge.quantity_of_applications);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted !== 1) {
+    throw new Error('Wrong applications accepted quantity ' + createdChallenge.quantity_of_applications_accepted);
+  }
   
+  if(createdChallenge.quantity_of_applications_rejected !== 0) {
+    throw new Error('Wrong applications rejected quantity ' + createdChallenge.quantity_of_applications_rejected);
+  }
+
+  if(createdChallenge.quantity_of_applications_attempts !== 3) {
+    throw new Error('Wrong applications attempts quantity ' + createdChallenge.quantity_of_applications_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted_attempts !== 1) {
+    throw new Error('Wrong applications accepted attempts quantity ' + createdChallenge.quantity_of_applications_accepted_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_rejected_attempts !== 2) {
+    throw new Error('Wrong applications rejected attempts quantity ' + createdChallenge.quantity_of_applications_rejected_attempts);
+  }
+
+  if(createdChallenge.applications_accepted_ranking.length !== 1) {
+    throw new Error('Wrong applications ranking quantity ' + createdChallenge.applications_accepted_ranking.length);
+  }
+}
+  console.log("\n=== CREATING WITHOUT ONE FUNCTION APPLICATION ===");
+{  
   const applicationWithoutOneFunction = applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui', challenge.id, 'javascript', jsCodeWithoutOneFunc);
 
   if(applicationWithoutOneFunction.attempt_number != 4) {
     throw new Error('Attempt number wrong ' + applicationWithoutOneFunction.attempt_number)
   }
 
-  if(applicationWithoutOneFunction.tests_failed !== 4 || applicationWithoutOneFunction.tests_passed !== 0) {
+  if(applicationWithoutOneFunction.tests_failed !== 2 || applicationWithoutOneFunction.tests_passed !== 2) {
     throw new Error('Tests are wrong ')
   }
 
   if(applicationWithoutOneFunction.passed) {
     throw new Error('Test Passed');
   }
+
+  const createdChallenge = challengeService.find(challenge.id);
+
+  if(!createdChallenge) {
+    throw new Error('Challenge lost data');
+  }
+
+  if(createdChallenge.quantity_of_applications !== 1) {
+    throw new Error('Wrong applications quantity ' + createdChallenge.quantity_of_applications);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted !== 1) {
+    throw new Error('Wrong applications accepted quantity ' + createdChallenge.quantity_of_applications_accepted);
+  }
+  
+  if(createdChallenge.quantity_of_applications_rejected !== 0) {
+    throw new Error('Wrong applications rejected quantity ' + createdChallenge.quantity_of_applications_rejected);
+  }
+
+  if(createdChallenge.quantity_of_applications_attempts !== 4) {
+    throw new Error('Wrong applications attempts quantity ' + createdChallenge.quantity_of_applications_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted_attempts !== 1) {
+    throw new Error('Wrong applications accepted attempts quantity ' + createdChallenge.quantity_of_applications_accepted_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_rejected_attempts !== 3) {
+    throw new Error('Wrong applications rejected attempts quantity ' + createdChallenge.quantity_of_applications_rejected_attempts);
+  }
+
+  if(createdChallenge.applications_accepted_ranking.length !== 1) {
+    throw new Error('Wrong applications ranking quantity ' + createdChallenge.applications_accepted_ranking.length);
+  }
+}
+
+console.log("\n=== CREATING WITHOUT ONE FUNCTION APPLICATION 2 ===");
+{  
+  const applicationWithoutOneFunction = applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui', challenge.id, 'javascript', jsCodeWithoutOneFunc);
+
+  if(applicationWithoutOneFunction.attempt_number != 5) {
+    throw new Error('Attempt number wrong ' + applicationWithoutOneFunction.attempt_number)
+  }
+
+  if(applicationWithoutOneFunction.tests_failed !== 2 || applicationWithoutOneFunction.tests_passed !== 2) {
+    throw new Error('Tests are wrong ')
+  }
+
+  if(applicationWithoutOneFunction.passed) {
+    throw new Error('Test Passed');
+  }
+
+  const createdChallenge = challengeService.find(challenge.id);
+
+  if(!createdChallenge) {
+    throw new Error('Challenge lost data');
+  }
+
+  if(createdChallenge.quantity_of_applications !== 1) {
+    throw new Error('Wrong applications quantity ' + createdChallenge.quantity_of_applications);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted !== 1) {
+    throw new Error('Wrong applications accepted quantity ' + createdChallenge.quantity_of_applications_accepted);
+  }
+  
+  if(createdChallenge.quantity_of_applications_rejected !== 0) {
+    throw new Error('Wrong applications rejected quantity ' + createdChallenge.quantity_of_applications_rejected);
+  }
+
+  if(createdChallenge.quantity_of_applications_attempts !== 5) {
+    throw new Error('Wrong applications attempts quantity ' + createdChallenge.quantity_of_applications_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted_attempts !== 1) {
+    throw new Error('Wrong applications accepted attempts quantity ' + createdChallenge.quantity_of_applications_accepted_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_rejected_attempts !== 4) {
+    throw new Error('Wrong applications rejected attempts quantity ' + createdChallenge.quantity_of_applications_rejected_attempts);
+  }
+
+  if(createdChallenge.applications_accepted_ranking.length !== 1) {
+    throw new Error('Wrong applications ranking quantity ' + createdChallenge.applications_accepted_ranking.length);
+  }
+}
+
+console.log("\n=== TRYING CREATING OVER LIMIT ATTEMPTS ===");
+{  
+    let isGettingError = false
+    try {
+        applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui', challenge.id, 'javascript', jsCodeWithoutOneFunc);
+    } catch (error) {
+        isGettingError = true;
+    }
+
+    if(!isGettingError) {
+        throw new Error('Application must fail because attempts number')
+    }
+
+
+}
+
+console.log("\n=== CREATING FAIL APLICATION - 2 WALLET ===");
+{  
+    const applicationFail = applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui 2', challenge.id, 'javascript', jsCodeFail);
+
+  if(applicationFail.attempt_number != 1) {
+    throw new Error('Attempt number wrong ' + applicationFail.attempt_number)
+  }
+
+  if(applicationFail.tests_failed !== 2 || applicationFail.tests_passed !== 2) {
+    throw new Error('Tests are wrong ')
+  }
+
+  if(applicationFail.passed) {
+    throw new Error('Test Passed');
+  }
+
+  const createdChallenge = challengeService.find(challenge.id);
+
+  if(!createdChallenge) {
+    throw new Error('Challenge lost data');
+  }
+
+  if(createdChallenge.quantity_of_applications !== 2) {
+    throw new Error('Wrong applications quantity ' + createdChallenge.quantity_of_applications);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted !== 1) {
+    throw new Error('Wrong applications accepted quantity ' + createdChallenge.quantity_of_applications_accepted);
+  }
+  
+  if(createdChallenge.quantity_of_applications_rejected !== 1) {
+    throw new Error('Wrong applications rejected quantity ' + createdChallenge.quantity_of_applications_rejected);
+  }
+
+  if(createdChallenge.quantity_of_applications_attempts !== 6) {
+    throw new Error('Wrong applications attempts quantity ' + createdChallenge.quantity_of_applications_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted_attempts !== 1) {
+    throw new Error('Wrong applications accepted attempts quantity ' + createdChallenge.quantity_of_applications_accepted_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_rejected_attempts !== 5) {
+    throw new Error('Wrong applications rejected attempts quantity ' + createdChallenge.quantity_of_applications_rejected_attempts);
+  }
+
+  if(createdChallenge.applications_accepted_ranking.length !== 1) {
+    throw new Error('Wrong applications ranking quantity ' + createdChallenge.applications_accepted_ranking.length);
+  }
+}
+
+console.log("\n=== CREATING OK APLICATION - 2 WALLET ===");
+{  
+    const applicationFail = applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui 2', challenge.id, 'javascript', jsCodeOk);
+
+  if(applicationFail.attempt_number != 2) {
+    throw new Error('Attempt number wrong ' + applicationFail.attempt_number)
+  }
+
+  if(applicationFail.tests_failed !== 0 || applicationFail.tests_passed !== 4) {
+    throw new Error('Tests are wrong ')
+  }
+
+  if(!applicationFail.passed) {
+    throw new Error('Test FAILD');
+  }
+
+  const createdChallenge = challengeService.find(challenge.id);
+
+  if(!createdChallenge) {
+    throw new Error('Challenge lost data');
+  }
+
+  if(createdChallenge.quantity_of_applications !== 2) {
+    throw new Error('Wrong applications quantity ' + createdChallenge.quantity_of_applications);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted !== 2) {
+    throw new Error('Wrong applications accepted quantity ' + createdChallenge.quantity_of_applications_accepted);
+  }
+  
+  if(createdChallenge.quantity_of_applications_rejected !== 0) {
+    throw new Error('Wrong applications rejected quantity ' + createdChallenge.quantity_of_applications_rejected);
+  }
+
+  if(createdChallenge.quantity_of_applications_attempts !== 7) {
+    throw new Error('Wrong applications attempts quantity ' + createdChallenge.quantity_of_applications_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_accepted_attempts !== 2) {
+    throw new Error('Wrong applications accepted attempts quantity ' + createdChallenge.quantity_of_applications_accepted_attempts);
+  }
+
+  if(createdChallenge.quantity_of_applications_rejected_attempts !== 5) {
+    throw new Error('Wrong applications rejected attempts quantity ' + createdChallenge.quantity_of_applications_rejected_attempts);
+  }
+
+  if(createdChallenge.applications_accepted_ranking.length !== 2) {
+    throw new Error('Wrong applications ranking quantity ' + createdChallenge.applications_accepted_ranking.length);
+  }
+
+  if(createdChallenge.applications_accepted_ranking[1].id !== applicationFail.id) {
+    console.log(createdChallenge.applications_accepted_ranking)
+    throw new Error('Wrong RANKING POSITION');
+  }
+}
+
+console.log("\n=== TRYING CREATING OVER LIMIT APPLICATIONS - WALLET 1 ===");
+{  
+    let isGettingError = false
+    try {
+        applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui', challenge.id, 'javascript', jsCodeWithoutOneFunc);
+    } catch (error) {
+        isGettingError = true;
+    }
+
+    if(!isGettingError) {
+        throw new Error('Application must fail because applications number')
+    }
+
+}
+
+console.log("\n=== TRYING CREATING OVER LIMIT APPLICATIONS - WALLET 2 ===");
+{  
+    let isGettingError = false
+    try {
+        applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui 2', challenge.id, 'javascript', jsCodeWithoutOneFunc);
+    } catch (error) {
+        isGettingError = true;
+    }
+
+    if(!isGettingError) {
+        throw new Error('Application must fail because applications number')
+    }
+
+}
+
+console.log("\n=== TRYING CREATING OVER LIMIT APPLICATIONS - WALLET 3 ===");
+{  
+    let isGettingError = false
+    try {
+        applicationExecutionService.runChallengeAttemptAndSave('Wallet aplicante aqui 3', challenge.id, 'javascript', jsCodeWithoutOneFunc);
+    } catch (error) {
+        isGettingError = true;
+    }
+
+    if(!isGettingError) {
+        throw new Error('Application must fail because applications number')
+    }
+
+}
+
+
+console.log("\n\n======================== ALL TESTS OK ========================")
