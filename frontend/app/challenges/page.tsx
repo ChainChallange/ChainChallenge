@@ -7,7 +7,7 @@ import CardChallenge from "@/components/challenge/cardChallenge";
 import { useSetChain } from "@web3-onboard/react";
 import { Inspect } from "@/api/api";
 import { usePathname } from "next/navigation";
-import { hexToString } from "viem";
+import { hexToString } from "@/utils/hexToString";
 import { ethers } from "ethers";
 import { reportsToArray } from "@/utils/reportsToArray";
 import Link from "next/link";
@@ -60,7 +60,7 @@ interface Test {
 interface Application {
   id: string;
   wallet: string;
-  status: 'accepted' | 'rejected' | 'pending';
+  status: "accepted" | "rejected" | "pending";
   attempts: number;
   passed_tests: number;
 }

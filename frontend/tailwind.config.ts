@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import daisyui from "daisyui"
 
 //adiconar cores padrao do tailwind
 //https://tailwindcss.com/docs/customizing-colors
@@ -26,6 +27,7 @@ const config: Config = {
   },
   plugins: [
     require("tailwind-scrollbar"),  
+    daisyui,
   ],
 };
 export default config;
