@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import daisyui from "daisyui"
 
 //adiconar cores padrao do tailwind
 //https://tailwindcss.com/docs/customizing-colors
@@ -15,7 +16,8 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "background-home": "url('/background.webp')",
+        "background-home": "url('/image.webp')",
+        "background-home-2": "url('/home.png')",
       },
       colors: {
         'primary': '#6A0DAD',
@@ -23,6 +25,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwind-scrollbar"),  
+    daisyui,
+  ],
 };
 export default config;

@@ -3,8 +3,7 @@ import { PartialNotice, getNotices } from "cartesi-client";
 import { useSetChain } from "@web3-onboard/react";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import configFile from "./config.json";
-const config: any = configFile;
+import { config } from "../utils/config";
 let apiURL = "http://localhost:8080/graphql";
 export const Notice: React.FC = () => {
     const [{ connectedChain }] = useSetChain();
@@ -61,6 +60,7 @@ export const Notice: React.FC = () => {
     useEffect(() => {
         getAllNotices();
     }, [apiURL])
+    
     return (
         <div>
             <button onClick={() => getAllNotices()}>

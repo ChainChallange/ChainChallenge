@@ -1,22 +1,16 @@
 "use client";
 import InitialWords from "@/components/initialWords/initialWords";
-import Navbar from "@/components/navbar/navbar";
-import { motion } from "framer-motion";
+import { useConnectWallet } from "@web3-onboard/react";
+
 
 export default function Home() {
+  const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+
   return (
     <>
-      <Navbar />
-      <div>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="flex p-16 justify-between text-xl max-w-screen-xl mx-auto"
-        >
-        </motion.div>
+      <main className="flex justify-center items-center w-full h-full bg-background-home-2 bg-cover bg-no-repeat">
         <InitialWords />
-      </div>
+      </main>
     </>
   );
 }

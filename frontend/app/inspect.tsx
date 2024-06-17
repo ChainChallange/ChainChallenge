@@ -1,10 +1,9 @@
 import React from "react";
 import { useSetChain } from "@web3-onboard/react";
 import { useState } from "react";
-import configFile from "./config.json";
+import { config } from "../utils/config";
 import { _fetchData } from "ethers/lib/utils";
 import { ethers } from "ethers";
-const config: any = configFile;
 export const Inspect: React.FC = () => {
     const [{ connectedChain }] = useSetChain();
     const [inspectData, setInspectData] = useState<string>("");

@@ -1,15 +1,18 @@
-//Custom Button Component
+// Custom Button Component
 import React from 'react';
-export default function ButtonCustom({
-  children,
-  onClick,
-}: Readonly<{
+
+interface ButtonCustomProps {
   children: React.ReactNode;
-  onClick: () => void;
-}>) {
+  onClick?: () => void;
+  className?: string;
+}
+
+const ButtonCustom: React.FC<ButtonCustomProps> = ({ children, onClick, className }) => {
   return (
-    <button className="bg-primary p-4 font-medium rounded-xl" onClick={onClick}>
+    <button className={`bg-primary p-4 font-medium rounded-xl ${className}`} onClick={onClick}>
       {children}
     </button>
   );
-}
+};
+
+export default ButtonCustom;
