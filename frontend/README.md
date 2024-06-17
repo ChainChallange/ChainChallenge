@@ -18,26 +18,26 @@ The project is organized in a way to ensure modularity and maintainability. Belo
 
 ```
 frontend/
-├── .next/
-├── node_modules/
-├── api/
-├── app/
-├── context/
-├── public/
+├── .next/                   # Next.js build output
+├── node_modules/            # Project dependencies
+├── api/                     # API interaction logic
+├── app/                     # Main application files
+├── context/                 # Context API for state management
+├── public/                  # Public assets (images, icons, etc.)
 │   └── (Assets)
-├── components/
+├── components/              # Reusable React components
 │   └── (Component Files)
-├── models/
+├── models/                  # TypeScript interfaces and types
 │   └── (Interfaces)
-├── utils/
+├── utils/                   # Utility functions and helpers
 │   └── (Utility Files)
-├── .env
-├── .eslintrc.json
-├── .gitignore
-├── next.config.js
-├── package.json
-├── README.md
-└── yarn.lock
+├── .env                     # Environment variables
+├── .eslintrc.json           # ESLint configuration
+├── .gitignore               # Git ignore file
+├── next.config.js           # Next.js configuration
+├── package.json             # Project metadata and dependencies
+├── README.md                # Project documentation
+└── yarn.lock                # Yarn lock file
 ```
 
 ## How to Run the Application 🚀
