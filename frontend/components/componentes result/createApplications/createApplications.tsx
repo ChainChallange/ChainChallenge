@@ -82,15 +82,6 @@ const ApplicationsResult = ({ challenge }: { challenge: IChallenge }) => {
               onChange={(e) => handleWhitelistChange(index, e.target.value)}
               onKeyPress={(e) => handleWhitelistKeyPress(index, e.currentTarget.value + e.key)}
             />
-            {whitelist.length > 1 && (
-              <button
-                type="button"
-                className="ml-2 text-red-500"
-                onClick={() => handleWhitelistRemove(index)}
-              >
-                Remove
-              </button>
-            )}
           </div>
         ))}
         {/* <div className=' flex justify-end items-center pt-4 pr-[70px]'>

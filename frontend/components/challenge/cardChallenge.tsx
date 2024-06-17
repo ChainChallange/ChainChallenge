@@ -19,6 +19,7 @@ export default function CardChallenge({
   categories,
   attempt,
   image,
+  onClick,
 }: {
   title: string;
   description: string;
@@ -27,10 +28,11 @@ export default function CardChallenge({
   data: string;
   categories: string;
   image: string;
+  onClick?: () => void;
 }) {
   return (
     <Card className="max-w-[345px] outline-none h-[321px] lex gap-4 rounded-lg bg-backgroundColor" sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea onClick={onClick}>
         <CardMedia
           component="img"
           height="140"

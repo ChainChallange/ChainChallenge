@@ -1,20 +1,24 @@
 "use client";
 
 import ButtonUpload from "@/components/buttonUpload/buttonUpload";
-import Output from "@/components/output/output";
-import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
 import Table from "@/components/table/table";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/navbar/navbar";
 import { Inspect } from "@/api/api";
 import { hexToString, stringToBytes } from "viem";
 import { usePathname } from "next/navigation";
 import { useSetChain, useWallets } from "@web3-onboard/react";
 import { getProvider } from "@/utils/getProvider";
-import { advanceInput } from "cartesi-client";
 import addInput from "@/utils/addInput";
 import { base64 } from "ethers/lib/utils";
-import { IChallenge, ILanguageSourceCodeObj } from "@/models/IChallenge";
+import { IChallenge } from "@/models/IChallenge";
+import { toast, Bounce } from "react-toastify";
+
+interface ILanguageSourceCodeObj {
+  [key: string]: string;
+}
+
 
 export default function Challenge() {
   const pathname = usePathname().replace("/challenges/", "challenges/");
@@ -41,36 +45,64 @@ export default function Challenge() {
       setLoading(false);
     }
   }
-
+  
   useEffect(() => {
     fetchData();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connectedChain]);
 
   if (!challenge) {
     return <div>Loading...</div>
   } else {
 
     const handleLanguageChange = (event: { target: { value: string } }) => {
-      setLanguage(event.target.value);
-      setCode(challenge.attempt_template_source_code_languages[event.target.value]);
+      const selectedLanguage = event.target.value;
+      setLanguage(selectedLanguage);
+      setCode((challenge!.attempt_template_source_code_languages as { [key: string]: string })[selectedLanguage]);
+      setLoading(true);
     };
 
+    const handleCodeChange = (newValue: any) => {
+      setCode(newValue);
+    }
+
     const handleSubmitCode = async () => {
-      console.log("Submit Code");
-      console.log("Code: ", code);
-      const input = {
-        method: "application",
-        data: {
-          challengeId: challenge.id,
-          language: language,
-          sourceCode: base64.encode(stringToBytes(code)),
+      if (!connectedChain || !connectedWallet) {
+        toast.error('Connect your wallet to submit one attempt', {
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });      
+      } else {
+        console.log("Submit Code");
+        console.log("Code: ", code);
+        const input = {
+          method: "application",
+          data: {
+            challengeId: challenge.id,
+            language: language,
+            sourceCode: base64.encode(stringToBytes(code)),
+          }
         }
-      }
-      if (connectedChain) {
         const provider = getProvider(connectedWallet);
         const signer = await provider.getSigner();
         console.log("signer and input is ", signer, input);
         addInput(JSON.stringify(input), provider);
+        toast('Submitting attempt...', {
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
       }
     }
 
@@ -81,30 +113,30 @@ export default function Challenge() {
         <Navbar />
         <div className="flex w-full pt-24">
           <div className="h-full w-1/3">
-            <Table 
-              id={challenge.id} 
-              wallet_of_creator={challenge.wallet_of_creator} 
-              title={challenge.title} 
-              description={challenge.description} 
-              image_link={challenge.image_link} 
-              category={challenge.category} 
-              difficulty={challenge.difficulty} 
-              creation_date={challenge.creation_date} 
-              start_date={challenge.start_date} 
-              end_date={challenge.end_date} 
-              max_applications_attempts={challenge.max_applications} 
-              max_applications={challenge.max_applications} 
-              wallet_of_applicants_only={challenge.wallet_of_applicants_only} 
-              supported_languages={challenge.supported_languages} 
-              min_passed_tests_to_complete={challenge.min_passed_tests_to_complete} 
-              source_code_languages={challenge.source_code_languages} 
-              attempt_template_source_code_languages={challenge.attempt_template_source_code_languages} 
-              quantity_of_tests={challenge.quantity_of_tests} tests={challenge.tests} 
-              quantity_of_applications={challenge.quantity_of_applications} 
-              quantity_of_applications_accepted={challenge.quantity_of_applications_accepted} 
-              quantity_of_applications_rejected={challenge.quantity_of_applications_rejected} 
-              applications={challenge.applications} 
-              applications_accepted_ranking={challenge.applications_accepted_ranking}  
+            <Table
+              id={challenge.id}
+              wallet_of_creator={challenge.wallet_of_creator}
+              title={challenge.title}
+              description={challenge.description}
+              image_link={challenge.image_link}
+              category={challenge.category}
+              difficulty={challenge.difficulty}
+              creation_date={challenge.creation_date}
+              start_date={challenge.start_date}
+              end_date={challenge.end_date}
+              max_applications_attempts={challenge.max_applications}
+              max_applications={challenge.max_applications}
+              wallet_of_applicants_only={challenge.wallet_of_applicants_only}
+              supported_languages={challenge.supported_languages}
+              min_passed_tests_to_complete={challenge.min_passed_tests_to_complete}
+              source_code_languages={challenge.source_code_languages}
+              attempt_template_source_code_languages={challenge.attempt_template_source_code_languages}
+              quantity_of_tests={challenge.quantity_of_tests} tests={challenge.tests}
+              quantity_of_applications={challenge.quantity_of_applications}
+              quantity_of_applications_accepted={challenge.quantity_of_applications_accepted}
+              quantity_of_applications_rejected={challenge.quantity_of_applications_rejected}
+              applications={challenge.applications}
+              applications_accepted_ranking={challenge.applications_accepted_ranking}
             />
           </div>
           <div className="flex flex-col w-2/3 gap-2">
@@ -116,10 +148,11 @@ export default function Challenge() {
                     value={language}
                     onChange={handleLanguageChange}
                   >
-                    <option value="javascript">Javascript</option>
-                    <option value="typescript">Typescript</option>
-                    <option value="python">Python</option>
-                    <option value="go">Go</option>
+                    {challenge.supported_languages.map(language => (
+                      <option key={language} value={language}>
+                        {language.charAt(0).toUpperCase() + language.slice(1)}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="flex gap-2 bg-[#1e1e1e] rounded-md h-full w-full">
@@ -130,9 +163,7 @@ export default function Challenge() {
                     theme="vs-dark"
                     language={language}
                     value={code}
-                    onChange={(newValue: string, e) => {
-                      setCode(newValue as string);
-                    }}
+                    onChange={handleCodeChange}
                   />
                 </div>
                 {/* <Output /> */}

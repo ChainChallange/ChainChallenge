@@ -6,7 +6,7 @@ import * as React from "react";
 export default function TableResult({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <table className="table h-[40vh]">
+      <table className="table h-fit">
         {/* head */}
         <thead>
           <tr>

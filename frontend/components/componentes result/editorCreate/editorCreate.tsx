@@ -1,53 +1,27 @@
 import { Editor } from "@monaco-editor/react";
 import { useState, useEffect } from "react";
-import { useCreateChallenge } from "@/contexts/CreateChallengeContext";
 import { ILanguage } from "@/models/types/ILanguage";
-import { defaultTestJs } from "@/utils/defaultTests";
-
-interface Errors {
-  [key: string]: string;
-}
+import { IChallenge } from "@/models/IChallenge";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { set } from "zod";
-import { IChallenge } from "@/models/IChallenge";
+
+// Define a type for supported languages
+type SupportedLanguages = 'javascript' | 'typescript' | 'python' | 'go';
 
 export default function EditorCreateResult({ challenge }: { challenge: IChallenge }) {
   const [tabSelected, setTabSelected] = useState("1");
-  const [select, setSelect] = useState<ILanguage>(
-    challenge.supported_languages[0] || "javascript"
+  const [select, setSelect] = useState<SupportedLanguages>(
+    challenge.supported_languages[0] as SupportedLanguages || "javascript"
   );
   const [allTestsCreated, setAllTestsCreated] = useState(false);
-  const [errors, setErrors] = useState<{ [key in ILanguage]?: string }>({});
+  const [errors, setErrors] = useState<Partial<Record<SupportedLanguages, string>>>({});
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedLanguage = event.target.value as ILanguage;
+    const selectedLanguage = event.target.value as SupportedLanguages;
     setSelect(selectedLanguage);
-  };
-
-  const checkAllTestsCreated = () => {
-    const { supported_languages, source_code_languages } = challenge;
-    const errors: { [key in ILanguage]?: string } = {};
-
-    supported_languages.forEach((language) => {
-      console.log(language);
-      const template = challenge.attempt_template_source_code_languages[language];
-      const srcTest = challenge.source_code_languages[language];
-      if (!template || template.length < 10) {
-        errors[language] = `Template for ${language} is missing or too short.`;
-      }
-      if (!srcTest || srcTest.length < 301) {
-        errors[language] = `Test for ${language} is missing or too short.`;
-      }
-    });
-
-    return {
-      allCreated: Object.keys(errors).length === 0,
-      errors: errors,
-    };
   };
 
   const handleTab = (value: string) => {
@@ -55,13 +29,35 @@ export default function EditorCreateResult({ challenge }: { challenge: IChalleng
   };
 
   useEffect(() => {
+    const checkAllTestsCreated = () => {
+      const { supported_languages } = challenge;
+      const errors: Partial<Record<SupportedLanguages, string>> = {};
+
+      supported_languages.forEach((language) => {
+        const lang = language as SupportedLanguages;
+        const template = challenge.attempt_template_source_code_languages[lang];
+        const srcTest = challenge.source_code_languages[lang];
+        if (!template || template.length < 10) {
+          errors[lang] = `Template for ${lang} is missing or too short.`;
+        }
+        if (!srcTest || srcTest.length < 301) {
+          errors[lang] = `Test for ${lang} is missing or too short.`;
+        }
+      });
+
+      return {
+        allCreated: Object.keys(errors).length === 0,
+        errors,
+      };
+    };
+
     const { allCreated, errors } = checkAllTestsCreated();
     setAllTestsCreated(allCreated);
     setErrors(errors);
   }, [challenge]);
 
   return (
-    <div className="w-full h-full border-[#5C5C5C] border-[3px] rounded-md p-4">
+    <div className="w-full h-fit border-[#5C5C5C] border-[3px] rounded-md p-4">
       <TabContext value={tabSelected}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList
@@ -82,7 +78,7 @@ export default function EditorCreateResult({ challenge }: { challenge: IChalleng
         {/* Teste cases */}
         <TabPanel value="1">
           <div className="flex flex-col gap-2 px-2">
-            <div className="flex px-2 pb-2 w-full justify-center items-center pt-4">
+            <div className="flex px-2 pb-2 w-full justify-center items-center">
               <div className="w-1/2">
                 <h1 className="text-white font-bold text-[24px]">Testcases</h1>
               </div>
@@ -106,27 +102,8 @@ export default function EditorCreateResult({ challenge }: { challenge: IChalleng
                 theme="vs-dark"
                 language={select}
                 keepCurrentModel
-                
                 value={challenge.source_code_languages[select] || ""}
               />
-            </div>
-            <div className="pt-4">
-              {allTestsCreated ? (
-                <p className="text-green-500">
-                  All tests are created for selected languages.
-                </p>
-              ) : (
-                <div>
-                  <p className="text-red-500">
-                    Some tests are missing for selected languages:
-                  </p>
-                  <ul className="text-red-500">
-                    {Object.keys(errors).map((language) => (
-                      <li key={language}>{errors[language]}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
           </div>
         </TabPanel>
@@ -134,7 +111,7 @@ export default function EditorCreateResult({ challenge }: { challenge: IChalleng
         {/* Template code */}
         <TabPanel value="2">
           <div className="flex flex-col gap-2 px-2">
-            <div className="flex px-2 pb-2 w-full justify-center items-center  pt-4">
+            <div className="flex px-2 pb-2 w-full justify-center items-center">
               <div className="w-1/2">
                 <h1 className="text-white font-bold text-[24px]">Code Template</h1>
               </div>

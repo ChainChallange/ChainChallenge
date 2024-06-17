@@ -65,6 +65,7 @@ export default function Profile() {
     if (wallet?.accounts[0].address) {
       fetchProfile();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallet]);
 
   const handleUpdateSubmit = async () => {

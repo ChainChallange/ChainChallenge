@@ -22,26 +22,6 @@ export default function EditorCreate() {
     setSelect(selectedLanguage);
   };
 
-  const checkAllTestsCreated = () => {
-    const { supportedLanguages, attemptTemplateSourceCodeLanguages, sourceCodeLanguages } = challenge;
-    const errors: { [key in ILanguage]?: string } = {};
-
-    supportedLanguages.forEach(language => {
-      const template = attemptTemplateSourceCodeLanguages[language];
-      const srcTest = sourceCodeLanguages[language];
-      if (!template || template.length < 10) {
-        errors[language] = `Template for ${language} is missing or too short.`;
-      }
-      if (!srcTest || srcTest.length < 301) {
-        errors[language] = `Test for ${language} is missing or too short.`;
-      }
-    });
-
-    return {
-      allCreated: Object.keys(errors).length === 0,
-      errors: errors,
-    };
-  };
 
   const handleCodeChange = (value: string) => {
     const newSourceCodeLanguages = { ...challenge.sourceCodeLanguages, [select]: value };
@@ -53,10 +33,31 @@ export default function EditorCreate() {
   };
 
   useEffect(() => {
+    const checkAllTestsCreated = () => {
+      const { supportedLanguages, attemptTemplateSourceCodeLanguages, sourceCodeLanguages } = challenge;
+      const errors: { [key in ILanguage]?: string } = {};
+  
+      supportedLanguages.forEach(language => {
+        const template = attemptTemplateSourceCodeLanguages[language];
+        const srcTest = sourceCodeLanguages[language];
+        if (!template || template.length < 10) {
+          errors[language] = `Template for ${language} is missing or too short.`;
+        }
+        if (!srcTest || srcTest.length < 301) {
+          errors[language] = `Test for ${language} is missing or too short.`;
+        }
+      });
+  
+      return {
+        allCreated: Object.keys(errors).length === 0,
+        errors: errors,
+      };
+    };
+  
     const { allCreated, errors } = checkAllTestsCreated();
     setAllTestsCreated(allCreated);
     setErrors(errors);
-  }, [challenge]);
+  }, [challenge, allTestsCreated]);
 
   return (
     <div className="w-full h-fit border-[#5C5C5C] border-[3px] rounded-md pl-4">
@@ -97,7 +98,7 @@ export default function EditorCreate() {
                 theme="vs-dark"
                 language={select}
                 value={challenge.sourceCodeLanguages[select] || ""}
-                onChange={(newValue: string) => {
+                onChange={(newValue: any) => {
                   handleCodeChange(newValue);
                 }}
               />
@@ -150,7 +151,7 @@ export default function EditorCreate() {
                 theme="vs-dark"
                 language={select}
                 value={challenge.attemptTemplateSourceCodeLanguages[select] || ""}
-                onChange={(newValue: string) => {
+                onChange={(newValue: any) => {
                   setChallenge({
                     ...challenge,
                     attemptTemplateSourceCodeLanguages: {
