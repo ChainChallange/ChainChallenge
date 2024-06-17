@@ -13,7 +13,9 @@ This is the documentation for the application's backend, using the Cartesi Rollu
 
 ## How Start the Backend
 
-You can launch the backend in two ways. One is more recommended for development/testing while the other is more recommended for production. We're using the [Cartesi Docs](https://docs.cartesi.io/cartesi-rollups/1.3/development/running-the-application/) as principal font. Below, we will address both ways:
+You can launch the backend in two ways. One is more recommended for development/testing while the other is more recommended for production. We're using the [Cartesi Docs](https://docs.cartesi.io/cartesi-rollups/1.3/development/running-the-application/) as principal font. Below, we will address both ways.
+
+It is important to note that you will first need [Docker](https://www.docker.com/), [Yarn](https://classic.yarnpkg.com/lang/en/docs/) and, if you use Windows, [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
 ### Development/Test with Nonodo
 
@@ -42,6 +44,8 @@ npm i -g jest
 
 **Install Python 3.10.12 and Pip**
 
+You can also [see the docs](https://www.python.org/)
+
 ```
 sudo apt update
 ```
@@ -62,12 +66,15 @@ pip3 install pytest
 
 **Install Go version go1.18.1**
 
+If you have difficulties, [see the docs](https://go.dev/):
+
 ```
 sudo apt install golang-go
 ```
 
 #### **Install Foundry**
 
+You can also [see the docs](https://book.getfoundry.sh/anvil/)
 
 ```
 curl -L https://foundry.paradigm.xyz | bash
@@ -151,7 +158,7 @@ In the third one, you can send a generic request to test the application:
 cartesi send generic
 ```
 
-Enter for all options until the last one, where you must place the input (string). In this step, copy the minified json from [this link](./examples/inputs/createMinimalChallenge.json), insert it into the terminal and press enter to complete the request. If everithing went well, you should see this:
+Enter for all options until the last one, where you must place the input (string). In this step, copy the minified json from [this link](./docs/inputs/createMinimalChallenge.json), insert it into the terminal and press enter to complete the request. If everithing went well, you should see this:
 
 ![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/8b8b6bc5-bb0c-44cd-a40a-9ec26c1dbdbd)
 
