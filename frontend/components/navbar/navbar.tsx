@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../public/logo.svg";
@@ -31,28 +31,28 @@ init({
 
 export default function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
-  let lastScrollY = 0;
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
+      if (window.scrollY > lastScrollY.current) {
         // Scrolling down
         setShowNavbar(false);
       } else {
         // Scrolling up
         setShowNavbar(true);
       }
-      lastScrollY = window.scrollY;
+      lastScrollY.current = window.scrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, []);
 
   return (
-    <div className={`fixed top-4 left-0 w-full z-10 transition-transform duration-300 ${showNavbar ? 'transform translate-y-0' : 'transform -translate-y-full'}`}>
+    <div className={`fixed top-3 left-0 w-full z-10 transition-transform duration-300 ${showNavbar ? 'transform translate-y-0' : 'transform -translate-y-full'}`}>
       <div className="flex items-center justify-between p-4 w-full max-sm:flex-col max-sm:gap-5">
         <div className="w-1/3 flex justify-start items-center">
           <Link href="/">
@@ -60,8 +60,8 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="flex items-center justify-center gap-5 font-medium text-xl w-1/3 max-sm:flex-col max-md:text-sm">
-          <Link href="/" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
-            Community 
+          <Link href="/community" className="transition hover:text-white hover:cursor-pointer text-zinc-600">
+            Community
           </Link>
           <Link href="/documentation" className="transition hover:text-white hover:cursor-pointer text-zinc-600 text-nowrap">
             Developers Docs
@@ -81,8 +81,8 @@ export default function Navbar() {
                   </Link>
                 </DropdownMenu.Item>
                 <DropdownMenu.Item className="translate-x-7 text-sm hover:text-white hover:cursor-pointer text-zinc-600 text-nowrap">
-                  <Link href="/my-challenge">
-                    My Challenges 
+                  <Link href="/create-challenges">
+                    Create Challenges
                   </Link>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>

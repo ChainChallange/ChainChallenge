@@ -1,22 +1,19 @@
-import { config } from "@/utils/config";
-import { ethers } from "ethers";
-import { useState } from "react";
-import { useSetChain } from "@web3-onboard/react";
+import formatResultInspect from "@/utils/formatInspect";
 
-export default function Inspect(connectedChain: any, endpoint: string) {
-      let apiURL = "";
-      if (config[connectedChain.id]?.inspectAPIURL) {
-          apiURL = `${config[connectedChain.id].inspectAPIURL}/inspect/challenges`;
-      } else {
-          console.error(`No inspect interface defined for chain ${connectedChain.id}`);
-          return;
-      }
+let apiURL = "http://127.0.0.1:8080/inspect/";
 
-      let fetchData = fetch(`${apiURL}/${endpoint}`);
+export async function Inspect(connectedChain: any, endpoint?: string) {
 
-      fetchData
-          .then(response => response.json())
-          .then(data => {
-            return data;
-          });
+      // if (config[connectedChain.id]?.inspectAPIURL) {
+      //     apiURL = `${config[connectedChain.id].inspectAPIURL}/inspect/challenges`;
+      // } else {
+      //     console.error(`No inspect interface defined for chain ${connectedChain.id}`);
+      //     return;
+      // }
+
+      return await fetch(apiURL + `${endpoint}/`)
+      .then(response => response.json())
+      .then(data => {
+          return formatResultInspect(data)
+      });
 };

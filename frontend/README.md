@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# ChainChallenge Frontend Documentation 🖥️
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Figma Design Overview 🎨
+
+The design for this frontend application is organized in Figma, which you can access [here](https://www.figma.com/design/0iUblelhNitipYEuloPimu/Hackthon?node-id=19-2&t=7GjMjwVuw2jS5zCf-1). The Figma file is structured as follows:
+
+1. **Diagrams Page**: Contains all the diagrams used for planning and structuring the application.
+2. **Prototyped Screens**: Includes all the prototyped screens that demonstrate the user interface and user flow.
+3. **Component Repository**: A collection of reusable components used to build the pages. This repository ensures consistency across the application and speeds up the design process.
+
+---
+
+## Project Structure 📂
+
+The project is organized in a way to ensure modularity and maintainability. Below is a brief overview of each folder and its purpose:
+
+```
+frontend/
+├── .next/                   # Next.js build output
+├── node_modules/            # Project dependencies
+├── api/                     # API interaction logic
+├── app/                     # Main application files
+├── context/                 # Context API for state management
+├── public/                  # Public assets (images, icons, etc.)
+│   └── (Assets)
+├── components/              # Reusable React components
+│   └── (Component Files)
+├── models/                  # TypeScript interfaces and types
+│   └── (Interfaces)
+├── utils/                   # Utility functions and helpers
+│   └── (Utility Files)
+├── .env                     # Environment variables
+├── .eslintrc.json           # ESLint configuration
+├── .gitignore               # Git ignore file
+├── next.config.js           # Next.js configuration
+├── package.json             # Project metadata and dependencies
+├── README.md                # Project documentation
+└── yarn.lock                # Yarn lock file
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to Run the Application 🚀
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run the application locally, follow these steps:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Install Dependencies**: Ensure you have Node.js and Yarn installed on your machine. If Yarn is not installed, you can install it globally using npm:
+   ```bash
+   npm install -g yarn
+   ```
 
-## Learn More
+2. **Install Project Dependencies**: Navigate to the project directory and install the required dependencies:
+   ```bash
+   yarn 
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Run the Development Server**: Start the development server to run the application locally. This command will compile the project and serve it on a local server (usually `http://localhost:3000`):
+   ```bash
+   yarn dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Build for Production**: Compile the application for production. This step optimizes the build for better performance:
+   ```bash
+   yarn build
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. **Start the Production Server**: After building the application, you can start the production server to serve the optimized build:
+   ```bash
+   yarn start
+   ```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+By following these steps, you can set up, develop, and deploy the frontend application efficiently. If you have any further questions or need additional information, feel free to reach out!

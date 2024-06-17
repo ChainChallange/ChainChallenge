@@ -2,8 +2,32 @@
 
 import React from 'react';
 import * as Select from '@radix-ui/react-select';
+import { useCreateChallenge } from '@/contexts/CreateChallengeContext';
 
 const ProblemDetails: React.FC = () => {
+  const { challenge, setChallenge } = useCreateChallenge();
+  console.log(challenge);
+
+  function handleChallengeNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(event.target.value);
+    setChallenge({ ...challenge, title: event.target.value });
+  }
+
+  function handleDifficultyChange(value: string) {
+    console.log(value);
+    setChallenge({ ...challenge, difficulty: value });
+  }
+
+  function handleCategoryChange(value: string) {
+    console.log(value);
+    setChallenge({ ...challenge, category: value });
+  }
+
+  function handleDescriptionChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    console.log(event.target.value);
+    setChallenge({ ...challenge, description: event.target.value });
+  }
+
   return (
     <div className="problem-details p-6 bg-[#121418] rounded-lg shadow-md border-[1px] border-[#5C5C5C] border-opacity-50">
       <h2 className="text-2xl mb-6">Problem Details</h2>
@@ -13,12 +37,17 @@ const ProblemDetails: React.FC = () => {
           <input
             type="text"
             className="mt-1 block w-full h-[42px] rounded-md border-gray-700 bg-white bg-opacity-5 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3"
+            value={challenge.title}
+            onChange={handleChallengeNameChange}
             placeholder="Enter challenge name"
           />
         </div>
         <div className="w-[172px]">
           <label className="block text-sm font-medium text-gray-300">Difficulty</label>
-          <Select.Root>
+          <Select.Root 
+            defaultValue={challenge.difficulty} 
+            onValueChange={handleDifficultyChange}
+          >
           <Select.Trigger className="mt-1 block w-full h-[42px] rounded-md border-gray-700 bg-white bg-opacity-5 text-white text-opacity-50 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3">
           <Select.Value placeholder="Select difficulty"/>
               <Select.Icon />
@@ -42,7 +71,10 @@ const ProblemDetails: React.FC = () => {
         </div>
         <div className="w-[172px]">
           <label className="block text-sm font-medium text-gray-300">Category</label>
-          <Select.Root>
+          <Select.Root 
+            defaultValue={challenge.category}
+            onValueChange={handleCategoryChange}
+          >
           <Select.Trigger className="mt-1 block w-full h-[42px] rounded-md border-gray-700 bg-white bg-opacity-5 text-white text-opacity-50 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3">
           <Select.Value placeholder="Select category" className="text-white text-opacity-80" />
               <Select.Icon />
@@ -75,6 +107,8 @@ const ProblemDetails: React.FC = () => {
           rows={8}
           className="mt-1 block w-full rounded-md border-gray-700 bg-white bg-opacity-5 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3"
           placeholder="Describe the challenge"
+          defaultValue={challenge.description}
+          onChange={handleDescriptionChange}
         />
       </div>
     </div>
