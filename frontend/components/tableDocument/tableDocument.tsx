@@ -59,7 +59,7 @@ export default function TableDocument() {
           className="px-2 py-3 rounded-md text-[15px] leading-none text-nowrap text-white select-none hover:bg-gray-700 data-[state=active]:bg-gray-600 data-[state=active]:font-bold outline-none cursor-default"
           value="apiReference"
         >
-          <h1>Api Reference</h1>
+          <h1>API Reference</h1>
         </Tabs.Trigger>
         <Tabs.Trigger value="routes">
           <div
@@ -109,7 +109,7 @@ export default function TableDocument() {
                 {open.challenge ? <FaChevronDown /> : <FaChevronRight />}
               </div>
               {open.challenge && (
-                <div className="flex flex-col items-start ml-5">
+                <div className="flex flex-col items-start ml-5 gap-2 text-nowrap">
                   <div
                     className="cursor-pointer"
                     onClick={() => handleComponentClick("ListChallenges")}
