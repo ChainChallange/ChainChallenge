@@ -11,6 +11,36 @@ This is the documentation for the application's backend, using the Cartesi Rollu
 - Data stored
 - Information transmitted
 
+## Payloads
+
+### Inspects
+
+To check inspect routes, see [postman export](./docs/inspects/inspects-postman.json) that we made. We have prepared a series of inspections for each entity to cover most of our API use cases:
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/6d6741b5-c668-4f0b-90be-48d6b4e6691a)
+
+
+### Advanced States
+
+For advanced states requests, we prepared these methods:
+
+- **challenge**: To create a challenge
+- **application**: To apply to a challenge
+- **creator_update**: To update a creator info
+- **applicant_update**: To update a applicant
+- **challenge_update**: To update a challenge
+
+So, the payload must have these two field:
+
+```
+{
+  "method": "one of the above,
+  "data": {
+    // Your data here
+  }
+}
+```
+
 ## How Start the Backend
 
 You can launch the backend in two ways. One is more recommended for development/testing while the other is more recommended for production. We're using the [Cartesi Docs](https://docs.cartesi.io/cartesi-rollups/1.3/development/running-the-application/) as principal font. Below, we will address both ways.
