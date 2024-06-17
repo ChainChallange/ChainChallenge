@@ -13,7 +13,7 @@ const DocReference = ({ title }: ListCreatorsProps) => {
       
       <div className="mt-8">
         <h2 className="text-xl font-bold">How Start the Backend</h2>
-        <p>You can launch the backend in two ways. One is more recommended for development/testing while the other is more recommended for production. We're using the <a href="https://docs.cartesi.io/cartesi-rollups/1.3/development/running-the-application/">Cartesi Docs</a> as principal font. Below, we will address both ways.</p>
+        <p>You can launch the backend in two ways. One is more recommended for development/testing while the other is more recommended for production. We&apos;re using the <a href="https://docs.cartesi.io/cartesi-rollups/1.3/development/running-the-application/">Cartesi Docs</a> as principal font. Below, we will address both ways.</p>
       </div>
 
       <div className="mt-8">

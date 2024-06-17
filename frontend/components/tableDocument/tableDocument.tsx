@@ -269,7 +269,7 @@ export default function TableDocument() {
         </Tabs.Trigger>
       </Tabs.List>
       <Tabs.Content className="flex px-5 outline-none" value="apiReference">
-        <DocReference />
+        <DocReference title={"API Reference"} />
       </Tabs.Content>
       <Tabs.Content className="px-5 outline-none" value="routes">
         {selectedComponent && (
