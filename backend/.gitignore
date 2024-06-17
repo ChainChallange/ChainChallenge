@@ -6,4 +6,9 @@ build
 
 node_modules/
 outputs/
+<<<<<<< HEAD
 .cartesi
+.cartesi.env
+=======
+.cartesi
+>>>>>>> 497a813a055e2a069d0ac0d2f03ad2314fc1a128
