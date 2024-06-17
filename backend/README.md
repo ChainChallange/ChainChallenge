@@ -15,7 +15,7 @@ This is the documentation for the application's backend, using the Cartesi Rollu
 
 You can launch the backend in two ways. One is more recommended for development/testing while the other is more recommended for production. We're using the [Cartesi Docs](https://docs.cartesi.io/cartesi-rollups/1.3/development/running-the-application/) as principal font. Below, we will address both ways:
 
-### Development/Test with "Nonodo"
+### Development/Test with Nonodo
 
 To test the application, we recommend the approach of using the nonodo. It is a package that simulates a blockchain on your computer and is much faster than other alternatives.
 
@@ -90,7 +90,7 @@ npm i -g nonodo
 ```
 
 
-Now you are ready to run the application. Open three terminals inside the backend folder of this cloned repository on your computer. 
+Now you are ready to run the application. Open two terminals inside the backend folder of this cloned repository on your computer. If you have difficulties, [see the docs](https://docs.cartesi.io/cartesi-rollups/1.3/development/running-the-application/)
 
 In the first terminal, run the command:
 
@@ -123,8 +123,38 @@ If you see your terminal window like this:
 
 everything went well.
 
-In the third one, you can send a generic to test the application:
+### Development/Production with Cartesi Cli
+
+To run your project with cartesi cli, first install cartesi cli with this command, or [see the docs](https://docs.cartesi.io/cartesi-rollups/1.3/development/installation/):
+
+```
+npm install -g @cartesi/cli
+```
+
+Then, build the application with this command, or [see the docs](https://docs.cartesi.io/cartesi-rollups/1.3/development/building-the-application/)
+
+```
+cartesi build
+```
+
+Finally, run the application with this command, or [see the docs](https://docs.cartesi.io/cartesi-rollups/1.3/development/running-the-application/)
+
+```
+cartesi run
+```
+
+### Testing
+
+In the third one, you can send a generic request to test the application:
 
 ```
 cartesi send generic
 ```
+
+Enter for all options until the last one, where you must place the input (string). In this step, copy the minified json from [this link](./examples/inputs/createMinimalChallenge.json), insert it into the terminal and press enter to complete the request. If everithing went well, you should see this:
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/8b8b6bc5-bb0c-44cd-a40a-9ec26c1dbdbd)
+
+Also monitor the logs on the node or execution of the cartesi machine to verify that no errors occurred.
+
+
