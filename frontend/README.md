@@ -1,5 +1,5 @@
 
-### ChainChallenge Frontend Documentation 🖥️
+# ChainChallenge Frontend Documentation 🖥️
 
 ---
 
