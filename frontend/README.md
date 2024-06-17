@@ -1,7 +1,6 @@
 
 # ChainChallenge Frontend Documentation 🖥️
 
----
 
 ## Figma Design Overview 🎨
 
