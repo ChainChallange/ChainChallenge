@@ -11,7 +11,7 @@ type ListCreatorsProps = {
 
 const ListCreators = ({ title, objective, endpoint, parameters, exampleRequest, exampleResponse }: ListCreatorsProps) => {
   return (
-    <div className="text-white px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+    <div className="text-white px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mb-16">
       <h1 className="text-3xl sm:text-4xl font-bold mt-8 mb-6">{title}</h1>
       
       <div className="mt-4">
