@@ -36,7 +36,8 @@ const Languages: React.FC = () => {
 
   useEffect(() => {
     setChallenge({ ...challenge, supportedLanguages: selectedLanguages });
-  }, [challenge, selectedLanguages, setChallenge]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedLanguages]);
 
   function handleLanguageChange(language: string) {
     language = language.toLowerCase();

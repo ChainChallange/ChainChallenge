@@ -22,25 +22,28 @@ export default function MyChallenge() {
   const [{ connectedChain }] = useSetChain();
   const [metadata, setMetadata] = useState<any>({});
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+  console.log();
+
+  async function fetchChallenge() {
+    try {
+      const { reports, metadata } = await Inspect(
+        connectedChain,
+        `challenges/creators/${wallet?.accounts[0].address as string}`
+      );
+      setMetadata(metadata);
+      console.log(JSON.parse(hexToString(reports[0].payload)));
+      setChallenges(JSON.parse(hexToString(reports[0].payload)));
+      setLoading(false);
+      console.log("passo");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    async function fetchChallenge() {
-      try {
-        const { reports, metadata } = await Inspect(
-          connectedChain,
-          `challenges/creators/${wallet?.accounts[0].address as string}`
-        );
-        setMetadata(metadata);
-        console.log(JSON.parse(hexToString(reports[0].payload)));
-        setChallenges(JSON.parse(hexToString(reports[0].payload)));
-        setLoading(false);
-        console.log("passo");
-      } catch (error) {
-        console.log(error);
-      }
-    }
     fetchChallenge();
-  }, [connectedChain, wallet]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wallet]);
 
   return (
     <main className="flex flex-col min-h-screen w-full gap-14 bg-[#121418] pt-44 px-6">

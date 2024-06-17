@@ -1,6 +1,6 @@
 "use client";
 // import Navbar from "@/components/navbar/navbar";
-import Steps from "@/components/createSteps/createSteps";
+import Steps from "@/components/componentes result/createSteps/createSteps";
 import ProblemDetailsResult from "@/components/componentes result/createProblemDetails/createProblemDetails";
 import ApplicationsResult from "@/components/componentes result/createApplications/createApplications";
 import LanguagesResult from "@/components/componentes result/createLanguages/createLanguages";
@@ -57,7 +57,7 @@ const CreateChallenge: React.FC = () => {
   }, [connectedChain, pathname, wallet]);
 
   return (
-    <div className="create-challenge-page bg-[#121418] min-h-screen text-white pt-[100px]">
+    <div className="bg-[#121418] min-h-screen h-fit text-white pt-[100px]">
       {/* <Navbar /> */}
       <div className="container mx-auto p-4">
         <Steps steps={steps} />

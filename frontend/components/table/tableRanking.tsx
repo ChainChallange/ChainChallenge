@@ -6,7 +6,7 @@ import * as React from "react";
 export default function TableRank({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <table className="table h-[77vh]">
+      <table className="table h-fit">
         {/* head */}
         <thead>
           <tr>

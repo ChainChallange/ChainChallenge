@@ -30,25 +30,26 @@ export default function Challenge() {
   const [code, setCode] = useState<string>("");
   const [connectedWallet] = useWallets();
 
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const { reports, metadata } = await Inspect(connectedChain, pathname);
-        const jsonReport = JSON.parse(hexToString(reports[0].payload));
-        setLanguage(jsonReport.supported_languages[0])
-        setCode(jsonReport.attempt_template_source_code_languages[jsonReport.supported_languages[0]]);
-        console.log(jsonReport);
-        setMetadata(metadata);
-        setChallenge(jsonReport);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
+  async function fetchData() {
+    try {
+      const { reports, metadata } = await Inspect(connectedChain, pathname);
+      const jsonReport = JSON.parse(hexToString(reports[0].payload));
+      setLanguage(jsonReport.supported_languages[0])
+      setCode(jsonReport.attempt_template_source_code_languages[jsonReport.supported_languages[0]]);
+      console.log(jsonReport);
+      setMetadata(metadata);
+      setChallenge(jsonReport);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
     }
+  }
+  
+  useEffect(() => {
     fetchData();
-  }, [connectedChain, loading, pathname]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connectedChain]);
 
   if (!challenge) {
     return <div>Loading...</div>

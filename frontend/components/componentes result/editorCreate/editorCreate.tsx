@@ -57,7 +57,7 @@ export default function EditorCreateResult({ challenge }: { challenge: IChalleng
   }, [challenge]);
 
   return (
-    <div className="w-full h-full border-[#5C5C5C] border-[3px] rounded-md p-4">
+    <div className="w-full h-fit border-[#5C5C5C] border-[3px] rounded-md p-4">
       <TabContext value={tabSelected}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList
@@ -78,7 +78,7 @@ export default function EditorCreateResult({ challenge }: { challenge: IChalleng
         {/* Teste cases */}
         <TabPanel value="1">
           <div className="flex flex-col gap-2 px-2">
-            <div className="flex px-2 pb-2 w-full justify-center items-center pt-4">
+            <div className="flex px-2 pb-2 w-full justify-center items-center">
               <div className="w-1/2">
                 <h1 className="text-white font-bold text-[24px]">Testcases</h1>
               </div>
@@ -105,31 +105,13 @@ export default function EditorCreateResult({ challenge }: { challenge: IChalleng
                 value={challenge.source_code_languages[select] || ""}
               />
             </div>
-            <div className="pt-4">
-              {allTestsCreated ? (
-                <p className="text-green-500">
-                  All tests are created for selected languages.
-                </p>
-              ) : (
-                <div>
-                  <p className="text-red-500">
-                    Some tests are missing for selected languages:
-                  </p>
-                  <ul className="text-red-500">
-                    {Object.keys(errors).map((language) => (
-                      <li key={language}>{errors[language as SupportedLanguages]}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
           </div>
         </TabPanel>
 
         {/* Template code */}
         <TabPanel value="2">
           <div className="flex flex-col gap-2 px-2">
-            <div className="flex px-2 pb-2 w-full justify-center items-center  pt-4">
+            <div className="flex px-2 pb-2 w-full justify-center items-center">
               <div className="w-1/2">
                 <h1 className="text-white font-bold text-[24px]">Code Template</h1>
               </div>

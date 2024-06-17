@@ -60,10 +60,11 @@ const Steps: React.FC<StepsProps> = ({ steps }) => {
           sourceCodeLanguages: convertCodesToBase64(challenge.sourceCodeLanguages),
         }
       }
+      console.log("input is ", input);
       const provider = getProvider(connectedWallet);
       const signer = await provider.getSigner();
       addInput(JSON.stringify(input), provider);
-      toast('Creating challenge...', {
+      toast.success('Creating challenge...', {
         autoClose: false,
         hideProgressBar: false,
         closeOnClick: true,
@@ -74,7 +75,6 @@ const Steps: React.FC<StepsProps> = ({ steps }) => {
         transition: Bounce,
       });
   }
-    console.log(input);
   }
 
   return (

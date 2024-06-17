@@ -51,7 +51,7 @@ export default function MyChallenge() {
   }, [connectedChain]);
 
   return (
-    <main className="flex flex-col h-fit w-full bg-[#121418] pt-36 pb-2 px-6">
+    <main className="flex flex-col h-screen w-full bg-[#121418] pt-36 pb-2 px-6">
       <h1 className="text-2xl text-bold ml-6 mb-6">General Ranking</h1>
       {loading ? (
         <div>Loading challenges...</div>
