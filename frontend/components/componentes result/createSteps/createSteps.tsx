@@ -80,9 +80,7 @@ const StepsResult: React.FC<StepsProps> = ({ steps }) => {
               Next
             </ButtonCustom>
           ) : (
-            <ButtonCustom onClick={() => console.log(challenge)} className="btn-next bg-primary text-white py-2 px-4">
-              Save Challenge
-            </ButtonCustom>
+            <></>
           )}
         </div>
       </div>
