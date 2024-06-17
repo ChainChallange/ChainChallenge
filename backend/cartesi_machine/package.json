@@ -1,0 +1,29 @@
+{
+  "name": "logic_more_to_one_language",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "run-s codegen compile",
+    "codegen": "ts-node schema.ts",
+    "compile": "tsc && esbuild ./src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node20",
+    "start": "ROLLUP_HTTP_SERVER_URL=\"http://127.0.0.1:5004\" ts-node src/index.ts",
+    "start2": "ROLLUP_HTTP_SERVER_URL=\"http://127.0.0.1:5004\" nodemon --watch './*' --exec 'ts-node src/index.ts'"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.12",
+    "babel-jest": "^29.7.0"
+  }
+}

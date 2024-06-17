@@ -8,6 +8,7 @@ import { Inspect } from "./inspect";
 import walletSvg from "../public/Wallet.svg";
 import Image from "next/image";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import Link from "next/link";
 
 interface NetworkProps {
   wallet: () => void;
@@ -81,6 +82,16 @@ export const Network: FC = () => {
                   >
                     Disconnect Wallet
                   </button>
+                </DropdownMenu.Item>
+                <DropdownMenu.Item className="DropdownMenuItem">
+                  <Link href={`applicants/${wallet?.accounts[0].address as string}`}>
+                  
+                    <button
+                      className="rounded-[10px] h-16 w-52 max-md:w-40 text-nowrap text-base max-md:text-sm max-sm:text-xs max-sm:w-32 flex justify-center items-center gap-4"
+                    >
+                      Profile
+                    </button>
+                  </Link>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu.Portal>
