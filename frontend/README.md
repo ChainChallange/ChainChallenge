@@ -1,9 +1,19 @@
 
-### Documentation for Frontend Application
+### ChainChallenge Frontend Documentation 🖥️
 
 ---
 
-## Project Structure
+## Figma Design Overview 🎨
+
+The design for this frontend application is organized in Figma, which you can access [here](https://www.figma.com/design/0iUblelhNitipYEuloPimu/Hackthon?node-id=19-2&t=7GjMjwVuw2jS5zCf-1). The Figma file is structured as follows:
+
+1. **Diagrams Page**: Contains all the diagrams used for planning and structuring the application.
+2. **Prototyped Screens**: Includes all the prototyped screens that demonstrate the user interface and user flow.
+3. **Component Repository**: A collection of reusable components used to build the pages. This repository ensures consistency across the application and speeds up the design process.
+
+---
+
+## Project Structure 📂
 
 The project is organized in a way to ensure modularity and maintainability. Below is a brief overview of each folder and its purpose:
 
@@ -31,7 +41,7 @@ frontend/
 └── yarn.lock
 ```
 
-## How to Run the Application
+## How to Run the Application 🚀
 
 To run the application locally, follow these steps:
 
@@ -60,4 +70,4 @@ To run the application locally, follow these steps:
    yarn start
    ```
 
-By following these steps, you can set up, develop, and deploy the frontend application efficiently.
+By following these steps, you can set up, develop, and deploy the frontend application efficiently. If you have any further questions or need additional information, feel free to reach out!
