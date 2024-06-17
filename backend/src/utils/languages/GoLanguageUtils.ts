@@ -5,7 +5,7 @@ import { ILanguageFileNames, ILanguageUtils } from './ILanguageUtils';
 class GoLanguageUtils implements ILanguageUtils {
     runTestCommandShell(filename: string, outputFile: string) {
         fileUtils.writeFileSync(`${filename}go.mod`, `module chainchallenge
-        go 1.23`)
+        go 1.22.4`)
 
         executionUtils.runShellSync(`cd ${filename} && go test -failfast=false`);
 
