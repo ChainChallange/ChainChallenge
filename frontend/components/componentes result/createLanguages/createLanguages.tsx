@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useCreateChallenge } from '@/contexts/CreateChallengeContext';
 import { ILanguage } from '@/models/types/ILanguage';
 import { IChallenge } from '@/models/IChallenge';
 
@@ -38,7 +37,7 @@ const LanguagesResult = ({ challenge }: { challenge: IChallenge }) => {
   useEffect(() => {
     setSelectedLanguages(challenge.supported_languages || []);
     //setChallenge({ ...challenge, supportedLanguages: selectedLanguages });
-  }, [selectedLanguages]);
+  }, [challenge.supported_languages, selectedLanguages]);
 
   function handleLanguageChange(language: string) {
     language = language.toLowerCase();

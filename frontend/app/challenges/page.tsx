@@ -4,13 +4,14 @@ import React, { useEffect, useState } from "react";
 import iconSearch from "../../public/icon_search.svg";
 import Image from "next/image";
 import CardChallenge from "@/components/challenge/cardChallenge";
-import { useSetChain } from "@web3-onboard/react";
+import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import { Inspect } from "@/api/api";
 import { usePathname } from "next/navigation";
 import { hexToString } from "@/utils/hexToString";
 import { ethers } from "ethers";
 import { reportsToArray } from "@/utils/reportsToArray";
 import Link from "next/link";
+import { toast, Bounce } from "react-toastify";
 
 interface IResult {
   data: string[];
@@ -80,25 +81,28 @@ interface TestResultData {
 export default function HomeChallenge() {
   const pathname = usePathname().split("/")[1];
   const [{ connectedChain }] = useSetChain();
+  const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
   const [challenges, setChallenges] = useState([]);
   const [metadata, setMetadata] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function fetchData() {
-    try {
-      const { reports, metadata } = await Inspect(connectedChain, pathname);
-      setMetadata(metadata)
-      setChallenges(JSON.parse(hexToString(reports[0].payload)))
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
-  }
+
 
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const { reports, metadata } = await Inspect(connectedChain, pathname);
+        setMetadata(metadata)
+        setChallenges(JSON.parse(hexToString(reports[0].payload)))
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    }
+
     fetchData();
-  }, []);
+  }, [connectedChain, pathname, wallet]);
 
   return (
     <main className="min-h-[86vh]">
@@ -128,7 +132,6 @@ export default function HomeChallenge() {
             <div>Loading challenges...</div>
           ) : challenges.length > 0 ? (
             challenges.map((challenge: Challenge) => {
-
               return (
                 <Link 
                   href={`/challenges/${challenge.id}`} key={challenge.id}
@@ -145,7 +148,7 @@ export default function HomeChallenge() {
                     image={"https://ipfs.io/ipfs/QmPQXYmUKLHW2hLPqrTJWjbsaUW5G6dgycHiSm1Vi7Jtu7"}
                   />
                 </Link>
-              );
+              );  
             })
           ) : (
             <div>No challenges found</div>

@@ -20,7 +20,7 @@ interface IParticipantRanking {
 
 const TableRankingItem: React.FC<TableRankingItemProps> = ({ participant }) => {
   let img = participant.image_link == null ? imgAvatar : participant.image_link;
-
+  console.log(participant.applications_accepted_quantity)
   return (
     <tr
       className="text-center hover:cursor-pointer hover:bg-slate-700 transition-colors"
