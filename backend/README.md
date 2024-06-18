@@ -165,3 +165,71 @@ Enter for all options until the last one, where you must place the input (string
 Also monitor the logs on the node or execution of the cartesi machine to verify that no errors occurred.
 
 
+## Payloads
+
+### Inspects
+
+To check inspect routes, see [postman export](./docs/inspects/inspects-postman.json) that we made. We have prepared a series of inspections for each entity to cover most of our API use cases:
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/6d6741b5-c668-4f0b-90be-48d6b4e6691a)
+
+
+### Advanced States
+
+For advanced states requests, we prepared these methods:
+
+- **challenge**: To create a challenge
+- **application**: To apply to a challenge
+- **creator_update**: To update a creator info
+- **applicant_update**: To update a applicant
+- **challenge_update**: To update a challenge
+
+So, the payload must have these two field:
+
+```
+{
+  "method": "one of the above,
+  "data": {
+    // Your data here
+  }
+}
+```
+
+Below are the input payloads with optional and mandatory fields, following the typescript notation of interfaces. If you prefer, you can find all supported types of the application in the [project's models folder](./src/models):
+
+- Challenge:
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/1b9bbec8-61e6-4cee-9653-cd32455469a2)
+
+
+- Application:
+  
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/2084cb8e-d3cb-412d-b4ca-c51378cd28ad)
+
+
+- Creator_update:
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/7ae42aa0-6ac9-4352-8609-d7722e7eafbc)
+
+
+- Applicant_update:
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/11cecd80-6fbd-4123-878b-cd3a3701efb4)
+
+
+- Challenge_update:
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/27e59cb6-bbca-4daf-8e11-c0a89c40dd67)
+
+## Data Stored
+
+The data is saved in simple state variables inside the cartesi machine. You can see the database types in [this file](./src/database/IDatabase.ts)
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/377a4644-5c48-4092-8a6c-cfefb6171861)
+
+## Architectural Details
+
+The project architecture was built from an N-layer model. The project folders represent application layers with their responsibilities:
+
+![image](https://github.com/ChainChallange/ChainChallenge/assets/110608373/696774cb-49d4-41ff-be16-c236b64b812d)
+
